@@ -24,7 +24,7 @@ export type Vendor = {
 
 // Fetch single vendor by slug (published only)
 export async function getVendorBySlug(slug: string) {
-  const vendors = await directus.request<Vendor & { category: Category }>(
+  const vendors = await directus.request<Array<Vendor & { category: Category }>>(
     readItems('vendors', {
       filter: { slug: { _eq: slug }, status: { _eq: 'published' } },
       fields: [

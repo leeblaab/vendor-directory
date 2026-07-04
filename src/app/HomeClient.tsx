@@ -71,7 +71,7 @@ export default function HomeClient() {
                     {category.category_image ? (
                       <div className="relative w-full aspect-square mb-3 rounded-lg overflow-hidden bg-gray-50">
                         <Image
-                          src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${category.category_image.id}?width=400&height=400&fit=cover`}
+                          src={`/api/directus/assets/${category.category_image.id}?width=400&height=400&fit=cover`}
                           alt={category.name}
                           fill
                           className="object-cover transition-transform duration-300 group-hover:scale-110"

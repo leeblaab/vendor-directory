@@ -79,7 +79,7 @@ export default function HomeClient() {
                         />
                       </div>
                     ) : (
-                      // Fallback to icon if no image
+                      // Fallback to icon if no image is available
                       category.icon && (
                         <div className="mb-3 flex justify-center">
                           <div className="relative">

@@ -90,16 +90,18 @@ export type ReviewVote = {
   created_at: string;
 };
 
-// Helper function to get logo URL from vendor
+// Helper function to get logo URL from vendor - NOW USES PROXY
 export function getLogoUrl(logo: Vendor['logo']): string | null {
   if (!logo) return null;
   
   if (typeof logo === 'string') {
-    return logo.startsWith('http') ? logo : `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${logo}`;
+    // If it's already a full URL, use it; otherwise proxy it
+    return logo.startsWith('http') ? logo : `/api/directus/assets/${logo}`;
   }
   
   if (typeof logo === 'object' && logo.id) {
-    return `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${logo.id}`;
+    // ✅ FIXED: Use proxy URL instead of direct Directus URL
+    return `/api/directus/assets/${logo.id}`;
   }
   
   return null;

@@ -32,21 +32,32 @@ async function proxyRequest(
     });
 
     const contentType = response.headers.get('content-type');
-    let data;
     
+    // ✅ FIXED: Handle binary assets (images) properly using arrayBuffer
     if (contentType?.includes('application/json')) {
-      data = await response.json();
-    } else {
-      data = await response.text();
-    }
-
-    return new NextResponse(
-      typeof data === 'string' ? data : JSON.stringify(data),
-      {
+      const data = await response.json();
+      return new NextResponse(JSON.stringify(data), {
         status: response.status,
-        headers: { 'Content-Type': contentType || 'application/json' },
-      }
-    );
+        headers: { 'Content-Type': 'application/json' },
+      });
+    } else if (contentType?.startsWith('image/') || contentType?.startsWith('video/') || contentType?.startsWith('audio/')) {
+      // Binary assets - use arrayBuffer to preserve binary data
+      const data = await response.arrayBuffer();
+      return new NextResponse(data, {
+        status: response.status,
+        headers: { 
+          'Content-Type': contentType,
+          'Cache-Control': 'public, max-age=31536000, immutable',
+        },
+      });
+    } else {
+      // Text-based responses
+      const data = await response.text();
+      return new NextResponse(data, {
+        status: response.status,
+        headers: { 'Content-Type': contentType || 'text/plain' },
+      });
+    }
   } catch (error) {
     console.error('Proxy error:', error);
     return NextResponse.json(

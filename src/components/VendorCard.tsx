@@ -1,0 +1,102 @@
+import Image from 'next/image';
+import Link from 'next/link';
+import { Vendor, Category, getLogoUrl } from '@/lib/directus';
+import StarRating from './StarRating';
+
+// Define the shape of the rating data for easy importing
+export type RatingData = {
+  average: number;
+  count: number;
+} | null;
+
+// ✅ Helper function to safely extract first character (fixes hydration error)
+function getFirstChar(str: string): string {
+  if (!str) return '?';
+  
+  // Use Array.from to properly handle Unicode/surrogate pairs
+  const chars = Array.from(str.trim());
+  const firstChar = chars[0] || '?';
+  
+  // Only return if it's a printable letter or number
+  return /^[\p{L}\p{N}]/u.test(firstChar) ? firstChar : '?';
+}
+
+export default function VendorCard({ 
+  vendor, 
+  ratingData 
+}: { 
+  vendor: Vendor & { category: Category };
+  ratingData?: RatingData;
+}) {
+  const logoUrl = getLogoUrl(vendor.logo);
+
+  return (
+    <Link
+      href={`/vendors/${vendor.slug}`}
+      className="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 hover:shadow-lg dark:hover:shadow-black/30 hover:border-blue-300 dark:hover:border-blue-700 transition-all"
+    >
+      <div className="flex items-start gap-4">
+        {/* Logo */}
+        {logoUrl ? (
+          <Image
+            src={logoUrl}
+            alt={vendor.name}
+            width={56}
+            height={56}
+            className="w-14 h-14 rounded-lg object-cover bg-gray-100 dark:bg-gray-800 flex-shrink-0 border border-gray-200 dark:border-gray-700"
+          />
+        ) : (
+          <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+            {getFirstChar(vendor.name)} {/* ✅ Fixed: was vendor.name.charAt(0) */}
+          </div>
+        )}
+
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1.5 mb-1">
+            <h3 className="font-semibold text-gray-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+              {vendor.name}
+            </h3>
+            {vendor.verified && (
+              <span className="material-symbols-outlined text-blue-500 text-base flex-shrink-0">
+                verified
+              </span>
+            )}
+          </div>
+
+          {/* Rating */}
+          {ratingData && (
+            <div className="mb-2">
+              <StarRating
+                rating={ratingData.average}
+                size="sm"
+                showValue
+                reviewCount={ratingData.count}
+              />
+            </div>
+          )}
+
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gray-100 dark:bg-gray-800 text-xs font-medium text-gray-700 dark:text-gray-300">
+              {vendor.category.icon && <span className="text-sm">{vendor.category.icon}</span>}
+              {vendor.category.name}
+            </span>
+          </div>
+
+          {vendor.description && (
+            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+              {vendor.description}
+            </p>
+          )}
+
+          {vendor.phone && (
+            <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-500">
+              <span className="material-symbols-outlined text-sm">call</span>
+              {vendor.phone}
+            </div>
+          )}
+        </div>
+      </div>
+    </Link>
+  );
+}

@@ -409,7 +409,7 @@ export async function submitVendor(
       body: JSON.stringify({
         ...vendorData,
         slug,
-        status: 'pending',
+        status: 'draft',
         verified: false,
         service_areas: JSON.stringify(vendorData.service_areas),
       }),

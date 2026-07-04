@@ -3,8 +3,14 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    // Directus already handles image optimization via URL parameters
-    // We disable Next.js optimization to avoid the "private IP" block for localhost
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '206.189.50.71',
+        port: '8055',
+        pathname: '/assets/**',
+      },
+    ],
     unoptimized: true,
   },
 };

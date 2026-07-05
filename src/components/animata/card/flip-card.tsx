@@ -52,7 +52,7 @@ export default function FlipCard({
               <div className="absolute bottom-4 left-4 text-xl font-bold text-white">{title}</div>
             </>
           ) : (
-            // Text fallback
+            // Text fallback display
             <div>
               <div className="mt-4 text-xl font-bold text-gray-800 text-center">{title}</div>
             </div>

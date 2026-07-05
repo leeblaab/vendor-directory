@@ -169,3 +169,12 @@
 .rotate-y-180 {
   transform: rotateY(180deg);
 }
+
+/* globals.css */
+body {
+  font-family: Arial, sans-serif;
+}
+
+a {
+  transition: color 0.3s ease;
+}

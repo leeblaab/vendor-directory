@@ -1,3 +1,4 @@
+// src/components/animata/card/flip-card.tsx
 import { cn } from "@/lib/utils";
 
 interface FlipCardProps extends React.HTMLAttributes<HTMLDivElement> {

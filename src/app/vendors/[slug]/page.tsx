@@ -11,7 +11,7 @@ import ReviewForm from '@/components/ReviewForm';
 import type { Metadata } from 'next';
 import LocationMap from '@/components/LocationMap';
 
-export const revalidate = 300 // Revalidate every 5 minutes
+export const revalidate = 300; // Revalidate every 5 minutes
 
 // ============ SEO METADATA GENERATION ============
 
@@ -39,7 +39,8 @@ export async function generateMetadata({
     serviceAreas = [];
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  // ✅ FIXED: Use production URL, not localhost
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.easyfinder.ae';
   const vendorUrl = `${baseUrl}/vendors/${slug}`;
   const logoUrl = getLogoUrl(vendor.logo);
   const categoryName = typeof vendor.category === 'object' ? vendor.category.name : 'Service Provider';
@@ -86,17 +87,17 @@ export async function generateMetadata({
 export default async function VendorPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   
-  // Fetch all data in parallel
-  const [vendor, relatedVendors, reviews, ratingData] = await Promise.all([
-    getVendorBySlug(slug),
-    getVendorBySlug(slug).then(v => 
-      v ? getRelatedVendors(slug, typeof v.category === 'object' ? v.category.id : v.category, 3) : []
-    ),
-    getVendorBySlug(slug).then(v => v ? getReviewsByVendor(v.id) : []),
-    getVendorBySlug(slug).then(v => v ? getVendorAverageRating(v.id) : null),
-  ]);
-
+  // ✅ FIXED: Fetch vendor ONCE, then chain dependent calls
+  const vendor = await getVendorBySlug(slug);
+  
   if (!vendor) notFound();
+
+  // Now fetch related data in parallel (only after we have the vendor)
+  const [relatedVendors, reviews, ratingData] = await Promise.all([
+    getRelatedVendors(slug, typeof vendor.category === 'object' ? vendor.category.id : vendor.category, 3),
+    getReviewsByVendor(vendor.id),
+    getVendorAverageRating(vendor.id),
+  ]);
 
   // Format WhatsApp link
   let waLink = vendor.whatsapp_link || '';
@@ -161,26 +162,30 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
   }
 
   const logoUrl = getLogoUrl(vendor.logo);
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.easyfinder.ae';
   const categoryName = typeof vendor.category === 'object' ? vendor.category.name : 'Service Provider';
+  const vendorUrl = `${baseUrl}/vendors/${slug}`;
 
-  // Build JSON-LD structured data for SEO
+  // ✅ ENHANCED: Build comprehensive JSON-LD structured data
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
+    '@id': vendorUrl,
     name: vendor.name,
     description: vendor.description || `${vendor.name} - ${categoryName} in UAE`,
-    url: `${baseUrl}/vendors/${slug}`,
+    url: vendorUrl,
     telephone: vendor.phone || undefined,
     email: vendor.email || undefined,
     image: logoUrl || undefined,
+    logo: logoUrl || undefined,
     priceRange: '$$',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'AE',
       addressRegion: serviceAreas[0] || 'UAE',
+      addressLocality: serviceAreas[0] || 'UAE',
     },
-    // ✅ NEW: Geo coordinates for better local SEO
+    // Geo coordinates for better local SEO
     ...(vendor.latitude && vendor.longitude && {
       geo: {
         '@type': 'GeoCoordinates',
@@ -192,6 +197,7 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
       '@type': 'Place',
       name: area,
     })),
+    // Aggregate rating
     aggregateRating: ratingData ? {
       '@type': 'AggregateRating',
       ratingValue: ratingData.average,
@@ -199,15 +205,70 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
       bestRating: 5,
       worstRating: 1,
     } : undefined,
+    // Individual reviews (top 3)
+    review: reviews.slice(0, 3).map((review) => ({
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: typeof review.user === 'object' 
+          ? `${review.user.first_name} ${review.user.last_name || ''}`.trim()
+          : 'Verified Customer',
+      },
+      datePublished: review.created_at,
+      reviewBody: review.comment,
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: review.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    })),
+    // External links
     ...(vendor.website && { sameAs: [vendor.website] }),
+    // Category
+    category: categoryName,
+    // Service type
+    serviceType: categoryName,
+  };
+
+  // ✅ NEW: BreadcrumbList schema
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: categoryName,
+        item: `${baseUrl}/vendors?category=${typeof vendor.category === 'object' ? vendor.category.slug : ''}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: vendor.name,
+        item: vendorUrl,
+      },
+    ],
   };
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-8">
+    <main className="max-w-4xl mx-auto px-4 py-8" itemScope itemType="https://schema.org/LocalBusiness">
       {/* JSON-LD Structured Data for SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      
+      {/* BreadcrumbList Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       {/* Breadcrumbs */}
@@ -229,11 +290,12 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
           {logoUrl ? (
             <Image
               src={logoUrl}
-              alt={vendor.name}
+              alt={`${vendor.name} - ${categoryName} logo`}
               width={96}
               height={96}
               className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover bg-gray-100 dark:bg-gray-800 flex-shrink-0 border border-gray-200 dark:border-gray-700"
               priority
+              itemProp="image"
             />
           ) : (
             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-3xl font-bold flex-shrink-0">
@@ -246,7 +308,7 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white" itemProp="name">
                     {vendor.name}
                   </h1>
                   {vendor.verified && (
@@ -302,7 +364,7 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
             <span className="material-symbols-outlined text-base">info</span>
             About
           </h2>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line" itemProp="description">
             {vendor.description}
           </p>
         </section>
@@ -329,7 +391,7 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
         </section>
       )}
 
-      {/* ✅ NEW: Location Map Section */}
+      {/* Location Map Section */}
       {vendor.latitude && vendor.longitude && (
         <section className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm mb-6">
           <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 flex items-center gap-2">

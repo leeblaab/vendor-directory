@@ -36,17 +36,17 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <main className="min-h-screen bg-gradient-to-br from-[#EEF5FF] via-white to-[#B4D4FF]">
       <div className="max-w-6xl mx-auto space-y-12 px-4 py-8">
         {/* Hero Section */}
-          <section className="relative text-center py-16 md:py-24 bg-black text-white rounded-2xl shadow-xl overflow-hidden">
+          <section className="relative text-center py-16 md:py-24 bg-gradient-to-br from-[#176B87] to-[#86B6F6] text-white rounded-2xl shadow-xl overflow-hidden">
             {/* Boids Ecosystem Background */}
             <div className="absolute inset-0 z-0">
               <BoidsEcosystem />
             </div>
 
             {/* Optional: Overlay for better text readability */}
-            <div className="absolute inset-0 bg-black/40 z-0 pointer-events-none" />
+            <div className="absolute inset-0 bg-[#176B87]/40 z-0 pointer-events-none" />
 
             {/* Content - z-10 to appear above background */}
             <div className="relative z-10">
@@ -66,7 +66,7 @@ export default function Home() {
               </div>
 
               {/* Buttons Container */}
-              <div className="flex justify-center space-x-4">
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <RippleLink href="#find-providers">
                   Browse Categories
                 </RippleLink>
@@ -82,7 +82,7 @@ export default function Home() {
         <HomeClient />
 
         {/* Footer */}
-        <footer className="text-center text-gray-500 text-sm pt-8 pb-4 border-t border-gray-200">
+        <footer className="text-center text-gray-500 text-sm pt-8 pb-4 border-t border-[#B4D4FF]">
           © {new Date().getFullYear()} ServiceFinder UAE. All rights reserved.
         </footer>
       </div>

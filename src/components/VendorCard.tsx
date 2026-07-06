@@ -33,7 +33,7 @@ export default function VendorCard({
   return (
     <Link
       href={`/vendors/${vendor.slug}`}
-      className="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 hover:shadow-lg dark:hover:shadow-black/30 hover:border-blue-300 dark:hover:border-blue-700 transition-all"
+      className="group bg-white dark:bg-gray-900 border border-[#B4D4FF] dark:border-gray-800 rounded-xl p-5 hover:shadow-lg dark:hover:shadow-black/30 hover:border-[#86B6F6] dark:hover:border-[#B4D4FF] transition-all"
     >
       <div className="flex items-start gap-4">
         {/* Logo */}
@@ -46,7 +46,7 @@ export default function VendorCard({
             className="w-14 h-14 rounded-lg object-cover bg-gray-100 dark:bg-gray-800 flex-shrink-0 border border-gray-200 dark:border-gray-700"
           />
         ) : (
-          <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+          <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-[#176B87] to-[#86B6F6] flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
             {getFirstChar(vendor.name)} {/* ✅ Fixed: was vendor.name.charAt(0) */}
           </div>
         )}
@@ -54,11 +54,11 @@ export default function VendorCard({
         {/* Content */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 mb-1">
-            <h3 className="font-semibold text-gray-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+            <h3 className="font-semibold text-gray-900 dark:text-white truncate group-hover:text-[#176B87] dark:group-hover:text-[#B4D4FF] transition-colors">
               {vendor.name}
             </h3>
             {vendor.verified && (
-              <span className="material-symbols-outlined text-blue-500 text-base flex-shrink-0">
+              <span className="material-symbols-outlined text-[#86B6F6] text-base flex-shrink-0">
                 verified
               </span>
             )}
@@ -77,7 +77,7 @@ export default function VendorCard({
           )}
 
           <div className="flex items-center gap-2 mb-2 flex-wrap">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gray-100 dark:bg-gray-800 text-xs font-medium text-gray-700 dark:text-gray-300">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#EEF5FF] dark:bg-gray-800 text-xs font-medium text-[#176B87] dark:text-gray-300">
               {vendor.category.icon && <span className="text-sm">{vendor.category.icon}</span>}
               {vendor.category.name}
             </span>

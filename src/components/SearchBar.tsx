@@ -21,11 +21,11 @@ export default function SearchBar() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search for plumbers, electricians, AC repair..."
-        className="w-full px-6 py-4 pr-14 text-gray-900 bg-white rounded-full shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-500/30 text-lg"
+        className="w-full px-6 py-4 pr-14 text-gray-900 bg-white rounded-full shadow-lg focus:outline-none focus:ring-4 focus:ring-[#86B6F6]/30 text-lg border border-[#B4D4FF]"
       />
       <button
         type="submit"
-        className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full transition-colors"
+        className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#176B87] hover:bg-[#86B6F6] text-white p-3 rounded-full transition-colors"
         aria-label="Search"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">

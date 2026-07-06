@@ -90,18 +90,18 @@ export default function FAQ() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-indigo-50 dark:from-slate-900 dark:to-slate-950">
+    <div className="min-h-screen bg-gradient-to-b from-[#EEF5FF] to-[#B4D4FF] dark:from-slate-900 dark:to-slate-950">
       {/* Header Section */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 dark:from-indigo-900/20 dark:to-purple-900/20"></div>
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#B4D4FF]/10 to-[#176B87]/10 dark:from-indigo-900/20 dark:to-purple-900/20"></div>
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#176B87] to-transparent"></div>
         <div className="container mx-auto px-4 py-16 relative">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-block mb-6 px-4 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-sm font-medium">
+            <div className="inline-block mb-6 px-4 py-1 bg-[#B4D4FF]/30 text-[#176B87] rounded-full text-sm font-medium">
               <HelpCircle className="inline mr-2" size={16} />
               Frequently Asked Questions
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#176B87] via-[#86B6F6] to-[#B4D4FF] bg-clip-text text-transparent">
               Everything You Need to Know
             </h1>
             <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
@@ -117,9 +117,9 @@ export default function FAQ() {
           {quickFacts.map((fact, index) => (
             <div 
               key={index} 
-              className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700 text-center hover:shadow-xl transition-shadow"
+              className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-[#B4D4FF] dark:border-slate-700 text-center hover:shadow-xl transition-shadow"
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl mb-4">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-[#EEF5FF] dark:bg-indigo-900/30 text-[#176B87] dark:text-indigo-400 rounded-xl mb-4">
                 {fact.icon}
               </div>
               <h3 className="text-lg font-bold mb-2">{fact.title}</h3>
@@ -135,7 +135,7 @@ export default function FAQ() {
           {faqs.map((category, catIndex) => (
             <div key={catIndex} className="mb-12">
               <h2 className="text-2xl font-bold mb-6 text-slate-800 dark:text-white flex items-center gap-2">
-                <span className="w-2 h-2 bg-indigo-500 rounded-full"></span>
+                <span className="w-2 h-2 bg-[#176B87] rounded-full"></span>
                 {category.category}
               </h2>
               
@@ -145,10 +145,10 @@ export default function FAQ() {
                   return (
                     <div 
                       key={globalIndex} 
-                      className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all duration-300"
+                      className="bg-white dark:bg-slate-800 rounded-xl border border-[#B4D4FF] dark:border-slate-700 overflow-hidden transition-all duration-300"
                     >
                       <button
-                        className="w-full flex justify-between items-center p-6 text-left hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                        className="w-full flex justify-between items-center p-6 text-left hover:bg-[#EEF5FF] dark:hover:bg-slate-700/50 transition-colors"
                         onClick={() => toggleAccordion(globalIndex)}
                         aria-expanded={openIndex === globalIndex}
                       >
@@ -168,7 +168,7 @@ export default function FAQ() {
                           openIndex === globalIndex ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                         }`}
                       >
-                        <div className="px-6 pb-6 pt-2 text-slate-600 dark:text-slate-300 border-t border-slate-100 dark:border-slate-700">
+                        <div className="px-6 pb-6 pt-2 text-slate-600 dark:text-slate-300 border-t border-[#B4D4FF] dark:border-slate-700">
                           {faq.answer}
                         </div>
                       </div>
@@ -181,7 +181,7 @@ export default function FAQ() {
         </div>
 
         {/* Contact CTA */}
-        <div className="max-w-4xl mx-auto mt-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl p-8 text-white text-center">
+        <div className="max-w-4xl mx-auto mt-16 bg-gradient-to-r from-[#176B87] to-[#86B6F6] rounded-3xl p-8 text-white text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Still have questions?</h2>
           <p className="text-indigo-100 mb-6 max-w-2xl mx-auto">
             Can't find the answer you're looking for? Reach out to our friendly support team.
@@ -189,7 +189,7 @@ export default function FAQ() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a
               href="mailto:support@servicefinder.ae"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-indigo-600 font-bold rounded-full hover:bg-indigo-50 transition-all"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-[#176B87] font-bold rounded-full hover:bg-[#EEF5FF] transition-all"
             >
               <Mail size={18} />
               Email Us
@@ -221,7 +221,7 @@ export default function FAQ() {
       </div>
 
       {/* Footer */}
-      <footer className="py-10 border-t border-slate-200 dark:border-slate-800">
+      <footer className="py-10 border-t border-[#B4D4FF] dark:border-slate-800">
         <div className="container mx-auto px-4 text-center">
           <p className="text-slate-500 dark:text-slate-400 text-sm">
             &copy; {new Date().getFullYear()} ServiceFinder UAE. All rights reserved.

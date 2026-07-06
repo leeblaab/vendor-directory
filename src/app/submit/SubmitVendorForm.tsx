@@ -187,7 +187,7 @@ useEffect(() => {
   // ============ SUCCESS STATE ============
   if (isSuccess) {
     return (
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 sm:p-12 shadow-sm text-center">
+      <div className="bg-white dark:bg-gray-900 border border-[#B4D4FF] dark:border-gray-800 rounded-2xl p-8 sm:p-12 shadow-sm text-center">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 mb-6">
           <span className="material-symbols-outlined text-green-600 dark:text-green-400 text-5xl">
             check_circle
@@ -216,7 +216,7 @@ useEffect(() => {
           </button>
           <button
             onClick={() => router.push('/')}
-            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors inline-flex items-center justify-center gap-2"
+            className="px-6 py-3 bg-[#176B87] hover:bg-[#86B6F6] text-white font-medium rounded-lg transition-colors inline-flex items-center justify-center gap-2"
           >
             <span className="material-symbols-outlined text-xl">home</span>
             Back to Home
@@ -247,7 +247,7 @@ useEffect(() => {
       </div>
 
       {/* Progress Bar */}
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 sm:p-6 mb-6 shadow-sm">
+      <div className="bg-white dark:bg-gray-900 border border-[#B4D4FF] dark:border-gray-800 rounded-xl p-4 sm:p-6 mb-6 shadow-sm">
         <div className="flex items-center justify-between">
           {steps.map((step, idx) => (
             <div key={step.num} className="flex items-center flex-1 last:flex-none">
@@ -255,9 +255,9 @@ useEffect(() => {
                 <div
                   className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all ${
                     currentStep === step.num
-                      ? 'bg-blue-600 text-white shadow-lg scale-110'
+                      ? 'bg-[#176B87] text-white shadow-lg scale-110'
                       : currentStep > step.num
-                      ? 'bg-green-500 text-white'
+                      ? 'bg-[#86B6F6] text-white'
                       : 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500'
                   }`}
                 >
@@ -281,7 +281,7 @@ useEffect(() => {
                 <div
                   className={`flex-1 h-1 mx-2 sm:mx-4 rounded-full transition-colors ${
                     currentStep > step.num
-                      ? 'bg-green-500'
+                      ? 'bg-[#86B6F6]'
                       : 'bg-gray-200 dark:bg-gray-700'
                   }`}
                 />
@@ -292,7 +292,7 @@ useEffect(() => {
       </div>
 
       {/* Form Card */}
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 sm:p-8 shadow-sm">
+      <div className="bg-white dark:bg-gray-900 border border-[#B4D4FF] dark:border-gray-800 rounded-2xl p-6 sm:p-8 shadow-sm">
         <form onSubmit={handleSubmit}>
           {/* Error Message */}
           {error && (
@@ -309,7 +309,7 @@ useEffect(() => {
             <div className="space-y-5">
               <div>
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-blue-500">business</span>
+                  <span className="material-symbols-outlined text-[#176B87]">business</span>
                   Business Information
                 </h2>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -328,7 +328,7 @@ useEffect(() => {
                   value={formData.name}
                   onChange={(e) => updateField('name', e.target.value)}
                   placeholder="e.g., Ahmed Plumbing Services"
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  className="w-full px-4 py-3 border border-[#B4D4FF] dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-[#86B6F6] focus:border-transparent transition"
                   maxLength={100}
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
@@ -342,7 +342,7 @@ useEffect(() => {
                   Category *
                 </label>
                 {isLoadingCategories ? (
-                  <div className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-500">
+                  <div className="w-full px-4 py-3 border border-[#B4D4FF] dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-500">
                     Loading categories...
                   </div>
                 ) : (
@@ -350,7 +350,7 @@ useEffect(() => {
                     id="category"
                     value={formData.category}
                     onChange={(e) => updateField('category', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    className="w-full px-4 py-3 border border-[#B4D4FF] dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#86B6F6] focus:border-transparent transition"
                   >
                     <option value="">Select a category</option>
                     {categories.map((cat) => (
@@ -373,7 +373,7 @@ useEffect(() => {
                   onChange={(e) => updateField('description', e.target.value)}
                   placeholder="Describe the services offered, experience, specialties..."
                   rows={5}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"
+                  className="w-full px-4 py-3 border border-[#B4D4FF] dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-[#86B6F6] focus:border-transparent transition resize-none"
                   maxLength={1000}
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
@@ -388,7 +388,7 @@ useEffect(() => {
             <div className="space-y-5">
               <div>
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-blue-500">contact_phone</span>
+                  <span className="material-symbols-outlined text-[#176B87]">contact_phone</span>
                   Contact Information
                 </h2>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -407,14 +407,11 @@ useEffect(() => {
                   value={formData.phone}
                   onChange={(e) => updateField('phone', e.target.value)}
                   placeholder="+971 50 123 4567"
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  className="w-full px-4 py-3 border border-[#B4D4FF] dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-[#86B6F6] focus:border-transparent transition"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                  Include country code (e.g., +971 for UAE)
-                </p>
               </div>
 
-              {/* WhatsApp Link */}
+              {/* WhatsApp */}
               <div>
                 <label htmlFor="whatsapp_link" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   WhatsApp Link <span className="text-gray-400">(optional)</span>
@@ -425,11 +422,8 @@ useEffect(() => {
                   value={formData.whatsapp_link}
                   onChange={(e) => updateField('whatsapp_link', e.target.value)}
                   placeholder="https://wa.me/971501234567"
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  className="w-full px-4 py-3 border border-[#B4D4FF] dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-[#86B6F6] focus:border-transparent transition"
                 />
-                <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                  Leave empty to auto-generate from phone number
-                </p>
               </div>
 
               {/* Email */}
@@ -442,8 +436,8 @@ useEffect(() => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => updateField('email', e.target.value)}
-                  placeholder="contact@business.com"
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  placeholder="business@example.com"
+                  className="w-full px-4 py-3 border border-[#B4D4FF] dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-[#86B6F6] focus:border-transparent transition"
                 />
               </div>
 
@@ -458,7 +452,7 @@ useEffect(() => {
                   value={formData.website}
                   onChange={(e) => updateField('website', e.target.value)}
                   placeholder="https://www.business.com"
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  className="w-full px-4 py-3 border border-[#B4D4FF] dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-[#86B6F6] focus:border-transparent transition"
                 />
               </div>
             </div>
@@ -469,7 +463,7 @@ useEffect(() => {
             <div className="space-y-5">
               <div>
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-blue-500">map</span>
+                  <span className="material-symbols-outlined text-[#176B87]">map</span>
                   Service Areas
                 </h2>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -478,15 +472,15 @@ useEffect(() => {
               </div>
 
               {/* Selected Count */}
-              <div className="flex items-center justify-between bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg px-4 py-3">
-                <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+              <div className="flex items-center justify-between bg-[#EEF5FF] dark:bg-blue-900/20 border border-[#B4D4FF] dark:border-blue-800 rounded-lg px-4 py-3">
+                <span className="text-sm font-medium text-[#176B87] dark:text-blue-300">
                   {formData.service_areas.length} area{formData.service_areas.length !== 1 ? 's' : ''} selected
                 </span>
                 {formData.service_areas.length > 0 && (
                   <button
                     type="button"
                     onClick={() => updateField('service_areas', [])}
-                    className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                    className="text-sm text-[#176B87] dark:text-blue-400 hover:underline"
                   >
                     Clear all
                   </button>
@@ -504,15 +498,15 @@ useEffect(() => {
                       onClick={() => toggleArea(area)}
                       className={`flex items-center gap-3 px-4 py-3 rounded-lg border text-left transition-all ${
                         isSelected
-                          ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-300'
-                          : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-blue-200 dark:hover:border-blue-800'
+                          ? 'bg-[#EEF5FF] dark:bg-blue-900/30 border-[#86B6F6] dark:border-blue-700 text-[#176B87] dark:text-blue-300'
+                          : 'bg-white dark:bg-gray-800 border-[#B4D4FF] dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-[#86B6F6] dark:hover:border-blue-800'
                       }`}
                     >
                       <span
                         className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 border-2 transition-colors ${
                           isSelected
-                            ? 'bg-blue-600 border-blue-600'
-                            : 'border-gray-300 dark:border-gray-600'
+                            ? 'bg-[#176B87] border-[#176B87]'
+                            : 'border-[#B4D4FF] dark:border-gray-600'
                         }`}
                       >
                         {isSelected && (
@@ -532,7 +526,7 @@ useEffect(() => {
             <div className="space-y-5">
               <div>
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-blue-500">fact_check</span>
+                  <span className="material-symbols-outlined text-[#176B87]">fact_check</span>
                   Review Your Submission
                 </h2>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -541,7 +535,7 @@ useEffect(() => {
               </div>
 
               {/* Business Info */}
-              <div className="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+              <div className="border border-[#B4D4FF] dark:border-gray-800 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide flex items-center gap-2">
                     <span className="material-symbols-outlined text-base">business</span>
@@ -550,7 +544,7 @@ useEffect(() => {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(1)}
-                    className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+                    className="text-sm text-[#176B87] dark:text-blue-400 hover:underline flex items-center gap-1"
                   >
                     <span className="material-symbols-outlined text-base">edit</span>
                     Edit
@@ -558,34 +552,33 @@ useEffect(() => {
                 </div>
                 <dl className="space-y-2">
                   <div className="flex gap-2">
-                    <dt className="text-sm text-gray-500 dark:text-gray-400 w-28 flex-shrink-0">Name:</dt>
-                    <dd className="text-sm text-gray-900 dark:text-white font-medium">{formData.name}</dd>
+                    <dt className="font-medium text-gray-700 dark:text-gray-300 min-w-[100px]">Name:</dt>
+                    <dd className="text-gray-900 dark:text-white">{formData.name}</dd>
                   </div>
                   <div className="flex gap-2">
-                    <dt className="text-sm text-gray-500 dark:text-gray-400 w-28 flex-shrink-0">Category:</dt>
-                    <dd className="text-sm text-gray-900 dark:text-white font-medium">
-                      {categories.find((c) => String(c.id) === formData.category)?.icon}{' '}
-                      {categories.find((c) => String(c.id) === formData.category)?.name}
+                    <dt className="font-medium text-gray-700 dark:text-gray-300 min-w-[100px]">Category:</dt>
+                    <dd className="text-gray-900 dark:text-white">
+                      {categories.find(c => c.id.toString() === formData.category)?.name || 'Loading...'}
                     </dd>
                   </div>
                   <div className="flex gap-2">
-                    <dt className="text-sm text-gray-500 dark:text-gray-400 w-28 flex-shrink-0">Description:</dt>
-                    <dd className="text-sm text-gray-900 dark:text-white">{formData.description}</dd>
+                    <dt className="font-medium text-gray-700 dark:text-gray-300 min-w-[100px]">Desc:</dt>
+                    <dd className="text-gray-900 dark:text-white line-clamp-2">{formData.description}</dd>
                   </div>
                 </dl>
               </div>
 
-              {/* Contact */}
-              <div className="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+              {/* Contact Info */}
+              <div className="border border-[#B4D4FF] dark:border-gray-800 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide flex items-center gap-2">
                     <span className="material-symbols-outlined text-base">contact_phone</span>
-                    Contact
+                    Contact Info
                   </h3>
                   <button
                     type="button"
                     onClick={() => setCurrentStep(2)}
-                    className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+                    className="text-sm text-[#176B87] dark:text-blue-400 hover:underline flex items-center gap-1"
                   >
                     <span className="material-symbols-outlined text-base">edit</span>
                     Edit
@@ -593,133 +586,102 @@ useEffect(() => {
                 </div>
                 <dl className="space-y-2">
                   <div className="flex gap-2">
-                    <dt className="text-sm text-gray-500 dark:text-gray-400 w-28 flex-shrink-0">Phone:</dt>
-                    <dd className="text-sm text-gray-900 dark:text-white font-medium">{formData.phone}</dd>
+                    <dt className="font-medium text-gray-700 dark:text-gray-300 min-w-[100px]">Phone:</dt>
+                    <dd className="text-gray-900 dark:text-white">{formData.phone}</dd>
                   </div>
                   {formData.whatsapp_link && (
                     <div className="flex gap-2">
-                      <dt className="text-sm text-gray-500 dark:text-gray-400 w-28 flex-shrink-0">WhatsApp:</dt>
-                      <dd className="text-sm text-gray-900 dark:text-white truncate">{formData.whatsapp_link}</dd>
+                      <dt className="font-medium text-gray-700 dark:text-gray-300 min-w-[100px]">WhatsApp:</dt>
+                      <dd className="text-gray-900 dark:text-white">{formData.whatsapp_link}</dd>
                     </div>
                   )}
                   {formData.email && (
                     <div className="flex gap-2">
-                      <dt className="text-sm text-gray-500 dark:text-gray-400 w-28 flex-shrink-0">Email:</dt>
-                      <dd className="text-sm text-gray-900 dark:text-white">{formData.email}</dd>
+                      <dt className="font-medium text-gray-700 dark:text-gray-300 min-w-[100px]">Email:</dt>
+                      <dd className="text-gray-900 dark:text-white">{formData.email}</dd>
                     </div>
                   )}
                   {formData.website && (
                     <div className="flex gap-2">
-                      <dt className="text-sm text-gray-500 dark:text-gray-400 w-28 flex-shrink-0">Website:</dt>
-                      <dd className="text-sm text-gray-900 dark:text-white truncate">{formData.website}</dd>
+                      <dt className="font-medium text-gray-700 dark:text-gray-300 min-w-[100px]">Website:</dt>
+                      <dd className="text-gray-900 dark:text-white">{formData.website}</dd>
                     </div>
                   )}
                 </dl>
               </div>
 
               {/* Service Areas */}
-              <div className="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+              <div className="border border-[#B4D4FF] dark:border-gray-800 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide flex items-center gap-2">
                     <span className="material-symbols-outlined text-base">map</span>
-                    Service Areas ({formData.service_areas.length})
+                    Service Areas
                   </h3>
                   <button
                     type="button"
                     onClick={() => setCurrentStep(3)}
-                    className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+                    className="text-sm text-[#176B87] dark:text-blue-400 hover:underline flex items-center gap-1"
                   >
                     <span className="material-symbols-outlined text-base">edit</span>
                     Edit
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {formData.service_areas.map((area) => (
-                    <span
-                      key={area}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded-md border border-blue-100 dark:border-blue-800"
-                    >
-                      <span className="material-symbols-outlined text-xs">location_on</span>
+                  {formData.service_areas.map(area => (
+                    <span key={area} className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-[#EEF5FF] dark:bg-gray-800 text-xs font-medium text-[#176B87] dark:text-gray-300">
                       {area}
                     </span>
                   ))}
                 </div>
               </div>
-
-              {/* Notes (Optional) */}
-              <div className="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-base">sticky_note_2</span>
-                  Additional Notes <span className="text-gray-400 normal-case font-normal">(optional)</span>
-                </h3>
-                <textarea
-                  value={formData.notes}
-                  onChange={(e) => updateField('notes', e.target.value)}
-                  placeholder="Any additional information for the admin team (e.g., special hours, languages spoken, certifications)..."
-                  rows={3}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none text-sm"
-                  maxLength={500}
-                />
-              </div>
-
-              {/* Disclaimer */}
-              <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4 flex items-start gap-3">
-                <span className="material-symbols-outlined text-amber-600 dark:text-amber-400 text-xl flex-shrink-0">
-                  info
-                </span>
-                <p className="text-sm text-amber-800 dark:text-amber-300">
-                  By submitting, you confirm that the information provided is accurate. Our team will review and verify the details before publishing.
-                </p>
-              </div>
             </div>
           )}
 
-          {/* ============ NAVIGATION BUTTONS ============ */}
-          <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
-            {currentStep > 1 ? (
-              <button
-                type="button"
-                onClick={handleBack}
-                disabled={isSubmitting}
-                className="px-6 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-medium rounded-lg transition-colors inline-flex items-center gap-2 disabled:opacity-50"
-              >
-                <span className="material-symbols-outlined text-xl">arrow_back</span>
-                Back
-              </button>
-            ) : (
-              <div />
-            )}
+          {/* ============ FORM ACTIONS ============ */}
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-between">
+            <div>
+              {currentStep > 1 && (
+                <button
+                  type="button"
+                  onClick={handleBack}
+                  className="px-6 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-medium rounded-lg transition-colors inline-flex items-center justify-center gap-2"
+                >
+                  <span className="material-symbols-outlined">arrow_back</span>
+                  Back
+                </button>
+              )}
+            </div>
 
-            {currentStep < 4 ? (
-              <button
-                type="button"
-                onClick={handleNext}
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors inline-flex items-center gap-2"
-              >
-                Next
-                <span className="material-symbols-outlined text-xl">arrow_forward</span>
-              </button>
-            ) : (
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="px-6 py-3 bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-medium rounded-lg transition-colors inline-flex items-center gap-2"
-              >
-                {isSubmitting ? (
-                  <>
-                    <span className="material-symbols-outlined text-xl animate-spin">
-                      progress_activity
-                    </span>
-                    Submitting...
-                  </>
-                ) : (
-                  <>
-                    <span className="material-symbols-outlined text-xl">send</span>
-                    Submit for Review
-                  </>
-                )}
-              </button>
-            )}
+            <div className="flex gap-3 ml-auto">
+              {currentStep < 4 ? (
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="px-6 py-3 bg-[#176B87] hover:bg-[#86B6F6] text-white font-medium rounded-lg transition-colors inline-flex items-center justify-center gap-2"
+                >
+                  Next
+                  <span className="material-symbols-outlined">arrow_forward</span>
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="px-6 py-3 bg-[#176B87] hover:bg-[#86B6F6] disabled:opacity-70 text-white font-medium rounded-lg transition-colors inline-flex items-center justify-center gap-2"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <span className="material-symbols-outlined animate-spin">progress_activity</span>
+                      Submitting...
+                    </>
+                  ) : (
+                    <>
+                      Submit Vendor
+                      <span className="material-symbols-outlined">send</span>
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
           </div>
         </form>
       </div>

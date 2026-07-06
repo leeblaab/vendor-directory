@@ -78,9 +78,9 @@ export default function Header() {
             href="/" 
             className="flex items-center gap-2 group"
           >
-            {< div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
               <span className="material-symbols-outlined text-white text-xl">search</span>
-            </div> }
+            </div>
             <div className="hidden sm:block">
               <div className="text-lg font-bold text-gray-900 dark:text-white leading-tight">
                 ServiceFinder

@@ -13,13 +13,13 @@ const AboutPage = () => {
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#176B87] to-transparent"></div>
         <div className="container mx-auto max-w-4xl text-center">
           <div className="inline-block mb-6 px-4 py-1 bg-[#B4D4FF]/30 text-[#176B87] rounded-full text-sm font-medium">
-            Creator Profile
+            About the Platform
           </div>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-[#176B87] via-[#86B6F6] to-[#B4D4FF] bg-clip-text text-transparent">
-            About Yasser Awadein
+            About ServiceFinder UAE
           </h1>
           <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
-            Passionate developer crafting digital solutions with modern technologies. Creator of ServiceFinder UAE, connecting people with trusted local service providers.
+            Connecting people with trusted local service providers across the UAE. A modern platform designed to simplify finding and hiring the right professionals.
           </p>
         </div>
       </section>
@@ -28,52 +28,28 @@ const AboutPage = () => {
       <div className="container mx-auto max-w-6xl px-4 py-12">
         <div className="grid lg:grid-cols-3 gap-12">
           
-          {/* Profile Section */}
+          {/* Platform Info Section */}
           <div className="lg:col-span-1">
             <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-xl border border-[#B4D4FF] dark:border-slate-700 sticky top-8">
               <div className="text-center">
                 <div className="w-32 h-32 mx-auto bg-gradient-to-br from-[#176B87] to-[#86B6F6] rounded-full mb-6 flex items-center justify-center text-white text-5xl font-bold shadow-lg">
-                  YA
+                  SF
                 </div>
-                <h2 className="text-2xl font-bold mb-2">Yasser Awadein</h2>
-                <p className="text-[#176B87] font-medium mb-4">Full Stack Developer</p>
-                
-                <div className="flex justify-center gap-4 mb-6">
-                  <a 
-                    href="#" 
-                    className="w-10 h-10 flex items-center justify-center bg-[#EEF5FF] dark:bg-slate-700 rounded-full hover:bg-[#B4D4FF] dark:hover:bg-indigo-900/50 transition-colors"
-                    aria-label="GitHub"
-                  >
-                    <GitBranch size={18} />
-                  </a>
-                  <a 
-                    href="#" 
-                    className="w-10 h-10 flex items-center justify-center bg-[#EEF5FF] dark:bg-slate-700 rounded-full hover:bg-[#B4D4FF] dark:hover:bg-indigo-900/50 transition-colors"
-                    aria-label="LinkedIn"
-                  >
-                    <Link size={18} />
-                  </a>
-                  <a 
-                    href="#" 
-                    className="w-10 h-10 flex items-center justify-center bg-[#EEF5FF] dark:bg-slate-700 rounded-full hover:bg-[#B4D4FF] dark:hover:bg-indigo-900/50 transition-colors"
-                    aria-label="Twitter"
-                  >
-                    <AtSign size={18} />
-                  </a>
-                </div>
+                <h2 className="text-2xl font-bold mb-2">ServiceFinder UAE</h2>
+                <p className="text-[#176B87] font-medium mb-4">Local Services Marketplace</p>
                 
                 <div className="space-y-4">
                   <div className="flex items-center justify-between py-2 border-b border-[#B4D4FF] dark:border-slate-700">
-                    <span className="text-slate-500 dark:text-slate-400">Location</span>
-                    <span className="font-medium">UAE</span>
+                    <span className="text-slate-500 dark:text-slate-400">Region</span>
+                    <span className="font-medium">United Arab Emirates</span>
                   </div>
                   <div className="flex items-center justify-between py-2 border-b border-[#B4D4FF] dark:border-slate-700">
-                    <span className="text-slate-500 dark:text-slate-400">Specialty</span>
-                    <span className="font-medium">Full Stack</span>
+                    <span className="text-slate-500 dark:text-slate-400">Type</span>
+                    <span className="font-medium">Online Marketplace</span>
                   </div>
                   <div className="flex items-center justify-between py-2">
-                    <span className="text-slate-500 dark:text-slate-400">Currently</span>
-                    <span className="font-medium">Building</span>
+                    <span className="text-slate-500 dark:text-slate-400">Status</span>
+                    <span className="font-medium">Active</span>
                   </div>
                 </div>
               </div>
@@ -86,37 +62,37 @@ const AboutPage = () => {
             {/* Introduction */}
             <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-xl border border-[#B4D4FF] dark:border-slate-700">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                <Coffee className="text-[#176B87]" />
-                About Me
+                <Briefcase className="text-[#176B87]" />
+                Our Mission
               </h2>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-                I'm Yasser Awadein, a passionate full-stack developer with expertise in modern web technologies. 
-                My journey began with a curiosity for solving real-world problems through code, and has evolved 
-                into a career focused on creating meaningful digital experiences.
+                ServiceFinder UAE was created to solve a common problem: finding reliable, local service providers you can trust. 
+                Whether you need a plumber, electrician, cleaner, or any other service, we connect you with verified professionals 
+                across the United Arab Emirates.
               </p>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                ServiceFinder UAE represents my commitment to bridging the gap between service providers 
-                and customers in the UAE market, using cutting-edge technology to create a seamless experience.
+                Our platform is built with modern technology to ensure a seamless experience for both service providers and customers, 
+                making it easier than ever to find and hire the right help.
               </p>
             </div>
 
-            {/* Skills */}
+            {/* Features */}
             <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-xl border border-[#B4D4FF] dark:border-slate-700">
               <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
                 <Code className="text-[#176B87]" />
-                Technologies & Skills
+                Key Features
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {[
-                  'Next.js', 'TypeScript', 'React', 'Node.js',
-                  'Directus CMS', 'Tailwind CSS', 'PostgreSQL', 'Docker',
-                  'Vercel', 'API Design', 'UI/UX', 'DevOps'
-                ].map((skill, idx) => (
+                  'Verified Providers', 'Easy Search', 'Reviews & Ratings', 
+                  'Secure Platform', 'Mobile Friendly', 'Real-time Updates',
+                  'Direct Contact', 'Multiple Categories', 'UAE Focused'
+                ].map((feature, idx) => (
                   <div 
                     key={idx} 
                     className="px-4 py-3 bg-[#EEF5FF] dark:bg-slate-700/50 rounded-xl text-center text-sm font-medium hover:bg-[#B4D4FF] dark:hover:bg-indigo-900/20 transition-colors"
                   >
-                    {skill}
+                    {feature}
                   </div>
                 ))}
               </div>
@@ -125,17 +101,16 @@ const AboutPage = () => {
             {/* Philosophy */}
             <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-xl border border-[#B4D4FF] dark:border-slate-700">
               <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                <Globe className="text-[#176B87]" />
-                My Philosophy
+                <Heart className="text-[#176B87]" />
+                Our Values
               </h2>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                I believe in building solutions that matter - technology should enhance human experiences, 
-                not complicate them. Every project I work on aims to solve real problems for real people, 
-                with a focus on usability, performance, and scalability. 
+                We believe in building connections that matter. Trust, transparency, and quality are at the core of everything we do. 
+                Every interaction on our platform is designed to be fair, reliable, and beneficial for both parties involved.
               </p>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed mt-4">
-                My approach combines technical excellence with user-centered design, ensuring that the 
-                final product not only works flawlessly but also delights users at every interaction.
+                Our approach combines cutting-edge technology with a deep understanding of local needs, ensuring that ServiceFinder UAE 
+                not only works flawlessly but also truly serves the community.
               </p>
             </div>
 
@@ -143,14 +118,14 @@ const AboutPage = () => {
             <div className="bg-gradient-to-r from-[#176B87] to-[#86B6F6] rounded-3xl p-8 text-white">
               <h2 className="text-2xl font-bold mb-4">Get In Touch</h2>
               <p className="mb-6 max-w-lg">
-                Interested in collaborating or learning more about my work? Feel free to reach out!
+                Have questions or want to learn more about ServiceFinder UAE? We'd love to hear from you!
               </p>
               <a
-                href="mailto:yasser@servicefinder.ae"
+                href="mailto:info@servicefinder.ae"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#176B87] font-bold rounded-full hover:bg-[#EEF5FF] transition-all"
               >
                 <Mail size={18} />
-                Contact Me
+                Contact Us
               </a>
             </div>
           </div>
@@ -161,7 +136,7 @@ const AboutPage = () => {
       <footer className="py-10 border-t border-[#B4D4FF] dark:border-slate-800 mt-20">
         <div className="container mx-auto max-w-6xl px-4 text-center">
           <p className="text-slate-500 dark:text-slate-400 text-sm">
-            &copy; {new Date().getFullYear()} ServiceFinder UAE. Crafted with passion by Yasser Awadein.
+            &copy; {new Date().getFullYear()} ServiceFinder UAE. Connecting communities across the United Arab Emirates.
           </p>
         </div>
       </footer>

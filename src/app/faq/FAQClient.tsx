@@ -16,15 +16,15 @@ export default function FAQClient() {
       category: 'General',
       items: [
         {
-          question: "What is ServiceFinder UAE?",
-          answer: "ServiceFinder UAE is a comprehensive platform that connects customers with trusted local service providers across the UAE. From plumbers and electricians to wedding planners and IT support, we help you find reliable professionals for all your service needs."
+          question: "What is EasyFinder UAE?",
+          answer: "EasyFinder UAE is a comprehensive platform that connects customers with trusted local service providers across the UAE. From plumbers and electricians to wedding planners and IT support, we help you find reliable professionals for all your service needs."
         },
         {
-          question: "How does ServiceFinder UAE work?",
+          question: "How does EasyFinder UAE work?",
           answer: "Simply browse our categories, search for services, or contact providers directly via WhatsApp or phone. All our listed providers are verified to ensure quality and reliability."
         },
         {
-          question: "Is ServiceFinder UAE free to use?",
+          question: "Is EasyFinder UAE free to use?",
           answer: "Yes, browsing and contacting service providers is completely free for customers. Service providers pay a fee to be listed on our platform."
         }
       ]
@@ -50,7 +50,7 @@ export default function FAQClient() {
       category: 'For Service Providers',
       items: [
         {
-          question: "How do I list my business on ServiceFinder UAE?",
+          question: "How do I list my business on EasyFinder UAE?",
           answer: "Click on the 'List Your Business' button on our homepage and complete the simple registration form. Our team will review your submission and contact you within 24-48 hours."
         },
         {
@@ -105,7 +105,7 @@ export default function FAQClient() {
               Everything You Need to Know
             </h1>
             <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-              Find answers to common questions about using ServiceFinder UAE and connecting with trusted service providers.
+              Find answers to common questions about using EasyFinder UAE and connecting with trusted service providers.
             </p>
           </div>
         </div>
@@ -224,7 +224,7 @@ export default function FAQClient() {
       <footer className="py-10 border-t border-[#B4D4FF] dark:border-slate-800">
         <div className="container mx-auto px-4 text-center">
           <p className="text-slate-500 dark:text-slate-400 text-sm">
-            &copy; {new Date().getFullYear()} ServiceFinder UAE. All rights reserved.
+            &copy; {new Date().getFullYear()} EasyFinder UAE. All rights reserved.
           </p>
         </div>
       </footer>

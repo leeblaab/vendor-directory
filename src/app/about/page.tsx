@@ -1,9 +1,9 @@
 import React from 'react';
 import { Mail, Code, Globe, Coffee, GitBranch, Link, AtSign, Briefcase, User, Heart, ExternalLink } from 'lucide-react';
 export const metadata = {
-  title: 'About ServiceFinder UAE - Trusted Vendor Directory',
-  description: 'ServiceFinder UAE connects you with verified local service providers. Find trusted plumbers, electricians, movers and more across Dubai, Abu Dhabi, and UAE.',
-  keywords: 'about servicefinder, UAE vendor directory, trusted service providers',
+  title: 'About EasyFinder UAE - Trusted Vendor Directory',
+  description: 'EasyFinder UAE connects you with verified local service providers. Find trusted plumbers, electricians, movers and more across Dubai, Abu Dhabi, and UAE.',
+  keywords: 'about EasyFinder, UAE vendor directory, trusted service providers',
 }
 const AboutPage = () => {
   return (
@@ -18,7 +18,7 @@ const AboutPage = () => {
             About the Platform
           </div>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-[#176B87] via-[#86B6F6] to-[#B4D4FF] bg-clip-text text-transparent">
-            About ServiceFinder UAE
+            About EasyFinder UAE
           </h1>
           <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
             Connecting people with trusted local service providers across the UAE. A modern platform designed to simplify finding and hiring the right professionals.
@@ -37,7 +37,7 @@ const AboutPage = () => {
                 <div className="w-32 h-32 mx-auto bg-gradient-to-br from-[#176B87] to-[#86B6F6] rounded-full mb-6 flex items-center justify-center text-white text-5xl font-bold shadow-lg">
                   SF
                 </div>
-                <h2 className="text-2xl font-bold mb-2">ServiceFinder UAE</h2>
+                <h2 className="text-2xl font-bold mb-2">EasyFinder UAE</h2>
                 <p className="text-[#176B87] font-medium mb-4">Local Services Marketplace</p>
                 
                 <div className="space-y-4">
@@ -68,7 +68,7 @@ const AboutPage = () => {
                 Our Mission
               </h2>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-                ServiceFinder UAE was created to solve a common problem: finding reliable, local service providers you can trust. 
+                EasyFinder UAE was created to solve a common problem: finding reliable, local service providers you can trust. 
                 Whether you need a plumber, electrician, cleaner, or any other service, we connect you with verified professionals 
                 across the United Arab Emirates.
               </p>
@@ -111,7 +111,7 @@ const AboutPage = () => {
                 Every interaction on our platform is designed to be fair, reliable, and beneficial for both parties involved.
               </p>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed mt-4">
-                Our approach combines cutting-edge technology with a deep understanding of local needs, ensuring that ServiceFinder UAE 
+                Our approach combines cutting-edge technology with a deep understanding of local needs, ensuring that EasyFinder UAE 
                 not only works flawlessly but also truly serves the community.
               </p>
             </div>
@@ -120,10 +120,10 @@ const AboutPage = () => {
             <div className="bg-gradient-to-r from-[#176B87] to-[#86B6F6] rounded-3xl p-8 text-white">
               <h2 className="text-2xl font-bold mb-4">Get In Touch</h2>
               <p className="mb-6 max-w-lg">
-                Have questions or want to learn more about ServiceFinder UAE? We'd love to hear from you!
+                Have questions or want to learn more about EasyFinder UAE? We'd love to hear from you!
               </p>
               <a
-                href="mailto:info@servicefinder.ae"
+                href="mailto:info@EasyFinder.ae"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#176B87] font-bold rounded-full hover:bg-[#EEF5FF] transition-all"
               >
                 <Mail size={18} />
@@ -138,7 +138,7 @@ const AboutPage = () => {
       <footer className="py-10 border-t border-[#B4D4FF] dark:border-slate-800 mt-20">
         <div className="container mx-auto max-w-6xl px-4 text-center">
           <p className="text-slate-500 dark:text-slate-400 text-sm">
-            &copy; {new Date().getFullYear()} ServiceFinder UAE. Connecting communities across the United Arab Emirates.
+            &copy; {new Date().getFullYear()} EasyFinder UAE. Connecting communities across the United Arab Emirates.
           </p>
         </div>
       </footer>

@@ -291,7 +291,7 @@ Starts Next.js dev server on http://localhost:3000
 
 ## 📋 Future Enhancement Ideas
 
-# 📋 Updated Project Roadmap — ServiceFinder UAE 21.06.2026
+# 📋 Updated Project Roadmap — EasyFinder UAE 21.06.2026
 
 Based on your current progress and actual stack (**Directus**, not Supabase), here is a revised, prioritized plan. I've corrected the earlier Supabase references since your backend is Directus.
 

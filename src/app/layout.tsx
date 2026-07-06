@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ServiceFinder UAE - Find Trusted Local Service Providers",
+  title: "EasyFinder UAE - Find Trusted Local Service Providers",
   description: "Discover reliable service providers across the UAE for plumbing, electrical work, cleaning, and more.",
 };
 

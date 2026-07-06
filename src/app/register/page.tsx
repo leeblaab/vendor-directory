@@ -99,7 +99,7 @@ export default function RegisterPage() {
             Create Your Account
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Join ServiceFinder UAE and start discovering trusted providers
+            Join EasyFinder UAE and start discovering trusted providers
           </p>
         </div>
 

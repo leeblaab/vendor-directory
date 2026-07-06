@@ -25,7 +25,7 @@ export async function generateMetadata({
 
   if (!vendor) {
     return {
-      title: 'Vendor Not Found - ServiceFinder UAE',
+      title: 'Vendor Not Found - EasyFinder UAE',
     };
   }
 
@@ -51,7 +51,7 @@ export async function generateMetadata({
     : `Contact ${vendor.name}, a trusted ${categoryName} in the UAE. ${vendor.verified ? 'Verified business.' : 'Find phone, WhatsApp, and service areas.'}`;
 
   return {
-    title: `${vendor.name} - ${categoryName} in ${serviceAreas[0] || 'UAE'} | ServiceFinder`,
+    title: `${vendor.name} - ${categoryName} in ${serviceAreas[0] || 'UAE'} | EasyFinder`,
     description,
     alternates: {
       canonical: vendorUrl,
@@ -60,7 +60,7 @@ export async function generateMetadata({
       title: vendor.name,
       description,
       url: vendorUrl,
-      siteName: 'ServiceFinder UAE',
+      siteName: 'EasyFinder UAE',
       type: 'website',
       locale: 'en_AE',
       images: logoUrl ? [{ url: logoUrl, width: 800, height: 600, alt: vendor.name }] : [],

@@ -5,7 +5,7 @@ import SearchBar from '@/components/SearchBar';
 import SearchResultsClient from './SearchResultsClient';
 
 export const metadata: Metadata = {
-  title: 'Search Results - ServiceFinder UAE',
+  title: 'Search Results - EasyFinder UAE',
   description: 'Search for trusted service providers across the UAE',
 };
 

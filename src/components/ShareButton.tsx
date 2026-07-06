@@ -10,7 +10,7 @@ interface ShareButtonProps {
 export default function ShareButton({ vendorName, vendorUrl }: ShareButtonProps) {
   const [copied, setCopied] = useState(false);
 
-  const shareText = `Check out ${vendorName} on ServiceFinder UAE`;
+  const shareText = `Check out ${vendorName} on EasyFinder UAE`;
   const fullUrl = typeof window !== 'undefined' ? window.location.origin + vendorUrl : vendorUrl;
 
   const handleCopyLink = async () => {

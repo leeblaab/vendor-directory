@@ -6,22 +6,22 @@ import RippleLink from '@/components/RippleLink';
 import BoidsEcosystem from '@/components/animata/background/boids-ecosystem'; 
 
 export const metadata: Metadata = {
-  title: 'ServiceFinder UAE - Find Trusted Local Service Providers',
+  title: 'EasyFinder UAE - Find Trusted Local Service Providers',
   description: 'Discover 1000+ verified service providers across the UAE. Plumbers, electricians, AC repair, cleaning, and more. Contact directly via WhatsApp.',
   keywords: ['UAE', 'service providers', 'plumbers', 'electricians', 'AC repair', 'Dubai', 'Abu Dhabi', 'Sharjah', 'home services'],
-  authors: [{ name: 'ServiceFinder UAE' }],
+  authors: [{ name: 'EasyFinder UAE' }],
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   openGraph: {
-    title: 'ServiceFinder UAE - Find Trusted Local Service Providers',
+    title: 'EasyFinder UAE - Find Trusted Local Service Providers',
     description: 'Discover 1000+ verified service providers across the UAE. Contact directly via WhatsApp.',
     url: '/',
-    siteName: 'ServiceFinder UAE',
+    siteName: 'EasyFinder UAE',
     type: 'website',
     locale: 'en_AE',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ServiceFinder UAE',
+    title: 'EasyFinder UAE',
     description: 'Discover 1000+ verified service providers across the UAE.',
   },
   robots: {
@@ -83,7 +83,7 @@ export default function Home() {
 
         {/* Footer */}
         <footer className="text-center text-gray-500 text-sm pt-8 pb-4 border-t border-[#B4D4FF]">
-          © {new Date().getFullYear()} ServiceFinder UAE. All rights reserved.
+          © {new Date().getFullYear()} EasyFinder UAE. All rights reserved.
         </footer>
       </div>
     </main>

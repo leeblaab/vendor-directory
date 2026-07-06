@@ -30,8 +30,8 @@ export default function Contact() {
             <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">Email Us</h3>
             <p className="text-slate-600 dark:text-slate-400 mb-4">For general inquiries</p>
             <a
-              href="mailto:support@servicefinder.ae" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#176B87] hover:bg-[#86B6F6] text-white font-semibold rounded-full transition-all shadow-lg">
-              support@servicefinder.ae
+              href="mailto:support@EasyFinder.ae" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#176B87] hover:bg-[#86B6F6] text-white font-semibold rounded-full transition-all shadow-lg">
+              support@EasyFinder.ae
             </a>
           </div>
 
@@ -44,15 +44,15 @@ export default function Contact() {
             <p className="text-slate-600 dark:text-slate-400 mb-6">Follow us on social media</p>
             <div className="flex justify-center gap-4">
               <a
-                href="https://twitter.com/servicefinderuae" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-[#EEF5FF] dark:bg-slate-700 rounded-full text-[#176B87] dark:text-indigo-400 hover:bg-[#B4D4FF] transition-all">
+                href="https://twitter.com/EasyFinderuae" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-[#EEF5FF] dark:bg-slate-700 rounded-full text-[#176B87] dark:text-indigo-400 hover:bg-[#B4D4FF] transition-all">
                   <AtSign size={24} />
                 </a>
               <a
-                href="https://instagram.com/servicefinderuae" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-[#EEF5FF] dark:bg-slate-700 rounded-full text-[#176B87] dark:text-indigo-400 hover:bg-[#B4D4FF] transition-all">
+                href="https://instagram.com/EasyFinderuae" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-[#EEF5FF] dark:bg-slate-700 rounded-full text-[#176B87] dark:text-indigo-400 hover:bg-[#B4D4FF] transition-all">
                   <GitBranch size={24} />
                 </a>
               <a
-                href="https://linkedin.com/company/servicefinderuae" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-[#EEF5FF] dark:bg-slate-700 rounded-full text-[#176B87] dark:text-indigo-400 hover:bg-[#B4D4FF] transition-all">
+                href="https://linkedin.com/company/EasyFinderuae" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-[#EEF5FF] dark:bg-slate-700 rounded-full text-[#176B87] dark:text-indigo-400 hover:bg-[#B4D4FF] transition-all">
                   <LinkIcon size={24} />
                 </a>
             </div>
@@ -63,7 +63,7 @@ export default function Contact() {
         <div className="bg-gradient-to-r from-[#176B87] to-[#86B6F6] rounded-3xl p-10 text-white text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Get Started?</h2>
           <p className="text-indigo-100 mb-6 max-w-2xl mx-auto">
-            Join thousands of satisfied customers who trust ServiceFinder UAE
+            Join thousands of satisfied customers who trust EasyFinder UAE
           </p>
           <Link
             href="/"
@@ -90,7 +90,7 @@ export default function Contact() {
       <footer className="py-10 border-t border-[#B4D4FF] dark:border-slate-800">
         <div className="container mx-auto px-4 text-center">
           <p className="text-slate-500 dark:text-slate-400 text-sm">
-            &copy; {new Date().getFullYear()} ServiceFinder UAE. All rights reserved.
+            &copy; {new Date().getFullYear()} EasyFinder UAE. All rights reserved.
           </p>
         </div>
       </footer>

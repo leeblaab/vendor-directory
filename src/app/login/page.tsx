@@ -69,7 +69,7 @@ export default function LoginPage() {
             Welcome Back
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Sign in to your ServiceFinder UAE account
+            Sign in to your EasyFinder UAE account
           </p>
         </div>
 
@@ -169,7 +169,7 @@ export default function LoginPage() {
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="px-2 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">
-                New to ServiceFinder?
+                New to EasyFinder?
               </span>
             </div>
           </div>

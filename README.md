@@ -1,9 +1,9 @@
-# 🚀 ServiceFinder UAE — Professional README.md
+# 🚀 EasyFinder UAE — Professional README.md
 
 Here's a powerful, portfolio-grade README that showcases your technical depth and makes a strong impression for PhD applications:
 
 ```markdown
-# 🇦🇪 ServiceFinder UAE — EasyFinder
+# 🇦🇪 EasyFinder UAE — EasyFinder
 
 <div align="center">
 
@@ -45,7 +45,7 @@ Here's a powerful, portfolio-grade README that showcases your technical depth an
 
 ## 🎯 Overview
 
-**ServiceFinder UAE** (branding as **EasyFinder**) is a production-ready, full-stack web application designed to solve a real problem in the UAE market: finding trusted local service providers. 
+**EasyFinder UAE** (branding as **EasyFinder**) is a production-ready, full-stack web application designed to solve a real problem in the UAE market: finding trusted local service providers. 
 
 Built with a modern JavaScript stack and deployed on cloud infrastructure, the platform serves as both a **functional product** and a **technical case study** in:
 - Modern full-stack web architecture
@@ -320,7 +320,7 @@ Visit [http://localhost:3000](http://localhost:3000) 🎉
 ssh root@YOUR_SERVER_IP
 
 # Navigate to project
-cd /root/servicefinder-directus
+cd /root/EasyFinder-directus
 
 # Deploy updates
 docker compose pull
@@ -476,7 +476,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 Made with ❤️ in the UAE
 
-[🔝 Back to Top](#-servicefinder-uae--easyfinder)
+[🔝 Back to Top](#-EasyFinder-uae--easyfinder)
 
 </div>
 ```

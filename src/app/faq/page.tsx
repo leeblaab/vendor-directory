@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState } from 'react';
 import { ChevronDown, LifeBuoy, Phone, Mail, Building2, Star, CheckCircle, HelpCircle } from 'lucide-react';
 import Link from 'next/link';

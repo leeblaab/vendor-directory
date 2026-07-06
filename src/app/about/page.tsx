@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { Mail, Code, Globe, Coffee, GitBranch, Link, AtSign, Briefcase, User, Heart, ExternalLink } from 'lucide-react';
 export const metadata = {

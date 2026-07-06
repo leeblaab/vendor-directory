@@ -1,9 +1,5 @@
-# 🚀 EasyFinder UAE — Professional README.md
-
-Here's a powerful, portfolio-grade README that showcases your technical depth and makes a strong impression for PhD applications:
-
 ```markdown
-# 🇦🇪 EasyFinder UAE — EasyFinder
+# 🇦🇪 EasyFinder UAE
 
 <div align="center">
 
@@ -18,7 +14,7 @@ Here's a powerful, portfolio-grade README that showcases your technical depth an
 [![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 [![DigitalOcean](https://img.shields.io/badge/DigitalOcean-Hosted-0080FF?style=for-the-badge&logo=digitalocean&logoColor=white)](https://www.digitalocean.com/)
 
-[🌐 Live Demo](https://vendor-directory-eight.vercel.app/) • [📖 Documentation](#-documentation) • [🐛 Report Bug](https://github.com/leeblaab/vendor-directory/issues) • [💡 Request Feature](https://github.com/leeblaab/vendor-directory/issues)
+[🌐 Live Demo](https://www.easyfinder.ae/) • [📖 Documentation](#-documentation) • [🐛 Report Bug](https://github.com/leeblaab/vendor-directory/issues) • [💡 Request Feature](https://github.com/leeblaab/vendor-directory/issues)
 
 </div>
 
@@ -45,7 +41,7 @@ Here's a powerful, portfolio-grade README that showcases your technical depth an
 
 ## 🎯 Overview
 
-**EasyFinder UAE** (branding as **EasyFinder**) is a production-ready, full-stack web application designed to solve a real problem in the UAE market: finding trusted local service providers. 
+**EasyFinder UAE** is a production-ready, full-stack web application designed to solve a real problem in the UAE market: finding trusted local service providers. 
 
 Built with a modern JavaScript stack and deployed on cloud infrastructure, the platform serves as both a **functional product** and a **technical case study** in:
 - Modern full-stack web architecture
@@ -84,6 +80,7 @@ Built with a modern JavaScript stack and deployed on cloud infrastructure, the p
 - ✅ **Permission-Based Access** — Directus role-based security model
 - ✅ **Image Optimization** — Next.js Image component with automatic optimization
 - ✅ **Server-Side Rendering** — SEO-friendly, fast initial page loads
+- ✅ **HTTPS Everywhere** — Automatic SSL/TLS via Let's Encrypt and Caddy
 
 ---
 
@@ -109,6 +106,7 @@ Built with a modern JavaScript stack and deployed on cloud infrastructure, the p
 | **SQLite** | - | Lightweight database (development) |
 | **Docker** | 29.6.1 | Containerization |
 | **Docker Compose** | 5.2.0 | Multi-container orchestration |
+| **Caddy** | 2.11.4 | Automatic HTTPS reverse proxy |
 
 ### Infrastructure
 | Service | Purpose |
@@ -116,6 +114,7 @@ Built with a modern JavaScript stack and deployed on cloud infrastructure, the p
 | **Vercel** | Frontend hosting with edge network |
 | **DigitalOcean** | Backend hosting (Droplet in Frankfurt) |
 | **GitHub** | Source control & CI/CD |
+| **Tasjeel.ae** | Domain registration (.ae) |
 
 ---
 
@@ -127,9 +126,10 @@ graph TD
     B --> C[Next.js 16 App Router]
     C -->|Server Components| D[API Proxy Route<br/>/api/directus/*]
     C -->|Server Actions| D
-    D -->|REST API| E[Directus CMS<br/>DigitalOcean Droplet]
-    E --> F[(SQLite / PostgreSQL)]
-    E --> G[📁 File Storage<br/>./uploads]
+    D -->|REST API| E[Caddy Reverse Proxy<br/>api.easyfinder.ae]
+    E -->|HTTP| F[Directus CMS<br/>localhost:8055]
+    F --> G[(SQLite Database)]
+    F --> H[📁 File Storage<br/>./uploads]
     
     subgraph "Frontend - Vercel"
         C
@@ -140,6 +140,7 @@ graph TD
         E
         F
         G
+        H
     end
     
     style A fill:#f9f,stroke:#333,stroke-width:2px
@@ -164,6 +165,12 @@ graph TD
    - Auto-generated REST API
    - Role-based permissions
    - File asset management
+
+4. **Automatic HTTPS** — Caddy handles SSL/TLS certificates automatically:
+   - Zero-config Let's Encrypt integration
+   - Automatic certificate renewal
+   - HTTP/2 support
+   - Modern security headers
 
 ---
 
@@ -263,7 +270,7 @@ Create a `.env.local` file in the project root:
 
 ```env
 NEXT_PUBLIC_DIRECTUS_URL=http://localhost:8055
-DIRECTUS_API_TOKEN=your_token_here
+DIRECTUS_API_TOKEN=your_static_token_here
 ```
 
 > 💡 **Get your API Token:** Directus Admin → Settings → User Settings → Generate Token
@@ -278,31 +285,43 @@ Visit [http://localhost:3000](http://localhost:3000) 🎉
 
 ---
 
+## 🔑 Environment Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `NEXT_PUBLIC_DIRECTUS_URL` | Directus backend URL (public) | `http://localhost:8055` |
+| `DIRECTUS_API_TOKEN` | Static token for server-side API calls | `your_token_here` |
+| `NEXT_PUBLIC_SITE_URL` | Production site URL for SEO | `https://www.easyfinder.ae` |
+
+> ⚠️ **Security Note:** Never commit `.env.local` to version control. It's already in `.gitignore`.
+
+---
+
 ## 🌍 Deployment
 
 ### Production Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    VERCEL (Frontend)                     │
+│                    VERCEL (Frontend)                    │
 │  • Next.js 16 with Edge Runtime                         │
 │  • Automatic HTTPS via Let's Encrypt                    │
 │  • Global CDN with edge caching                         │
-│  • URL: vendor-directory-eight.vercel.app               │
-│  • Custom Domain: easyfinder.ae (coming soon)           │
+│  • Primary Domain: www.easyfinder.ae                    │
+│  • Redirect: easyfinder.ae → www.easyfinder.ae          │
 └─────────────────────────────────────────────────────────┘
                             │
                             │ HTTPS
                             ▼
 ┌─────────────────────────────────────────────────────────┐
-│              DIGITALOCEAN (Backend)                      │
-│  • Ubuntu 24.04 LTS Droplet (2GB RAM)                   │
+│              DIGITALOCEAN (Backend)                     │
+│  • Ubuntu 24.04 LTS Droplet                             │
+│  • Caddy 2.11.4 (Automatic HTTPS)                       │
 │  • Directus 11.17.4 in Docker                           │
-│  • SQLite Database (migrated from local)                │
+│  • SQLite Database                                      │
 │  • File storage in ./uploads                            │
 │  • Auto-backups enabled                                 │
-│  • URL: 206.189.50.71:8055                              │
-│  • Custom Domain: api.easyfinder.ae (coming soon)       │
+│  • Domain: api.easyfinder.ae (HTTPS)                    │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -406,12 +425,14 @@ type Review = {
 - [x] Cloud deployment (Vercel + DigitalOcean)
 - [x] Database migration (local → production)
 - [x] API proxy with CORS handling
+- [x] Custom domain setup (easyfinder.ae)
+- [x] SSL/HTTPS for Directus backend (Caddy + Let's Encrypt)
+- [x] SEO optimization (JSON-LD, metadata, sitemaps)
 
 ### 🚧 In Progress
-- [ ] Custom domain setup (easyfinder.ae)
-- [ ] SSL/HTTPS for Directus backend
 - [ ] Admin dashboard for vendor moderation
 - [ ] Email notifications for submissions
+- [ ] Image gallery on vendor detail pages
 
 ### 📋 Planned
 - [ ] Vendor dashboard (manage own listings)
@@ -420,8 +441,6 @@ type Review = {
 - [ ] Mobile app (React Native)
 - [ ] AI-powered vendor recommendations
 - [ ] Payment integration for premium listings
-
----
 
 
 ## 🤝 Contributing
@@ -448,7 +467,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ### **LeeBLaaB**
 
-🔗 [GitHub](https://github.com/leeblaab) • [LinkedIn](https://linkedin.com/) • [Portfolio](#)
+🔗 [GitHub](https://github.com/leeblaab) • [LinkedIn](https://www.linkedin.com/in/yasser-awadien) • [Portfolio](#)
 
 > **Background:** 15+ years in industrial digital transformation, Industry 4.0, and AI automation. Bridging practical industry experience with modern software engineering to build real-world solutions.
 
@@ -464,6 +483,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 - [Directus](https://directus.io/) — Open-source headless CMS
 - [Vercel](https://vercel.com/) — Frontend cloud platform
 - [DigitalOcean](https://www.digitalocean.com/) — Cloud infrastructure
+- [Caddy](https://caddyserver.com/) — Automatic HTTPS web server
 - [Tailwind CSS](https://tailwindcss.com/) — Utility-first CSS framework
 - [Animata](https://animata.design/) — Animation components inspiration
 - [shadcn/ui](https://ui.shadcn.com/) — Beautiful, accessible components
@@ -476,7 +496,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 Made with ❤️ in the UAE
 
-[🔝 Back to Top](#-EasyFinder-uae--easyfinder)
+[🔝 Back to Top](#-easyfinder-uae)
 
 </div>
 ```

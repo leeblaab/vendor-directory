@@ -148,9 +148,14 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  /* Reset any default borders and outlines that might be added by imported stylesheets */
+  *, *::before, *::after {
+    border-width: 0;
+    border-style: none;
+    outline: none;
   }
+  
+  /* Apply specific border styles only where needed */
   body {
     @apply bg-background text-foreground;
   }

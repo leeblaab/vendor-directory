@@ -1,115 +1,169 @@
 'use client';
 
 import React from 'react';
-import { Mail, Target, Users, Shield, Lightbulb, MessageCircle } from 'lucide-react';
+import { Mail, Code, Globe, Coffee, GitBranch, Link, AtSign, Briefcase, User, Heart, ExternalLink } from 'lucide-react';
 
 const AboutPage = () => {
   return (
-    <main className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 dark:from-slate-900 dark:to-slate-950 text-slate-800 dark:text-slate-200">
       
       {/* Hero Section */}
-      <section className="relative py-20 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-indigo-600/5 dark:bg-indigo-500/10 -z-10" />
+      <section className="relative py-24 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 dark:from-indigo-900/20 dark:to-purple-900/20 -z-10" />
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div>
         <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent">
-            Welcome to ServiceFinder
+          <div className="inline-block mb-6 px-4 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-sm font-medium">
+            Creator Profile
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+            About Yasser Awadein
           </h1>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
-            We are dedicated to connecting individuals and businesses with the perfect local services. 
-            Our platform bridges the gap between expertise and need, ensuring quality is just a click away.
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
+            Passionate developer crafting digital solutions with modern technologies. Creator of ServiceFinder UAE, connecting people with trusted local service providers.
           </p>
         </div>
       </section>
 
-      {/* Mission Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-5xl">
-          <div className="grid md:grid-cols-2 gap-12 items-center bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800">
-            <div>
-              <div className="inline-flex items-center justify-center p-3 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl mb-6">
-                <Target size={32} />
+      {/* Main Content */}
+      <div className="container mx-auto max-w-6xl px-4 py-12">
+        <div className="grid lg:grid-cols-3 gap-12">
+          
+          {/* Profile Section */}
+          <div className="lg:col-span-1">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-xl border border-slate-200 dark:border-slate-700 sticky top-8">
+              <div className="text-center">
+                <div className="w-32 h-32 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full mb-6 flex items-center justify-center text-white text-5xl font-bold shadow-lg">
+                  YA
+                </div>
+                <h2 className="text-2xl font-bold mb-2">Yasser Awadein</h2>
+                <p className="text-indigo-600 dark:text-indigo-400 font-medium mb-4">Full Stack Developer</p>
+                
+                <div className="flex justify-center gap-4 mb-6">
+                  <a 
+                    href="#" 
+                    className="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-700 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
+                    aria-label="GitHub"
+                  >
+                    <GitBranch size={18} />
+                  </a>
+                  <a 
+                    href="#" 
+                    className="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-700 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
+                    aria-label="LinkedIn"
+                  >
+                    <Link size={18} />
+                  </a>
+                  <a 
+                    href="#" 
+                    className="w-10 h-10 flex items-center justify-center bg-slate-100 dark:bg-slate-700 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
+                    aria-label="Twitter"
+                  >
+                    <AtSign size={18} />
+                  </a>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between py-2 border-b border-slate-100 dark:border-slate-700">
+                    <span className="text-slate-500 dark:text-slate-400">Location</span>
+                    <span className="font-medium">UAE</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2 border-b border-slate-100 dark:border-slate-700">
+                    <span className="text-slate-500 dark:text-slate-400">Specialty</span>
+                    <span className="font-medium">Full Stack</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2">
+                    <span className="text-slate-500 dark:text-slate-400">Currently</span>
+                    <span className="font-medium">Building</span>
+                  </div>
+                </div>
               </div>
-              <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                Our mission is to simplify the process of finding and booking local services. We believe everyone deserves access to high-quality, reliable services at a fair price. By leveraging technology and community-driven reviews, we strive to create a platform built on trust.
+            </div>
+          </div>
+
+          {/* Bio Section */}
+          <div className="lg:col-span-2 space-y-12">
+            
+            {/* Introduction */}
+            <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-xl border border-slate-200 dark:border-slate-700">
+              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                <Coffee className="text-indigo-500" />
+                About Me
+              </h2>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                I'm Yasser Awadein, a passionate full-stack developer with expertise in modern web technologies. 
+                My journey began with a curiosity for solving real-world problems through code, and has evolved 
+                into a career focused on creating meaningful digital experiences.
+              </p>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                ServiceFinder UAE represents my commitment to bridging the gap between service providers 
+                and customers in the UAE market, using cutting-edge technology to create a seamless experience.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="h-40 bg-indigo-500 rounded-2xl flex items-end p-4 text-white font-bold text-xl">Reliable</div>
-              <div className="h-40 bg-blue-500 rounded-2xl flex items-end p-4 text-white font-bold text-xl">Local</div>
-              <div className="h-40 bg-slate-800 rounded-2xl flex items-end p-4 text-white font-bold text-xl">Trusted</div>
-              <div className="h-40 bg-indigo-400 rounded-2xl flex items-end p-4 text-white font-bold text-xl">Fast</div>
+
+            {/* Skills */}
+            <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-xl border border-slate-200 dark:border-slate-700">
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                <Code className="text-indigo-500" />
+                Technologies & Skills
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {[
+                  'Next.js', 'TypeScript', 'React', 'Node.js',
+                  'Directus CMS', 'Tailwind CSS', 'PostgreSQL', 'Docker',
+                  'Vercel', 'API Design', 'UI/UX', 'DevOps'
+                ].map((skill, idx) => (
+                  <div 
+                    key={idx} 
+                    className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl text-center text-sm font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors"
+                  >
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Philosophy */}
+            <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-xl border border-slate-200 dark:border-slate-700">
+              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                <Globe className="text-indigo-500" />
+                My Philosophy
+              </h2>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                I believe in building solutions that matter - technology should enhance human experiences, 
+                not complicate them. Every project I work on aims to solve real problems for real people, 
+                with a focus on usability, performance, and scalability. 
+              </p>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed mt-4">
+                My approach combines technical excellence with user-centered design, ensuring that the 
+                final product not only works flawlessly but also delights users at every interaction.
+              </p>
+            </div>
+
+            {/* Contact */}
+            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl p-8 text-white">
+              <h2 className="text-2xl font-bold mb-4">Get In Touch</h2>
+              <p className="mb-6 max-w-lg">
+                Interested in collaborating or learning more about my work? Feel free to reach out!
+              </p>
+              <a
+                href="mailto:yasser@servicefinder.ae"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-indigo-600 font-bold rounded-full hover:bg-indigo-50 transition-all"
+              >
+                <Mail size={18} />
+                Contact Me
+              </a>
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="py-16 px-4 bg-slate-100 dark:bg-slate-900/50">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Core Values</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: <Users />, title: "Customer First", desc: "We prioritize our users' needs and strive for exceptional service." },
-              { icon: <Shield />, title: "Transparency", desc: "Our processes are open, keeping you informed every step of the way." },
-              { icon: <Lightbulb />, title: "Innovation", desc: "We continuously seek new ways to improve our platform." },
-              { icon: <MessageCircle />, title: "Community", desc: "Building a strong community where trust and support thrive." }
-            ].map((value, idx) => (
-              <div key={idx} className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition-colors">
-                <div className="text-indigo-600 dark:text-indigo-400 mb-4">{value.icon}</div>
-                <h3 className="text-xl font-bold mb-2">{value.title}</h3>
-                <p className="text-slate-600 dark:text-slate-400 text-sm">{value.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl text-center">
-          <h2 className="text-3xl font-bold mb-12">Meet the Leadership</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[
-              { name: "John Doe", role: "CEO & Co-founder" },
-              { name: "Jane Smith", role: "CTO & Co-founder" },
-              { name: "Alice Johnson", role: "Head of Marketing" }
-            ].map((member, idx) => (
-              <div key={idx} className="group">
-                <div className="w-32 h-32 mx-auto bg-slate-200 dark:bg-slate-800 rounded-full mb-6 ring-4 ring-white dark:ring-slate-900 shadow-lg group-hover:scale-105 transition-transform" />
-                <h3 className="text-xl font-bold">{member.name}</h3>
-                <p className="text-indigo-600 dark:text-indigo-400 font-medium">{member.role}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact CTA */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-4xl bg-indigo-600 rounded-[2.5rem] p-10 md:p-16 text-center text-white shadow-2xl shadow-indigo-200 dark:shadow-none">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Get In Touch</h2>
-          <p className="text-indigo-100 mb-10 text-lg max-w-2xl mx-auto">
-            If you have any questions or would like to collaborate, feel free to reach out to us. We'd love to hear from you!
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="mailto:info@servicefinder.com"
-              className="flex items-center gap-2 px-8 py-4 bg-white text-indigo-600 font-bold rounded-full hover:bg-indigo-50 transition-all active:scale-95"
-            >
-              <Mail size={20} />
-              Email Us
-            </a>
-
-          </div>
-        </div>
-      </section>
+      </div>
 
       {/* Footer */}
-      <footer className="py-10 border-t border-slate-200 dark:border-slate-800">
-        <p className="text-center text-slate-500 dark:text-slate-400 text-sm">
-          &copy; {new Date().getFullYear()} ServiceFinder. All rights reserved.
-        </p>
+      <footer className="py-10 border-t border-slate-200 dark:border-slate-800 mt-20">
+        <div className="container mx-auto max-w-6xl px-4 text-center">
+          <p className="text-slate-500 dark:text-slate-400 text-sm">
+            &copy; {new Date().getFullYear()} ServiceFinder UAE. Crafted with passion by Yasser Awadein.
+          </p>
+        </div>
       </footer>
     </main>
   );

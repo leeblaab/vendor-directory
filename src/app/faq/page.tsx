@@ -3,7 +3,11 @@
 import React, { useState } from 'react';
 import { ChevronDown, LifeBuoy, Phone, Mail, Building2, Star, CheckCircle, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
-
+export const metadata = {
+  title: 'About ServiceFinder UAE - Trusted Vendor Directory',
+  description: 'ServiceFinder UAE connects you with verified local service providers. Find trusted plumbers, electricians, movers and more across Dubai, Abu Dhabi, and UAE.',
+  keywords: 'about servicefinder, UAE vendor directory, trusted service providers',
+}
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 

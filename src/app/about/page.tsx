@@ -2,7 +2,11 @@
 
 import React from 'react';
 import { Mail, Code, Globe, Coffee, GitBranch, Link, AtSign, Briefcase, User, Heart, ExternalLink } from 'lucide-react';
-
+export const metadata = {
+  title: 'About ServiceFinder UAE - Trusted Vendor Directory',
+  description: 'ServiceFinder UAE connects you with verified local service providers. Find trusted plumbers, electricians, movers and more across Dubai, Abu Dhabi, and UAE.',
+  keywords: 'about servicefinder, UAE vendor directory, trusted service providers',
+}
 const AboutPage = () => {
   return (
     <main className="min-h-screen bg-gradient-to-br from-[#EEF5FF] to-[#B4D4FF] dark:from-slate-900 dark:to-slate-950 text-slate-800 dark:text-slate-200">

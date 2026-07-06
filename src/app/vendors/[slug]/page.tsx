@@ -11,6 +11,8 @@ import ReviewForm from '@/components/ReviewForm';
 import type { Metadata } from 'next';
 import LocationMap from '@/components/LocationMap';
 
+export const revalidate = 300 // Revalidate every 5 minutes
+
 // ============ SEO METADATA GENERATION ============
 
 export async function generateMetadata({ 

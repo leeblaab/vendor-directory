@@ -85,11 +85,11 @@ export default function VendorCard({
               </div>
             )}
 
-            <div className="flex items-center gap-2 mb-2 flex-wrap">
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#EEF5FF] dark:bg-gray-800 text-xs font-medium text-[#176B87] dark:text-gray-300 border border-[#B4D4FF]">
-                {vendor.category.icon && <span className="text-sm">{vendor.category.icon}</span>}
-                {vendor.category.name}
+            <div className="flex items-center gap-1">
+              <span className="material-symbols-outlined text-blue-600 text-base">
+                {vendor.category.icon}
               </span>
+              <span>{vendor.category.name}</span>
             </div>
 
             {vendor.description && (

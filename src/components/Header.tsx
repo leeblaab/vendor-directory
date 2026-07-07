@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
 import Image from 'next/image';
+
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
@@ -119,24 +120,31 @@ export default function Header() {
           {/* ============ RIGHT: SUBMIT + AUTH + MOBILE MENU ============ */}
           <div className="flex items-center gap-2 sm:gap-3">
             
-            {/* Loading State */}
-            {isLoading && (
-              <div className="w-24 h-9 rounded-lg bg-gray-100 dark:bg-gray-800 animate-pulse" />
-            )}
-
             {/* Submit Vendor Button - Visible to ALL users (desktop) */}
-            {!isLoading && (
-              <Link
-                href="/submit"
-                className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg transition-colors shadow-sm"
-              >
-                <span className="material-symbols-outlined text-base">add_business</span>
-                Submit Vendor
-              </Link>
-            )}
+            <Link
+              href="/submit"
+              className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg transition-colors shadow-sm"
+            >
+              <span className="material-symbols-outlined text-base">add_business</span>
+              Submit Vendor
+            </Link>
 
-            {/* Logged Out State */}
-            {!isLoading && !isAuthenticated && (
+            {/* Auth Section - Loading State */}
+            {isLoading ? (
+              <div className="flex items-center gap-2">
+                {/* Loading skeleton for user menu */}
+                <div className="hidden sm:flex items-center gap-2 px-2 py-1.5">
+                  <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+                  <div className="hidden sm:block">
+                    <div className="w-20 h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-1" />
+                    <div className="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                  </div>
+                </div>
+                {/* Mobile: just show avatar skeleton */}
+                <div className="sm:hidden w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+              </div>
+            ) : !isAuthenticated ? (
+              /* Logged Out State */
               <>
                 {/* Login Button */}
                 <Link
@@ -157,10 +165,8 @@ export default function Header() {
                   <span className="sm:hidden">Sign Up</span>
                 </Link>
               </>
-            )}
-
-            {/* Logged In State */}
-            {!isLoading && isAuthenticated && user && (
+            ) : user ? (
+              /* Logged In State */
               <>
                 {/* Mobile Submit Button (icon only) */}
                 <Link
@@ -271,7 +277,7 @@ export default function Header() {
                   )}
                 </div>
               </>
-            )}
+            ) : null}
 
             {/* Mobile Menu Button */}
             <div className="lg:hidden" ref={mobileMenuRef}>

@@ -43,6 +43,7 @@ const STORAGE_KEYS = {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AppUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // Check if user is authenticated
   const isAuthenticated = user !== null;
@@ -54,13 +55,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // Get refresh token from storage
-  const getRefreshToken = (): string | null => {
+  const getRefreshToken = useCallback((): string | null => {
     if (typeof window === 'undefined') return null;
     return localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
-  };
+  }, []);
 
   // Save auth tokens to storage
-  const saveAuthData = (authData: AuthResponse) => {
+  const saveAuthData = useCallback((authData: AuthResponse) => {
     if (typeof window === 'undefined') return;
     localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, authData.access_token);
     localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, authData.refresh_token);
@@ -69,16 +70,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       String(Date.now() + authData.expires)
     );
     setUser(authData.user);
-  };
+  }, []);
 
   // Clear all auth data from storage
-  const clearAuthData = () => {
+  const clearAuthData = useCallback(() => {
     if (typeof window === 'undefined') return;
     localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
     localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
     localStorage.removeItem(STORAGE_KEYS.TOKEN_EXPIRY);
     setUser(null);
-  };
+  }, []);
 
   // Try to refresh the token if it's about to expire
   const tryRefreshToken = useCallback(async () => {
@@ -93,38 +94,60 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Refresh if token expires within 5 minutes
     if (expiry - now < fiveMinutes) {
-      const newAuth = await refreshAuthToken(refreshToken);
-      if (newAuth) {
-        saveAuthData(newAuth);
-      } else {
+      try {
+        const newAuth = await refreshAuthToken(refreshToken);
+        if (newAuth) {
+          saveAuthData(newAuth);
+        } else {
+          clearAuthData();
+        }
+      } catch (error) {
+        console.error('Token refresh failed:', error);
         clearAuthData();
       }
     }
-  }, []);
+  }, [getRefreshToken, saveAuthData, clearAuthData]);
 
   // Initialize auth state on mount
   useEffect(() => {
-    const initAuth = async () => {
-      const token = getToken();
-      
-      if (!token) {
-        setIsLoading(false);
-        return;
-      }
+    let isMounted = true;
 
-      // Validate token by fetching current user
-      const currentUser = await getCurrentUser(token);
-      
-      if (currentUser) {
-        setUser(currentUser);
-        // Try to refresh token if needed
-        await tryRefreshToken();
-      } else {
-        // Token is invalid, clear everything
-        clearAuthData();
+    const initAuth = async () => {
+      try {
+        const token = getToken();
+        
+        if (!token) {
+          if (isMounted) {
+            setIsLoading(false);
+            setIsInitialized(true);
+          }
+          return;
+        }
+
+        // Validate token by fetching current user
+        const currentUser = await getCurrentUser(token);
+        
+        if (isMounted) {
+          if (currentUser) {
+            setUser(currentUser);
+            // Try to refresh token if needed
+            await tryRefreshToken();
+          } else {
+            // Token is invalid, clear everything
+            clearAuthData();
+          }
+          
+          setIsLoading(false);
+          setIsInitialized(true);
+        }
+      } catch (error) {
+        console.error('Auth initialization error:', error);
+        if (isMounted) {
+          clearAuthData();
+          setIsLoading(false);
+          setIsInitialized(true);
+        }
       }
-      
-      setIsLoading(false);
     };
 
     initAuth();
@@ -132,19 +155,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Set up token refresh interval (every 5 minutes)
     const refreshInterval = setInterval(tryRefreshToken, 5 * 60 * 1000);
     
-    return () => clearInterval(refreshInterval);
-  }, [getToken, tryRefreshToken]);
+    return () => {
+      isMounted = false;
+      clearInterval(refreshInterval);
+    };
+  }, [getToken, tryRefreshToken, clearAuthData]);
 
   // Login function
   const login = async (email: string, password: string) => {
-    const authData = await loginUser(email, password);
-    
-    if (!authData) {
-      return { success: false, message: 'Invalid email or password' };
-    }
+    try {
+      const authData = await loginUser(email, password);
+      
+      if (!authData) {
+        return { success: false, message: 'Invalid email or password' };
+      }
 
-    saveAuthData(authData);
-    return { success: true, message: 'Logged in successfully' };
+      saveAuthData(authData);
+      return { success: true, message: 'Logged in successfully' };
+    } catch (error) {
+      console.error('Login error:', error);
+      return { success: false, message: 'Login failed. Please try again.' };
+    }
   };
 
   // Register function
@@ -154,29 +185,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     first_name: string;
     last_name?: string;
   }) => {
-    const result = await registerUser(data);
-    
-    if (!result.success) {
-      return { success: false, message: result.message };
-    }
+    try {
+      const result = await registerUser(data);
+      
+      if (!result.success) {
+        return { success: false, message: result.message };
+      }
 
-    // Auto-login after successful registration
-    const authData = await loginUser(data.email, data.password);
-    if (authData) {
-      saveAuthData(authData);
-      return { success: true, message: 'Account created successfully' };
-    }
+      // Auto-login after successful registration
+      const authData = await loginUser(data.email, data.password);
+      if (authData) {
+        saveAuthData(authData);
+        return { success: true, message: 'Account created successfully' };
+      }
 
-    return { success: true, message: 'Account created. Please log in.' };
+      return { success: true, message: 'Account created. Please log in.' };
+    } catch (error) {
+      console.error('Registration error:', error);
+      return { success: false, message: 'Registration failed. Please try again.' };
+    }
   };
 
   // Logout function
   const logout = async () => {
-    const refreshToken = getRefreshToken();
-    if (refreshToken) {
-      await logoutUser(refreshToken);
+    try {
+      const refreshToken = getRefreshToken();
+      if (refreshToken) {
+        await logoutUser(refreshToken);
+      }
+      clearAuthData();
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Still clear auth data even if logout API fails
+      clearAuthData();
     }
-    clearAuthData();
   };
 
   return (

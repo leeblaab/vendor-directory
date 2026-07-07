@@ -133,7 +133,7 @@ const AboutPage = () => {
                 Have questions or want to learn more about EasyFinder UAE? We'd love to hear from you!
               </p>
               <a
-                href="mailto:info@EasyFinder.ae"
+                href="mailto:easyfinderuae@gmail.com"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#176B87] font-bold rounded-full hover:bg-[#EEF5FF] transition-all"
               >
                 <Mail size={18} />

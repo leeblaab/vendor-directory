@@ -30,8 +30,8 @@ export default function Contact() {
             <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">Email Us</h3>
             <p className="text-slate-600 dark:text-slate-400 mb-4">For general inquiries</p>
             <a
-              href="mailto:support@EasyFinder.ae" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#176B87] hover:bg-[#86B6F6] text-white font-semibold rounded-full transition-all shadow-lg">
-              support@EasyFinder.ae
+              href="mailto:easyfinderuae@gmail.com" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#176B87] hover:bg-[#86B6F6] text-white font-semibold rounded-full transition-all shadow-lg">
+              easyfinderuae@gmail.com
             </a>
           </div>
 

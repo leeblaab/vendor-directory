@@ -78,14 +78,19 @@ export default function VendorFilters({
       );
     }
 
-    // Filter by city
+    // UPDATED: Filter by city/area with PARTIAL MATCHING
     if (selectedCity) {
+      const selectedCityLower = selectedCity.toLowerCase();
       filtered = filtered.filter(vendor => {
         try {
           const areas = typeof vendor.service_areas === 'string'
             ? JSON.parse(vendor.service_areas)
             : vendor.service_areas || [];
-          return areas.includes(selectedCity);
+          
+          // PARTIAL MATCH: Check if ANY area CONTAINS the selected city/area
+          return areas.some((area: string) => 
+            area.toLowerCase().includes(selectedCityLower)
+          );
         } catch {
           return false;
         }

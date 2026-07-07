@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, Code, Globe, Coffee, GitBranch, Link, AtSign, Briefcase, User, Heart, ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 export const metadata = {
   title: 'About EasyFinder UAE - Trusted Vendor Directory',
   description: 'EasyFinder UAE connects you with verified local service providers. Find trusted plumbers, electricians, movers and more across Dubai, Abu Dhabi, and UAE.',
@@ -34,8 +35,17 @@ const AboutPage = () => {
           <div className="lg:col-span-1">
             <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-xl border border-[#B4D4FF] dark:border-slate-700 sticky top-8">
               <div className="text-center">
-                <div className="w-32 h-32 mx-auto bg-gradient-to-br from-[#176B87] to-[#86B6F6] rounded-full mb-6 flex items-center justify-center text-white text-5xl font-bold shadow-lg">
-                  SF
+                <div className="flex justify-center mb-6">
+                  <div className="h-48 w-48 rounded-lg overflow-hidden shadow-md group-hover:shadow-lg transition-shadow flex-shrink-0">
+                    <Image
+                      src="/logo.png"
+                      alt="EasyFinder UAE Logo"
+                      width={200}
+                      height={200}
+                      className="h-48 w-48 object-contain"
+                      priority
+                    />
+                  </div>
                 </div>
                 <h2 className="text-2xl font-bold mb-2">EasyFinder UAE</h2>
                 <p className="text-[#176B87] font-medium mb-4">Local Services Marketplace</p>

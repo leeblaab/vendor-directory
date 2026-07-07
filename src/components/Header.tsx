@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
-
+import Image from 'next/image';
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
@@ -78,8 +78,15 @@ export default function Header() {
             href="/" 
             className="flex items-center gap-2 group"
           >
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-              <span className="material-symbols-outlined text-white text-xl">search</span>
+            <div className="h-9 w-auto rounded-lg overflow-hidden shadow-md group-hover:shadow-lg transition-shadow flex-shrink-0">
+              <Image
+                src="/logo.png"
+                alt="EasyFinder UAE Logo"
+                width={200}
+                height={200}
+                className="h-9 w-auto"
+                priority
+              />
             </div>
             <div className="hidden sm:block">
               <div className="text-lg font-bold text-gray-900 dark:text-white leading-tight">

@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { AuthProvider } from "@/components/AuthProvider";
 import Header from "@/components/Header";
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Script from "next/script";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 
 export const metadata: Metadata = {
   title: {
@@ -36,23 +35,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Analytics Tracker Component for client-side navigation
-function AnalyticsTracker() {
-  const pathname = usePathname();
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
-  const isProduction = process.env.NODE_ENV === 'production';
-
-  useEffect(() => {
-    if (isProduction && gaId && pathname && typeof window !== 'undefined') {
-      // Track page view
-      window.gtag('config', gaId, {
-        page_path: pathname,
-      });
-    }
-  }, [pathname, gaId, isProduction]);
-
-  return null;
-}
 
 export default function RootLayout({
   children,

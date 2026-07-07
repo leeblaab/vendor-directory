@@ -10,19 +10,28 @@ export const metadata: Metadata = {
   description: 'Discover 1000+ verified service providers across the UAE. Plumbers, electricians, AC repair, cleaning, and more. Contact directly via WhatsApp.',
   keywords: ['UAE', 'service providers', 'plumbers', 'electricians', 'AC repair', 'Dubai', 'Abu Dhabi', 'Sharjah', 'home services'],
   authors: [{ name: 'EasyFinder UAE' }],
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.easyfinder.ae'),
   openGraph: {
     title: 'EasyFinder UAE - Find Trusted Local Service Providers',
     description: 'Discover 1000+ verified service providers across the UAE. Contact directly via WhatsApp.',
-    url: '/',
+    url: 'https://www.easyfinder.ae',
     siteName: 'EasyFinder UAE',
     type: 'website',
     locale: 'en_AE',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'EasyFinder UAE - Find Trusted Service Providers',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'EasyFinder UAE',
     description: 'Discover 1000+ verified service providers across the UAE.',
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -67,7 +76,7 @@ export default function Home() {
 
               {/* Buttons Container */}
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <RippleLink href="#find-providers">
+                <RippleLink href="/vendors">
                   Browse Categories
                 </RippleLink>
 

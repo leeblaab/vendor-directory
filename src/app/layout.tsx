@@ -5,6 +5,23 @@ import Header from "@/components/Header";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
+export const metadata: Metadata = {
+  title: {
+    default: 'EasyFinder UAE - Find Trusted Local Service Providers',
+    template: '%s | EasyFinder UAE',
+  },
+  description: 'Discover 1000+ verified service providers across the UAE. Plumbers, electricians, AC repair, cleaning, and more.',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.easyfinder.ae'),
+  openGraph: {
+    images: ['/og-image.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/og-image.png'],
+  },
+};
+
+
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 const geistSans = Geist({
@@ -16,11 +33,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-export const metadata: Metadata = {
-  title: "EasyFinder UAE - Find Trusted Local Service Providers",
-  description: "Discover reliable service providers across the UAE for plumbing, electrical work, cleaning, and more.",
-};
 
 export default function RootLayout({
   children,

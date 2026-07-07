@@ -26,6 +26,9 @@ export default function VendorFilters({
   const [minRating, setMinRating] = useState(0);
   const [verifiedOnly, setVerifiedOnly] = useState(false);
   const [sortBy, setSortBy] = useState('name');
+  // ✅ NEW: City search state
+  const [citySearch, setCitySearch] = useState('');
+  const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
 
   // Extract unique cities from service_areas
   const cities = useMemo(() => {
@@ -42,6 +45,16 @@ export default function VendorFilters({
     });
     return Array.from(citySet).sort();
   }, [vendors]);
+
+  // ✅ NEW: Filter cities based on search
+  const filteredCities = useMemo(() => {
+    if (!citySearch) return cities.slice(0, 50); // Show first 50 if no search
+    const query = citySearch.toLowerCase();
+    return cities
+      .filter(city => city.toLowerCase().includes(query))
+      .slice(0, 50); // Limit to 50 results
+  }, [cities, citySearch]);
+
 
   // Filter categories based on search
   const filteredCategories = useMemo(() => {
@@ -211,23 +224,127 @@ export default function VendorFilters({
 
         {/* Row 3: City and Rating */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* City Filter */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              <span className="material-symbols-outlined text-base inline-block mr-1 align-text-bottom">location_on</span>
-              City
-            </label>
-            <select
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
+          {/* City Filter with Autocomplete */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <span className="material-symbols-outlined text-base inline-block mr-1 align-text-bottom">location_on</span>
+            Area/City
+          </label>
+          
+          <div className="relative">
+            {/* Search Input */}
+            <input
+              type="text"
+              value={citySearch}
+              onChange={(e) => {
+                setCitySearch(e.target.value);
+                setIsCityDropdownOpen(true);
+              }}
+              onFocus={() => setIsCityDropdownOpen(true)}
+              placeholder={selectedCity ? selectedCity : "Search area or city..."}
               className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            />
+            
+            {/* Clear button */}
+            {selectedCity && (
+              <button
+                onClick={() => {
+                  setSelectedCity('');
+                  setCitySearch('');
+                }}
+                className="absolute right-10 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              >
+                <span className="material-symbols-outlined text-sm">close</span>
+              </button>
+            )}
+            
+            {/* Dropdown arrow */}
+            <button
+              onClick={() => setIsCityDropdownOpen(!isCityDropdownOpen)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
             >
-              <option value="">All Cities</option>
-              {cities.map(city => (
-                <option key={city} value={city}>{city}</option>
-              ))}
-            </select>
+              <span className={`material-symbols-outlined text-sm transition-transform ${isCityDropdownOpen ? 'rotate-180' : ''}`}>
+                expand_more
+              </span>
+            </button>
+
+            {/* Dropdown Results */}
+            {isCityDropdownOpen && (
+              <div className="absolute z-20 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg max-h-64 overflow-y-auto">
+                {filteredCities.length === 0 ? (
+                  <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+                    No areas found
+                  </div>
+                ) : (
+                  <>
+                    {/* Quick filters for major emirates */}
+                    {!citySearch && (
+                      <div className="border-b border-gray-200 dark:border-gray-700 p-2">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 px-2">Popular Emirates</p>
+                        <div className="flex flex-wrap gap-1">
+                          {['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain'].map(emirate => (
+                            <button
+                              key={emirate}
+                              onClick={() => {
+                                setSelectedCity(emirate);
+                                setCitySearch(emirate);
+                                setIsCityDropdownOpen(false);
+                              }}
+                              className="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                            >
+                              {emirate}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* City/Area List */}
+                    <div className="py-1">
+                      {filteredCities.map(city => (
+                        <button
+                          key={city}
+                          onClick={() => {
+                            setSelectedCity(city);
+                            setCitySearch(city);
+                            setIsCityDropdownOpen(false);
+                          }}
+                          className={`w-full px-4 py-2.5 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center justify-between ${
+                            selectedCity === city ? 'bg-blue-50 dark:bg-blue-900/20' : ''
+                          }`}
+                        >
+                          <span className="text-gray-900 dark:text-white text-sm">{city}</span>
+                          {selectedCity === city && (
+                            <span className="material-symbols-outlined text-green-600 text-sm">check</span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
           </div>
+          
+          {/* Selected City Badge */}
+          {selectedCity && (
+            <div className="mt-2">
+              <span className="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm rounded-lg">
+                <span className="material-symbols-outlined text-base">location_on</span>
+                {selectedCity}
+                <button
+                  onClick={() => {
+                    setSelectedCity('');
+                    setCitySearch('');
+                  }}
+                  className="ml-1 hover:text-blue-900 dark:hover:text-blue-100"
+                >
+                  <span className="material-symbols-outlined text-sm">close</span>
+                </button>
+              </span>
+            </div>
+          )}
+        </div>
 
           {/* Rating Filter */}
           <div>

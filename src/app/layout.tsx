@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { AuthProvider } from "@/components/AuthProvider";
 import Header from "@/components/Header";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: {
@@ -21,7 +24,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 const geistSans = Geist({
@@ -34,11 +36,32 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Analytics Tracker Component for client-side navigation
+function AnalyticsTracker() {
+  const pathname = usePathname();
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const isProduction = process.env.NODE_ENV === 'production';
+
+  useEffect(() => {
+    if (isProduction && gaId && pathname && typeof window !== 'undefined') {
+      // Track page view
+      window.gtag('config', gaId, {
+        page_path: pathname,
+      });
+    }
+  }, [pathname, gaId, isProduction]);
+
+  return null;
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const isProduction = process.env.NODE_ENV === 'production';
+
   return (
     <html
       lang="en"
@@ -50,6 +73,26 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
         />
+        
+        {/* Google Analytics - Production Only */}
+        {isProduction && gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}', {
+                  page_path: window.location.pathname,
+                });
+              `}
+            </Script>
+          </>
+        )}
       </head>
       <body className="min-h-full flex flex-col">
         <AuthProvider>
@@ -57,8 +100,17 @@ export default function RootLayout({
           <main className="flex-1 flex flex-col">
             {children}
           </main>
+          {/* Track page views on client-side navigation */}
+          {isProduction && <AnalyticsTracker />}
         </AuthProvider>
       </body>
     </html>
   );
+}
+
+// Type declaration for gtag
+declare global {
+  interface Window {
+    gtag: (command: string, ...args: any[]) => void;
+  }
 }

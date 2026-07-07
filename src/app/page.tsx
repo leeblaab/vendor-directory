@@ -76,7 +76,7 @@ export default function Home() {
 
               {/* Buttons Container */}
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <RippleLink href="/vendors">
+                <RippleLink href="/categories">
                   Browse Categories
                 </RippleLink>
 

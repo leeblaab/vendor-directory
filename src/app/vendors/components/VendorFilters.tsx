@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Vendor, Category } from '@/lib/directus';
 import { RatingData } from '@/components/VendorCard';
 
@@ -19,9 +20,11 @@ export default function VendorFilters({
   ratingsMap = {},
   onFilterChange 
 }: VendorFiltersProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(currentCategory || '');
+  const [selectedCategory, setSelectedCategoryState] = useState(currentCategory || '');
   const [categorySearch, setCategorySearch] = useState('');
   const [minRating, setMinRating] = useState(0);
   const [verifiedOnly, setVerifiedOnly] = useState(false);
@@ -87,7 +90,23 @@ export default function VendorFilters({
     );
   }, [categories, categorySearch]);
 
-  // Apply filters whenever any filter changes
+  // Handle category change by updating URL to trigger server-side reload
+  const handleCategoryChange = (categorySlug: string) => {
+    setSelectedCategoryState(categorySlug);
+    setCategorySearch(categories.find(c => c.slug === categorySlug)?.name || '');
+    setIsCategoryDropdownOpen(false);
+    
+    // Update URL to trigger server-side reload with new category
+    const params = new URLSearchParams(searchParams.toString());
+    if (categorySlug) {
+      params.set('category', categorySlug);
+    } else {
+      params.delete('category');
+    }
+    router.push(`/vendors?${params.toString()}`);
+  };
+
+  // Apply filters whenever any filter changes (except category which triggers URL change)
   useEffect(() => {
     let filtered = [...vendors];
 
@@ -116,13 +135,6 @@ export default function VendorFilters({
           return false;
         }
       });
-    }
-
-    // Filter by category
-    if (selectedCategory) {
-      filtered = filtered.filter(vendor => 
-        vendor.category && 'slug' in vendor.category && vendor.category.slug === selectedCategory
-      );
     }
 
     // Filter by minimum rating
@@ -155,9 +167,9 @@ export default function VendorFilters({
     });
 
     onFilterChange?.(filtered);
-  }, [vendors, searchQuery, selectedCity, selectedCategory, minRating, verifiedOnly, sortBy, ratingsMap, onFilterChange]);
+  }, [vendors, searchQuery, selectedCity, minRating, verifiedOnly, sortBy, ratingsMap]); // Removed selectedCategory and onFilterChange to prevent infinite loop
 
-  const hasActiveFilters = searchQuery || selectedCity || selectedCategory || minRating > 0 || verifiedOnly;
+  const hasActiveFilters = searchQuery || selectedCity || minRating > 0 || verifiedOnly;
 
   return (
     <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
@@ -201,10 +213,7 @@ export default function VendorFilters({
               
               {selectedCategory && (
                 <button
-                  onClick={() => {
-                    setSelectedCategory('');
-                    setCategorySearch('');
-                  }}
+                  onClick={() => handleCategoryChange('')}
                   className="absolute right-10 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   <span className="material-symbols-outlined text-sm">close</span>
@@ -231,11 +240,7 @@ export default function VendorFilters({
                   filteredCategories.map(cat => (
                     <button
                       key={cat.id}
-                      onClick={() => {
-                        setSelectedCategory(cat.slug);
-                        setCategorySearch(cat.name);
-                        setIsCategoryDropdownOpen(false);
-                      }}
+                      onClick={() => handleCategoryChange(cat.slug)}
                       className={`w-full px-4 py-2.5 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 ${
                         selectedCategory === cat.slug ? 'bg-blue-50 dark:bg-blue-900/20' : ''
                       }`}
@@ -263,10 +268,7 @@ export default function VendorFilters({
                   </span>
                   {categories.find(c => c.slug === selectedCategory)?.name}
                   <button
-                    onClick={() => {
-                      setSelectedCategory('');
-                      setCategorySearch('');
-                    }}
+                    onClick={() => handleCategoryChange('')}
                     className="ml-1 hover:text-blue-900 dark:hover:text-blue-100"
                   >
                     <span className="material-symbols-outlined text-sm">close</span>
@@ -469,10 +471,7 @@ export default function VendorFilters({
               <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded-md">
                 Category: {categories.find(c => c.slug === selectedCategory)?.name}
                 <button
-                  onClick={() => {
-                    setSelectedCategory('');
-                    setCategorySearch('');
-                  }}
+                  onClick={() => handleCategoryChange('')}
                   className="ml-1 hover:text-blue-900 dark:hover:text-blue-100"
                 >
                   <span className="material-symbols-outlined text-sm">close</span>
@@ -519,12 +518,15 @@ export default function VendorFilters({
               onClick={() => {
                 setSearchQuery('');
                 setSelectedCity('');
-                setSelectedCategory(currentCategory || '');
-                setMinRating(0);
-                setVerifiedOnly(false);
-                setSortBy('name');
-                setCategorySearch('');
-                setCitySearch('');
+                if (selectedCategory !== currentCategory) {
+                  handleCategoryChange(currentCategory || '');
+                } else {
+                  setMinRating(0);
+                  setVerifiedOnly(false);
+                  setSortBy('name');
+                  setCategorySearch('');
+                  setCitySearch('');
+                }
               }}
               className="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 underline ml-auto"
             >

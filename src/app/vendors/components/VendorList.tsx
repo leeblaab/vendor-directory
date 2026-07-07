@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import VendorCard, { RatingData } from '@/components/VendorCard';
 import VendorFilters from './VendorFilters'; // Import the new advanced filters
@@ -33,12 +33,18 @@ export default function VendorList({
   ratingsMap 
 }: VendorListProps) {
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
-  const [filteredVendors, setFilteredVendors] = useState(vendors);
+  const [filteredVendors, setFilteredVendors] = useState<(Vendor & { category: Category })[]>(vendors);
   
   // ✅ NEW: "Load More" Pagination State
   const [visibleCount, setVisibleCount] = useState(24); // Show 24 items initially
 
-  // Handle filter changes from the new VendorFilters component
+  // Initialize filteredVendors with the initial vendors prop when vendors change
+  useEffect(() => {
+    setFilteredVendors(vendors);
+    setVisibleCount(24); // Reset pagination when vendors prop changes (e.g., category change)
+  }, [vendors]);
+
+  // Handle filter changes from the new VendorFilters component (only non-category filters)
   const handleFilterChange = (newFilteredVendors: (Vendor & { category: Category })[]) => {
     setFilteredVendors(newFilteredVendors);
     setVisibleCount(24); // Reset pagination when filters change
@@ -101,7 +107,22 @@ export default function VendorList({
       </div>
 
       {/* Content: List or Map */}
-      {filteredVendors.length === 0 ? (
+      {filteredVendors.length === 0 && currentCategory ? (
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-8 text-center">
+          <span className="material-symbols-outlined text-yellow-500 dark:text-yellow-400 text-4xl mb-3 block">
+            search_off
+          </span>
+          <p className="text-yellow-800 dark:text-yellow-300 font-medium">
+            No providers match your filters in this category. Try adjusting your search criteria.
+          </p>
+          <a 
+            href="/vendors" 
+            className="mt-3 inline-block text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            View all providers
+          </a>
+        </div>
+      ) : filteredVendors.length === 0 ? (
         <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-8 text-center">
           <span className="material-symbols-outlined text-yellow-500 dark:text-yellow-400 text-4xl mb-3 block">
             search_off

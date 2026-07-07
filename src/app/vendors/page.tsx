@@ -1,4 +1,4 @@
-import { getAllVendors, getCategories, Category, Vendor } from '@/lib/directus';
+import { getAllVendors, getVendorsByCategory, getCategories, Category, Vendor } from '@/lib/directus';
 import VendorList from './components/VendorList';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { RatingData } from '@/components/VendorCard';
@@ -16,8 +16,12 @@ export default async function VendorsPage({
   let error = false;
 
   try {
-    // ✅ ALWAYS fetch ALL vendors - let the client-side filter handle it
-    allVendors = await getAllVendors();
+    // ✅ FIXED: Only fetch all vendors if no category is specified, otherwise fetch by category
+    if (urlCategory) {
+      allVendors = await getVendorsByCategory(urlCategory);
+    } else {
+      allVendors = await getAllVendors();
+    }
     categories = await getCategories();
   } catch (err) {
     console.error('Failed to load vendors:', err);
@@ -140,7 +144,7 @@ export default async function VendorsPage({
         </div>
       ) : (
         <VendorList 
-          vendors={allVendors}  // ✅ PASS ALL VENDORS (not filtered)
+          vendors={allVendors}  // ✅ PASS FILTERED VENDORS BASED ON CATEGORY
           currentCategory={urlCategory} 
           categories={categories} 
           ratingsMap={ratingsMap}

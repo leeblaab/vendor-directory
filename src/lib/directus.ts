@@ -65,8 +65,6 @@ export type AuthResponse = {
 // Standard fields to fetch for vendor queries
 const VENDOR_FIELDS = [
   '*',
-  'date_created', // ✅ ADD THIS FOR SITEMAP
-  'date_updated', // ✅ ADD THIS FOR STIEMAP
   'category.id',
   'category.name',
   'category.slug',

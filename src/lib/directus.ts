@@ -40,6 +40,8 @@ export type Vendor = {
   status: 'draft' | 'published' | 'pending';
   latitude: number | null;    // ← NEW
   longitude: number | null;   // ← NEW
+  date_created?: string; // ✅ ADD THIS
+  date_updated?: string; // ✅ ADD THIS
 };
 
 // ============ USER TYPES ============

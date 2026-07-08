@@ -2,6 +2,13 @@ import { getAllVendors, getVendorsByCategory, getCategories, Category, Vendor } 
 import VendorList from './components/VendorList';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { RatingData } from '@/components/VendorCard';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/vendors`,
+  },
+};
 
 export default async function VendorsPage({ 
   searchParams 

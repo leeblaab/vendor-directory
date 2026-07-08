@@ -14,6 +14,9 @@ export default function robots(): MetadataRoute.Robots {
           '/register',
           '/submit',
           '/search',
+          // Add any future user dashboard or profile paths here
+          // '/dashboard', 
+          // '/profile',
         ],
       },
     ],

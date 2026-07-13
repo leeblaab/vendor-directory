@@ -23,18 +23,27 @@ export const metadata: Metadata = {
   },
 };
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: 'swap',
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: 'swap',
 });
 
+const materialSymbols = {
+  variable: '--font-material-symbols',
+};
 
 export default function RootLayout({
   children,
@@ -50,7 +59,11 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
       <head>
-        {/* Material Symbols for icons */}
+        {/* Preconnect to Google Fonts domains for performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* Material Symbols for icons - loaded as a simple stylesheet */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"

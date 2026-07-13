@@ -2,6 +2,9 @@
 
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    optimizePackageImports: ['motion'],
+  },
   images: {
     remotePatterns: [
       {

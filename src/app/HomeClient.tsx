@@ -56,7 +56,7 @@ export default function HomeClient() {
           </h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-            {categories.map((category: any) => (
+            {categories.map((category: any, index) => (
               <a
                 key={category.id}
                 href={`/vendors?category=${category.slug}`}
@@ -74,6 +74,8 @@ export default function HomeClient() {
                           src={`/api/directus/assets/${category.category_image.id}?width=400&height=400&fit=cover`}
                           alt={category.name}
                           fill
+                          // Adding priority to the first image to optimize LCP
+                          priority={index === 0}
                           className="object-cover transition-transform duration-300 group-hover:scale-110"
                           sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"
                         />

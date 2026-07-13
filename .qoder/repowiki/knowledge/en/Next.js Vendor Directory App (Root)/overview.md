@@ -1,0 +1,1 @@
+Root of a Next.js 16 application that serves as the vendor directory UI, configured with shadcn/radix components, Tailwind v4, and a Directus SDK client.

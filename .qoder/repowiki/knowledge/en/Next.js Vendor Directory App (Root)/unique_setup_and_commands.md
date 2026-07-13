@@ -1,0 +1,1 @@
+The dev script forces legacy OpenSSL via `node --openssl-legacy-provider ./node_modules/next/dist/bin/next dev` to work around Node/OpenSSL compatibility with this Next.js version. Image optimization is disabled (`images.unoptimized: true`) because the remote asset host is an HTTP IP address not whitelisted by Next's default HTTPS-only rule.

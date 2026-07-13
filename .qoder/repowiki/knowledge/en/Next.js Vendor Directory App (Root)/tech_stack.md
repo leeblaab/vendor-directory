@@ -1,0 +1,1 @@
+Next.js 16 + React 19 (RSC), TypeScript 5 strict mode, Tailwind CSS v4 via PostCSS plugin, shadcn/ui with Radix primitives (style `radix-luma`, base color `neutral`), Directus SDK v21, Leaflet + react-leaflet v5, Framer Motion v12, lucide-react icons, next-themes for theme switching.

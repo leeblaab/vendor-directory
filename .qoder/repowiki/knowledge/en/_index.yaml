@@ -1,0 +1,26 @@
+# 知识卡导出索引文件
+schema_version: 1
+locale: en-US
+branch: main
+nodes_managed: true
+exported_at: "2026-07-11T19:31:36Z"
+modules:
+    "":
+        dir_name: Next.js Vendor Directory App (Root)
+        title: Next.js Vendor Directory App (Root)
+        scope:
+            - README.md
+            - AGENTS.md
+            - CLAUDE.md
+            - .gitignore
+            - components.json
+            - eslint.config.mjs
+            - next.config.js
+            - postcss.config.mjs
+            - tsconfig.json
+            - package.json
+            - package-lock.json
+        source_files: []
+        children: []
+        depends_on: []
+        related_to: []

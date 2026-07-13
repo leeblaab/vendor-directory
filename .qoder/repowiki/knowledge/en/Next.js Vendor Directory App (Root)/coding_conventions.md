@@ -1,0 +1,3 @@
+- Absolute imports use the `@/` path alias mapped to `src/` (e.g. `@/components/ui`, `@/lib/utils`, `@/hooks`) rather than relative paths.
+- Configuration files are ES modules using the modern flat/config export shape (`eslint.config.mjs`, `postcss.config.mjs`) instead of JSON/YAML configs.
+- UI components are generated and consumed via shadcn/cli following the `@/components/ui` convention with Tailwind CSS variables and radix primitives.

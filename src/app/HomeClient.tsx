@@ -71,13 +71,13 @@ export default function HomeClient() {
                     {category.category_image ? (
                       <div className="relative w-full aspect-square mb-3 rounded-lg overflow-hidden bg-gray-50">
                         <Image
-                          src={`/api/directus/assets/${category.category_image.id}?width=400&height=400&fit=cover`}
+                          src={`/api/directus/assets/${category.category_image.id}`}
                           alt={category.name}
                           fill
                           // Adding priority to the first image to optimize LCP
                           priority={index === 0}
                           className="object-cover transition-transform duration-300 group-hover:scale-110"
-                          sizes="(max-width: 640px) 189px, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"
+                          sizes="(max-width: 640px) 189px, (max-width: 768px) 33vw, 25vw"
                         />
                       </div>
                     ) : (

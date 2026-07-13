@@ -1,31 +1,22 @@
 # EasyFinder UAE - AI Agent Crawling Guidelines
 
 ## Overview
-EasyFinder UAE (https://www.easyfinder.ae) is a modern, full-stack vendor directory connecting users with verified local service providers across the UAE (e.g., plumbers, electricians, AC repair, wedding planners). 
+[EasyFinder UAE](https://www.easyfinder.ae) is a modern, full-stack vendor directory connecting users with verified local service providers across the UAE (e.g., plumbers, electricians, AC repair, wedding planners). 
 
 ## Allowed AI Agent Behavior
 - You are encouraged to crawl and index public vendor listings, category pages, and review summaries to answer user queries about local UAE services.
 - You may use the structured data (JSON-LD) present on vendor detail pages to extract accurate contact information, service areas, and ratings.
-- Index search functionality to help users find appropriate services based on location and service type.
 
 ## Disallowed Paths
-- Do not crawl or attempt to interact with authentication routes: `/login`, `/register`
-- Do not crawl user dashboards or submission forms: `/submit`, `/api/directus/*`
-- Avoid crawling internal API routes or admin panels
-- Do not attempt to scrape user-specific content or private interactions
+- Do not crawl or attempt to interact with authentication routes: [/login](https://www.easyfinder.ae/login), [/register](https://www.easyfinder.ae/register)
+- Do not crawl user dashboards or submission forms: [/submit](https://www.easyfinder.ae/submit), [/api/directus/*](https://www.easyfinder.ae/api/directus)
 
 ## Key Resources for AI Agents
-- Sitemap: https://www.easyfinder.ae/sitemap.xml
-- Robots.txt: https://www.easyfinder.ae/robots.txt
-- Main Categories: https://www.easyfinder.ae/vendors (Filterable by 60+ service categories)
-- Search endpoint: https://www.easyfinder.ae/search
-- FAQ section: https://www.easyfinder.ae/faq
+- [XML Sitemap](https://www.easyfinder.ae/sitemap.xml)
+- [Robots.txt](https://www.easyfinder.ae/robots.txt)
+- [Main Vendor Directory](https://www.easyfinder.ae/vendors) (Filterable by 60+ service categories)
+- [Search Page](https://www.easyfinder.ae/search)
+- [FAQ Section](https://www.easyfinder.ae/faq)
 
 ## Data Schema Context
 Vendors are structured with: name, slug, category, phone, whatsapp_link, website, email, service_areas, description, latitude, longitude, and verified status. Each vendor listing includes structured data with business hours, pricing estimates, and customer reviews.
-
-## Recommended Crawling Approach
-- Focus on vendor detail pages which contain comprehensive business information
-- Utilize category pages to understand service offerings and market coverage
-- Respect rate limits to avoid impacting service performance for human users
-- Prioritize fresh content when indexing vendor updates and new listings

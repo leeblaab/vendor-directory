@@ -42,6 +42,9 @@ export type Vendor = {
   longitude: number | null;   // ← NEW
   date_created?: string; // ✅ ADD THIS
   date_updated?: string; // ✅ ADD THIS
+    // ✅ NEW: Google Review Fields
+  google_review_rating?: number | null;
+  google_review_count?: number | null;
 };
 
 // ============ USER TYPES ============
@@ -71,6 +74,8 @@ const VENDOR_FIELDS = [
   'category.icon',
   'logo.id',
   'logo.filename_download',
+  'google_review_rating', // ✅ NEW
+  'google_review_count',  // ✅ NEW
 ];
 
 export type Review = {

@@ -23,7 +23,6 @@ export default async function VendorsPage({
   let error = false;
 
   try {
-    // ✅ FIXED: Only fetch all vendors if no category is specified, otherwise fetch by category
     if (urlCategory) {
       allVendors = await getVendorsByCategory(urlCategory);
     } else {
@@ -35,7 +34,7 @@ export default async function VendorsPage({
     error = true;
   }
 
-  // ✅ FIXED: Fetch ratings for all vendors in a SINGLE batched query
+  // Fetch ratings for all vendors in a SINGLE batched query
   const ratingsMap: Record<number, RatingData | null> = {};
   if (!error && allVendors.length > 0) {
     try {
@@ -98,7 +97,7 @@ export default async function VendorsPage({
                 {categoryIcon}
               </span>
             ) : (
-              '🔧'
+              ''
             )}
           </div>
 
@@ -151,7 +150,7 @@ export default async function VendorsPage({
         </div>
       ) : (
         <VendorList 
-          vendors={allVendors}  // ✅ PASS FILTERED VENDORS BASED ON CATEGORY
+          vendors={allVendors}
           currentCategory={urlCategory} 
           categories={categories} 
           ratingsMap={ratingsMap}

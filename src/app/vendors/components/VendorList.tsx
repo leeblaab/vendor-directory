@@ -1,164 +1,167 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
+import { useState, useMemo } from 'react';
+import { Vendor, Category } from '@/lib/directus';
 import VendorCard, { RatingData } from '@/components/VendorCard';
-import VendorFilters from './VendorFilters'; // Import the new advanced filters
-import type { Vendor, Category } from '@/lib/directus';
+import FilterBar from '@/components/FilterBar';
 
-// Dynamically import the map to avoid SSR issues
-const VendorMap = dynamic(() => import('@/components/VendorMap'), {
-  ssr: false,
-  loading: () => (
-    <div className="h-[600px] bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center">
-      <div className="text-center">
-        <span className="material-symbols-outlined text-4xl text-gray-400 mb-2 block">map</span>
-        <span className="text-gray-500 dark:text-gray-400">Loading map...</span>
-      </div>
-    </div>
-  )
-});
-
-interface VendorListProps {
+export default function VendorList({
+  vendors,
+  currentCategory,
+  categories,
+  ratingsMap,
+}: {
   vendors: (Vendor & { category: Category })[];
   currentCategory?: string;
   categories: Category[];
-  ratingsMap: Record<number, RatingData>;
-}
+  ratingsMap: Record<number, RatingData | null>;
+}) {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedArea, setSelectedArea] = useState('');
+  const [minRating, setMinRating] = useState(0);
+  const [minGoogleRating, setMinGoogleRating] = useState(0);
+  const [showVerifiedOnly, setShowVerifiedOnly] = useState(false);
+  const [sortBy, setSortBy] = useState<'name' | 'rating' | 'google-rating' | 'reviews'>('name');
 
-export default function VendorList({ 
-  vendors, 
-  currentCategory, 
-  categories, 
-  ratingsMap 
-}: VendorListProps) {
-  const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
-  const [filteredVendors, setFilteredVendors] = useState<(Vendor & { category: Category })[]>(vendors);
-  
-  // ✅ NEW: "Load More" Pagination State
-  const [visibleCount, setVisibleCount] = useState(24); // Show 24 items initially
-
-  // Initialize filteredVendors with the initial vendors prop when vendors change
-  useEffect(() => {
-    setFilteredVendors(vendors);
-    setVisibleCount(24); // Reset pagination when vendors prop changes (e.g., category change)
+  // Extract all unique service areas
+  const allAreas = useMemo(() => {
+    const areas = new Set<string>();
+    vendors.forEach((vendor) => {
+      const serviceAreas = Array.isArray(vendor.service_areas)
+        ? vendor.service_areas
+        : [];
+      serviceAreas.forEach((area) => areas.add(area));
+    });
+    return Array.from(areas).sort();
   }, [vendors]);
 
-  // Handle filter changes from the new VendorFilters component (only non-category filters)
-  const handleFilterChange = (newFilteredVendors: (Vendor & { category: Category })[]) => {
-    setFilteredVendors(newFilteredVendors);
-    setVisibleCount(24); // Reset pagination when filters change
-  };
+  // Filter and sort vendors
+  const filteredVendors = useMemo(() => {
+    let result = vendors.filter((vendor) => {
+      // Search filter
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        const matchesName = vendor.name.toLowerCase().includes(query);
+        const matchesDesc = vendor.description?.toLowerCase().includes(query) || false;
+        if (!matchesName && !matchesDesc) return false;
+      }
 
-  // Get the vendors to display based on "Load More" count
-  const vendorsToShow = filteredVendors.slice(0, visibleCount);
-  const hasMore = visibleCount < filteredVendors.length;
+      // Area filter
+      if (selectedArea) {
+        const serviceAreas = Array.isArray(vendor.service_areas)
+          ? vendor.service_areas
+          : [];
+        if (!serviceAreas.includes(selectedArea)) return false;
+      }
+
+      // Platform rating filter
+      if (minRating > 0) {
+        const vendorRating = ratingsMap[vendor.id]?.average || 0;
+        if (vendorRating < minRating) return false;
+      }
+
+      // Google rating filter
+      if (minGoogleRating > 0) {
+        const googleRating = vendor.google_review_rating || 0;
+        if (googleRating < minGoogleRating) return false;
+      }
+
+      // Verified filter
+      if (showVerifiedOnly && !vendor.verified) return false;
+
+      return true;
+    });
+
+    // Sort
+    result.sort((a, b) => {
+      switch (sortBy) {
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'rating':
+          const ratingA = ratingsMap[a.id]?.average || 0;
+          const ratingB = ratingsMap[b.id]?.average || 0;
+          return ratingB - ratingA;
+        case 'google-rating':
+          const googleA = a.google_review_rating || 0;
+          const googleB = b.google_review_rating || 0;
+          return googleB - googleA;
+        case 'reviews':
+          const reviewsA = ratingsMap[a.id]?.count || 0;
+          const reviewsB = ratingsMap[b.id]?.count || 0;
+          return reviewsB - reviewsA;
+        default:
+          return 0;
+      }
+    });
+
+    return result;
+  }, [vendors, searchQuery, selectedArea, minRating, minGoogleRating, showVerifiedOnly, sortBy, ratingsMap]);
 
   return (
-    <div className="space-y-6">
-      {/* ✅ NEW: Advanced Filters Component */}
-      <VendorFilters 
-        vendors={vendors}
-        currentCategory={currentCategory}
-        categories={categories}
-        ratingsMap={ratingsMap}
-        onFilterChange={handleFilterChange}
+    <div>
+      {/* Filter Bar */}
+      <FilterBar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        selectedArea={selectedArea}
+        setSelectedArea={setSelectedArea}
+        allAreas={allAreas}
+        minRating={minRating}
+        setMinRating={setMinRating}
+        minGoogleRating={minGoogleRating}
+        setMinGoogleRating={setMinGoogleRating}
+        showVerifiedOnly={showVerifiedOnly}
+        setShowVerifiedOnly={setShowVerifiedOnly}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
       />
 
-      {/* View Toggle (List/Map) */}
-      <div className="flex justify-end">
-        <div className="flex gap-2 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
-          <button
-            onClick={() => setViewMode('list')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition flex items-center gap-2 ${
-              viewMode === 'list'
-                ? 'bg-white dark:bg-gray-700 shadow text-gray-900 dark:text-white'
-                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-            }`}
-          >
-            <span className="material-symbols-outlined text-lg">list</span>
-            List
-          </button>
-          <button
-            onClick={() => setViewMode('map')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition flex items-center gap-2 ${
-              viewMode === 'map'
-                ? 'bg-white dark:bg-gray-700 shadow text-gray-900 dark:text-white'
-                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-            }`}
-          >
-            <span className="material-symbols-outlined text-lg">map</span>
-            Map
-          </button>
-        </div>
-      </div>
-
       {/* Results Count */}
-      <div className="text-sm text-gray-600 dark:text-gray-400">
-        Showing <span className="font-semibold text-gray-900 dark:text-white">{vendorsToShow.length}</span> of {filteredVendors.length} providers
-        {viewMode === 'map' && (
-          <>
-            {' • '}
-            <span className="font-semibold text-gray-900 dark:text-white">
-              {filteredVendors.filter(v => v.latitude && v.longitude).length}
-            </span> with location data
-          </>
+      <div className="mb-4 flex items-center justify-between">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Showing <span className="font-semibold text-gray-900 dark:text-white">{filteredVendors.length}</span> of{' '}
+          <span className="font-semibold text-gray-900 dark:text-white">{vendors.length}</span> providers
+        </p>
+        {(searchQuery || selectedArea || minRating > 0 || minGoogleRating > 0 || showVerifiedOnly) && (
+          <button
+            onClick={() => {
+              setSearchQuery('');
+              setSelectedArea('');
+              setMinRating(0);
+              setMinGoogleRating(0);
+              setShowVerifiedOnly(false);
+            }}
+            className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+          >
+            <span className="material-symbols-outlined text-base">clear_all</span>
+            Clear filters
+          </button>
         )}
       </div>
 
-      {/* Content: List or Map */}
-      {filteredVendors.length === 0 && currentCategory ? (
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-8 text-center">
-          <span className="material-symbols-outlined text-yellow-500 dark:text-yellow-400 text-4xl mb-3 block">
+      {/* Vendor Grid */}
+      {filteredVendors.length === 0 ? (
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-12 text-center">
+          <span className="material-symbols-outlined text-gray-400 dark:text-gray-600 text-6xl mb-4 block">
             search_off
           </span>
-          <p className="text-yellow-800 dark:text-yellow-300 font-medium">
-            No providers match your filters in this category. Try adjusting your search criteria.
-          </p>
-          <a 
-            href="/vendors" 
-            className="mt-3 inline-block text-blue-600 dark:text-blue-400 hover:underline"
-          >
-            View all providers
-          </a>
-        </div>
-      ) : filteredVendors.length === 0 ? (
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-8 text-center">
-          <span className="material-symbols-outlined text-yellow-500 dark:text-yellow-400 text-4xl mb-3 block">
-            search_off
-          </span>
-          <p className="text-yellow-800 dark:text-yellow-300 font-medium">
-            No providers match your filters. Try adjusting your search criteria.
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            No providers found
+          </h3>
+          <p className="text-gray-600 dark:text-gray-400">
+            Try adjusting your filters or search query
           </p>
         </div>
-      ) : viewMode === 'map' ? (
-        <VendorMap vendors={filteredVendors} height="600px" />
       ) : (
-        <>
-          {/* Vendor Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {vendorsToShow.map((vendor) => (
-              <VendorCard 
-                key={vendor.id} 
-                vendor={vendor} 
-                ratingData={ratingsMap[vendor.id]}
-              />
-            ))}
-          </div>
-
-          {/* ✅ NEW: Load More Button */}
-          {hasMore && (
-            <div className="flex justify-center mt-8">
-              <button
-                onClick={() => setVisibleCount(prev => prev + 24)}
-                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg transition-all transform hover:scale-105 flex items-center gap-2"
-              >
-                <span className="material-symbols-outlined">expand_more</span>
-                Load More Providers ({filteredVendors.length - visibleCount} remaining)
-              </button>
-            </div>
-          )}
-        </>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredVendors.map((vendor) => (
+            <VendorCard
+              key={vendor.id}
+              vendor={vendor}
+              ratingData={ratingsMap[vendor.id]}
+            />
+          ))}
+        </div>
       )}
     </div>
   );

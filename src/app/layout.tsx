@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     default: 'EasyFinder UAE - Find Trusted Local Service Providers',
     template: '%s | EasyFinder UAE',
   },
-  description: 'Discover 1000+ verified service providers across the UAE. Plumbers, electricians, AC repair, cleaning, and more.',
+  description: 'Discover 10,000+ verified service providers across the UAE. Plumbers, electricians, AC repair, cleaning, and more.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.easyfinder.ae'),
   openGraph: {
     images: ['/og-image.png'],

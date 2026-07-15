@@ -7,13 +7,13 @@ import BoidsEcosystem from '@/components/animata/background/boids-ecosystem';
 
 export const metadata: Metadata = {
   title: 'EasyFinder UAE - Find Trusted Local Service Providers',
-  description: 'Discover 1000+ verified service providers across the UAE. Plumbers, electricians, AC repair, cleaning, and more. Contact directly via WhatsApp.',
+  description: 'Discover 17,000+ verified service providers across the UAE. Plumbers, electricians, AC repair, cleaning, and more. Contact directly via WhatsApp.',
   keywords: ['UAE', 'service providers', 'plumbers', 'electricians', 'AC repair', 'Dubai', 'Abu Dhabi', 'Sharjah', 'home services'],
   authors: [{ name: 'EasyFinder UAE' }],
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.easyfinder.ae'),
   openGraph: {
     title: 'EasyFinder UAE - Find Trusted Local Service Providers',
-    description: 'Discover 1000+ verified service providers across the UAE. Contact directly via WhatsApp.',
+    description: 'Discover 17,000+ verified service providers across the UAE. Contact directly via WhatsApp.',
     url: 'https://www.easyfinder.ae',
     siteName: 'EasyFinder UAE',
     type: 'website',

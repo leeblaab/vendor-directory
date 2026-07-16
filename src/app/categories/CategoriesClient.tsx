@@ -75,7 +75,7 @@ export default function CategoriesClient({ categories }: CategoriesClientProps) 
                   {category.category_image ? (
                     <div className="relative w-full aspect-square mb-3 rounded-lg overflow-hidden bg-gray-50">
                       <Image
-                        src={`/api/directus/assets/${category.category_image.id}?width=400&height=400&fit=cover`}
+                        src={`/api/directus/assets/${category.category_image.id}`}
                         alt={category.name}
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-110"

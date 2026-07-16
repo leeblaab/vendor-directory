@@ -41,10 +41,6 @@ const geistMono = Geist_Mono({
   display: 'swap',
 });
 
-const materialSymbols = {
-  variable: '--font-material-symbols',
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -63,26 +59,40 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* Preload Material Symbols font CSS for faster loading */}
-        <link 
-          rel="preload" 
-          as="style" 
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" 
-        />
-        {/* Material Symbols for icons - loaded as a simple stylesheet */}
+        {/* Load Material Symbols font with media="print" initially, then switch to "all" with JavaScript */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+          media="print"
+          id="material-symbols-font"
+          suppressHydrationWarning
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                if (typeof document !== 'undefined') {
+                  const fontLink = document.getElementById('material-symbols-font');
+                  if (fontLink) {
+                    fontLink.media = 'all';
+                  }
+                }
+              })();
+            `
+          }}
+        />
+        <noscript>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" />
+        </noscript>
         
-        {/* Google Analytics - Production Only */}
+        {/* Google Analytics - Production Only with lazyOnload strategy for mobile */}
         {isProduction && gaId && (
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
-            <Script id="google-analytics" strategy="afterInteractive">
+            <Script id="google-analytics" strategy="lazyOnload">
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
@@ -107,11 +117,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
-
-// Type declaration for gtag
-declare global {
-  interface Window {
-    gtag: (command: string, ...args: any[]) => void;
-  }
 }

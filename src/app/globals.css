@@ -24,7 +24,7 @@
   --secondary: 180 212 255; /* #B4D4FF - medium light blue */
   --secondary-foreground: 23 107 135; /* #176B87 */
   
-  --muted: 238 245 255; /* #EEF5FF - light blue */
+  --muted: 238 245 255; /* #EEF5FF */
   --muted-foreground: 134 182 246; /* #86B6F6 - medium blue */
   
   --accent: 180 212 255; /* #B4D4FF - medium light blue */
@@ -130,6 +130,16 @@
     filter: blur(0);
     }
   }
+  /* Add slow pulse animation */
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+  --animation-pulse-slow: pulse-slow 4s ease-in-out infinite;
 }
 
 /* Dark mode - adjusted to complement the new color palette */
@@ -193,4 +203,9 @@
   html {
     @apply font-sans;
   }
+}
+
+/* Define the pulse-slow animation class */
+.animate-pulse-slow {
+  animation: var(--animation-pulse-slow);
 }

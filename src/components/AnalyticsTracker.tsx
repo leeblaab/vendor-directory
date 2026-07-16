@@ -1,10 +1,16 @@
+// src/components/AnalyticsTracker.tsx
 'use client';
 
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
-import Script from 'next/script';
 
-// Analytics Tracker Component for client-side navigation
+// Type declaration for Google Tag Manager dataLayer
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
+
 export function AnalyticsTracker() {
   const pathname = usePathname();
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
@@ -12,19 +18,17 @@ export function AnalyticsTracker() {
 
   useEffect(() => {
     if (isProduction && gaId && pathname && typeof window !== 'undefined') {
-      // Track page view
-      window.gtag('config', gaId, {
+      // ✅ SAFE: Initialize dataLayer if it doesn't exist
+      window.dataLayer = window.dataLayer || [];
+      
+      // ✅ SAFE: Push to dataLayer instead of calling window.gtag directly.
+      // GTM will automatically read this event as soon as it lazy-loads.
+      window.dataLayer.push({
+        event: 'page_view',
         page_path: pathname,
       });
     }
   }, [pathname, gaId, isProduction]);
 
   return null;
-}
-
-// Type declaration for gtag
-declare global {
-  interface Window {
-    gtag: (command: string, ...args: any[]) => void;
-  }
 }

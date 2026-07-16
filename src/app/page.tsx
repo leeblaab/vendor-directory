@@ -1,9 +1,12 @@
+// src/app/page.tsx
 import { Metadata } from 'next';
 import HomeClient from './HomeClient';
-import Link from 'next/link';
 import SearchBar from '@/components/SearchBar';
 import RippleLink from '@/components/RippleLink';
-import BoidsEcosystem from '@/components/animata/background/boids-ecosystem'; 
+
+// Incremental Static Regeneration: Cache this page for 60 seconds
+// This drastically reduces TTFB by serving from Vercel's edge cache
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'EasyFinder UAE - Find Trusted Local Service Providers',
@@ -47,47 +50,49 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-[#EEF5FF] via-white to-[#B4D4FF]">
       <div className="max-w-6xl mx-auto space-y-12 px-4 py-8">
+        
         {/* Hero Section */}
-          <section className="relative text-center py-16 md:py-24 bg-gradient-to-br from-[#176B87] to-[#86B6F6] text-white rounded-2xl shadow-xl overflow-hidden">
-            {/* Boids Ecosystem Background */}
-            <div className="absolute inset-0 z-0">
-              <BoidsEcosystem />
+        <section className="relative text-center py-16 md:py-24 bg-gradient-to-br from-[#176B87] to-[#86B6F6] text-white rounded-2xl shadow-xl overflow-hidden">
+          
+          {/* Lightweight CSS-only animated background (Zero JS main-thread cost) */}
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#176B87]/20 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(600px_circle_at_50%_50%,rgba(118,108,177,0.15),transparent_80%)] animate-pulse-slow"></div>
+            <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(134,182,246,0.1)_0%,transparent_50%)]"></div>
+          </div>
+
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-[#176B87]/40 z-0 pointer-events-none" />
+
+          {/* Content - z-10 to appear above background */}
+          <div className="relative z-10">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
+              Find Trusted Local Service Providers
+            </h1>
+
+            <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 opacity-90">
+              Discover reliable professionals across the UAE for plumbing, electrical work, cleaning, and more.
+            </p>
+
+            {/* Global Search Bar */}
+            <div className="max-w-2xl mx-auto mb-8 px-4">
+              <SearchBar />
             </div>
 
-            {/* Optional: Overlay for better text readability */}
-            <div className="absolute inset-0 bg-[#176B87]/40 z-0 pointer-events-none" />
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <RippleLink href="/categories">
+                Browse Categories
+              </RippleLink>
 
-            {/* Content - z-10 to appear above background */}
-            <div className="relative z-10">
-              {/* Title */}
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
-                Find Trusted Local Service Providers
-              </h1>
-
-              {/* Description */}
-              <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 opacity-90">
-                Discover reliable professionals across the UAE for plumbing, electrical work, cleaning, and more.
-              </p>
-
-              {/* Global Search Bar */}
-              <div className="max-w-2xl mx-auto mb-8 px-4">
-                <SearchBar />
-              </div>
-
-              {/* Buttons Container */}
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <RippleLink href="/categories">
-                  Browse Categories
-                </RippleLink>
-
-                <RippleLink href="/submit">
-                  List your business
-                </RippleLink>
-              </div>
+              <RippleLink href="/submit">
+                List your business
+              </RippleLink>
             </div>
-          </section>
+          </div>
+        </section>
 
-        {/* Client Component with Dynamic Content */}
+        {/* Client Component with Dynamic Content (Categories, Maps, etc.) */}
         <HomeClient />
 
         {/* Footer */}

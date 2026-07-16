@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { getCategories, Category } from '@/lib/directus';
 import CategoriesClient from './CategoriesClient';
 import Breadcrumbs from '@/components/Breadcrumbs';

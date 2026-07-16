@@ -13,8 +13,13 @@ const nextConfig = {
         port: '8055',
         pathname: '/assets/**',
       },
+          {
+      protocol: 'https',
+      hostname: 'api.easyfinder.ae',
+      pathname: '/assets/**',
+    },
     ],
-    unoptimized: true,
+    unoptimized: false, // ✅ Enable optimization!
   },
 };
 

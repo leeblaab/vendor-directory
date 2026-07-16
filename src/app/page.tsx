@@ -6,7 +6,7 @@ import RippleLink from '@/components/RippleLink';
 
 // Incremental Static Regeneration: Cache this page for 60 seconds
 // This drastically reduces TTFB by serving from Vercel's edge cache
-export const revalidate = 60;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'EasyFinder UAE - Find Trusted Local Service Providers',

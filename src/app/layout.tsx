@@ -55,10 +55,18 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
       <head>
+        {/* Preconnect to Directus API to reduce TTFB */}
+        <link rel="preconnect" href={process.env.NEXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055'} />
         {/* Preconnect to Google Fonts domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
+        {/* Preload the Google Fonts CSS to prevent layout shift (CLS) */}
+        <link 
+          rel="preload" 
+          as="style" 
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" 
+        />
         {/* Load Material Symbols font with media="print" initially, then switch to "all" with JavaScript */}
         <link
           rel="stylesheet"

@@ -2,6 +2,7 @@ import { getAllVendors, getVendorsByCategory, getCategories, Category, Vendor } 
 import VendorList from './components/VendorList';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { RatingData } from '@/components/VendorCard';
+import CategorySEOText from '@/components/CategorySEOText'; // ✅ NEW: Import the SEO component
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -137,6 +138,9 @@ export default async function VendorsPage({
           </div>
         </div>
       </div>
+
+      {/* ✅ NEW: Programmatic SEO Text for Category Pages */}
+      {urlCategory && <CategorySEOText slug={urlCategory} />}
 
       {/* Content */}
       {error ? (

@@ -49,7 +49,7 @@ export async function generateMetadata({
     : `Contact ${vendor.name}, a trusted ${categoryName} in the UAE. ${vendor.verified ? 'Verified business.' : 'Find phone, WhatsApp, and service areas.'}`;
 
   return {
-    title: `${vendor.name} - ${categoryName} in ${serviceAreas[0] || 'UAE'} | EasyFinder`,
+    title: `${vendor.name} - ${categoryName} | EasyFinder UAE`,
     description,
     alternates: {
       canonical: vendorUrl,

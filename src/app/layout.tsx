@@ -8,10 +8,11 @@ import Script from "next/script";
 import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 
 export const metadata: Metadata = {
-  title: {
-    default: 'EasyFinder UAE - Find Trusted Local Service Providers',
-    template: '%s | EasyFinder UAE',
-  },
+  // P0 title fix: plain-string title (type-valid in Next 16; a bare { default } is NOT assignable to Metadata.title).
+  // No `template:` here — that used to append " | EasyFinder UAE" to every page that ALREADY
+  // self-brands, producing the double brand "... | EasyFinder UAE | EasyFinder UAE".
+  // Each route page now carries its own single-brand title; title-less pages inherit this fallback.
+  title: 'EasyFinder UAE - Find Trusted Local Service Providers',
   description: 'Discover 10,000+ verified service providers across the UAE. Plumbers, electricians, AC repair, cleaning, and more.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.easyfinder.ae'),
   openGraph: {

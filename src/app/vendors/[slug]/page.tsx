@@ -48,14 +48,21 @@ export async function generateMetadata({
     ? vendor.description.slice(0, 160).replace(/\n/g, ' ')
     : `Contact ${vendor.name}, a trusted ${categoryName} in the UAE. ${vendor.verified ? 'Verified business.' : 'Find phone, WhatsApp, and service areas.'}`;
 
+  // P0 title-length fix: truncate vendor.name to 45 chars (append "..." when it exceeds)
+  // so the composed title stays in the SEO-safe range. Applied to title + og_title.
+  const vendorTitleName =
+    vendor.name.length > 45
+      ? vendor.name.slice(0, 45).trimEnd() + '...'
+      : vendor.name;
+
   return {
-    title: `${vendor.name} - ${categoryName} | EasyFinder UAE`,
+    title: `${vendorTitleName} – ${categoryName} | EasyFinder UAE`,
     description,
     alternates: {
       canonical: vendorUrl,
     },
     openGraph: {
-      title: vendor.name,
+      title: `${vendorTitleName} – ${categoryName} | EasyFinder UAE`,
       description,
       url: vendorUrl,
       siteName: 'EasyFinder UAE',
@@ -187,30 +194,39 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
       '@type': 'Place',
       name: area,
     })),
-    aggregateRating: ratingData ? {
+    aggregateRating: ratingData && ratingData.count > 0 ? {
       '@type': 'AggregateRating',
-      ratingValue: ratingData.average,
+      ratingValue: Math.round(ratingData.average * 10) / 10,
       reviewCount: ratingData.count,
       bestRating: 5,
       worstRating: 1,
     } : undefined,
-    review: reviews.slice(0, 3).map((review) => ({
-      '@type': 'Review',
-      author: {
-        '@type': 'Person',
-        name: typeof review.user === 'object' 
-          ? `${review.user.first_name} ${review.user.last_name || ''}`.trim()
-          : 'Verified Customer',
-      },
-      datePublished: review.created_at,
-      reviewBody: review.comment,
-      reviewRating: {
-        '@type': 'Rating',
-        ratingValue: review.rating,
-        bestRating: 5,
-        worstRating: 1,
-      },
-    })),
+    // Strict validator policy: only emit `review` when we have real site reviews.
+    // This keeps the schema "clean" for vendors with zero reviews (the 19k case).
+    // NOTE: Google's `aggregateRating` requirement is that the source is
+    // "your site's own users" — Google reviews are NOT a valid source and will
+    // trigger strict-validation errors. Do NOT "fix" this by pointing at
+    // vendor.google_review_rating/google_review_count without shipping Phase 3.1
+    // (vendor review ingestion) so the data source is legitimately our own.
+    ...(reviews.length > 0 && {
+      review: reviews.slice(0, 3).map((review) => ({
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: typeof review.user === 'object' 
+            ? `${review.user.first_name} ${review.user.last_name || ''}`.trim()
+            : 'Verified Customer',
+        },
+        datePublished: review.created_at,
+        reviewBody: review.comment,
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: review.rating,
+          bestRating: 5,
+          worstRating: 1,
+        },
+      })),
+    }),
     ...(vendor.website && { sameAs: [vendor.website] }),
     category: categoryName,
     serviceType: categoryName,

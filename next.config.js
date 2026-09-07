@@ -2,6 +2,11 @@
 
 const nextConfig = {
   reactStrictMode: true,
+  // P0 canonical fix: pin the trailing-slash policy. Both the vendor canonical and the
+  // sitemap already generate NO-SLASH urls and match live, but the key was previously
+  // unmanaged (implicit default). Declaring it explicitly protects the canonical/sitemap
+  // agreement — if this ever flipped to true, live URLs and sitemap URLs would diverge.
+  trailingSlash: false,
   experimental: {
     optimizePackageImports: ['motion'],
   },

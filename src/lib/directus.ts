@@ -114,6 +114,35 @@ export function getLogoUrl(logo: Vendor['logo']): string | null {
   return null;
 }
 
+/**
+ * Elite rail: verified pros with a proven track record.
+ * Filter: verified=true AND google_review_rating>=4.5 AND google_review_count>=5.
+ * Verified live (api.easyfinder.ae, 2026-09-08): 89+ vendors match; we show top 8.
+ */
+export async function getEliteVendors(limit: number = 8): Promise<(Vendor & { category: Category })[]> {
+  try {
+    const vendors = await directus.request<(Vendor & { category: Category })[]>(
+      readItems('vendors', {
+        filter: {
+          _and: [
+            { status: { _eq: 'published' } },
+            { verified: { _eq: true } },
+            { google_review_rating: { _gte: 4.5 } },
+            { google_review_count: { _gte: 5 } },
+          ],
+        },
+        fields: VENDOR_FIELDS,
+        sort: ['-google_review_count', '-google_review_rating'],
+        limit,
+      })
+    );
+    return vendors || [];
+  } catch (error) {
+    console.error('Error fetching elite vendors from Directus:', error);
+    return [];
+  }
+}
+
 // ============ CATEGORY FUNCTIONS ============
 
 export async function getCategories(): Promise<Category[]> {

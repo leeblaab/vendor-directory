@@ -63,7 +63,7 @@ export default function CategoriesClient({ categories }: CategoriesClientProps) 
           {filteredCategories.map((category) => (
             <Link
               key={category.id}
-              href={`/vendors?category=${category.slug}`}
+              href={`/categories/${category.slug}`}
               className="block group"
             >
               <SpotlightCard

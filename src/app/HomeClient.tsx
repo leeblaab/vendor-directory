@@ -59,7 +59,7 @@ export default function HomeClient() {
             {categories.map((category: any, index) => (
               <a
                 key={category.id}
-                href={`/vendors?category=${category.slug}`}
+                href={`/categories/${category.slug}`}
                 className="block group"
               >
                 <SpotlightCard

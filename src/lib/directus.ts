@@ -271,6 +271,26 @@ export async function getRelatedVendors(
   }
 }
 
+export async function getCategoryTopVendors(
+  categoryId: number,
+  limit = 12
+): Promise<(Vendor & { category: Category })[]> {
+  try {
+    const vendors = await directus.request<(Vendor & { category: Category })[]>(
+      readItems('vendors', {
+        filter: { category: { _eq: categoryId }, status: { _eq: 'published' } },
+        fields: VENDOR_FIELDS,
+        sort: ['-verified', 'name'],
+        limit,
+      })
+    );
+    return vendors || [];
+  } catch (error) {
+    console.error(`Error fetching top vendors for category ${categoryId}:`, error);
+    return [];
+  }
+}
+
 // ============ AUTH FUNCTIONS (Using Proxy to bypass CORS) ============
 
 export async function registerUser(data: {

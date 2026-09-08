@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getAllVendors } from '@/lib/directus';
+import { getAllVendors, getCategories } from '@/lib/directus';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
@@ -12,6 +12,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${baseUrl}/faq`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
   ];
+
+  // 1b. Categories (index + one landing page per category)
+  let categoryPages: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/categories`, lastModified: now, changeFrequency: 'daily', priority: 0.7 },
+  ];
+  try {
+    const categories = await getCategories();
+    categoryPages = [
+      ...categoryPages,
+      ...categories.map(
+        (c): MetadataRoute.Sitemap[number] => ({
+          url: `${baseUrl}/categories/${c.slug}`,
+          lastModified: now,
+          changeFrequency: 'weekly',
+          priority: 0.9,
+        })
+      ),
+    ];
+  } catch (e) {
+    console.error('sitemap: categories fetch failed', e);
+  }
 
   // 2. Fetch vendors
   let vendorPages: MetadataRoute.Sitemap = [];
@@ -35,5 +56,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error fetching vendors for sitemap:', error);
   }
 
-  return [...staticPages, ...vendorPages];
+  return [...staticPages, ...categoryPages, ...vendorPages];
 }

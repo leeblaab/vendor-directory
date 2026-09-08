@@ -44,9 +44,13 @@ export async function generateMetadata({
   const logoUrl = getLogoUrl(vendor.logo);
   const categoryName = typeof vendor.category === 'object' ? vendor.category.name : 'Service Provider';
 
-  const description = vendor.description 
-    ? vendor.description.slice(0, 160).replace(/\n/g, ' ')
+  // Word-boundary description, capped at 158 total chars (never mid-word, no word-overflow truncation).
+  const rawDescription = vendor.description
+    ? vendor.description.replace(/\n/g, ' ')
     : `Contact ${vendor.name}, a trusted ${categoryName} in the UAE. ${vendor.verified ? 'Verified business.' : 'Find phone, WhatsApp, and service areas.'}`;
+  const description = rawDescription.length > 158
+    ? rawDescription.slice(0, 155).replace(/[\s.]+$/, '') + '...'
+    : rawDescription;
 
   // P0 title-length fix: truncate vendor.name to 45 chars (append "..." when it exceeds)
   // so the composed title stays in the SEO-safe range. Applied to title + og_title.
@@ -72,7 +76,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: vendor.name,
+      title: `${vendorTitleName} – ${categoryName} | EasyFinder UAE`,
       description,
       images: logoUrl ? [logoUrl] : [],
     },

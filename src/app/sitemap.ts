@@ -20,13 +20,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     vendorPages = vendors.map((vendor) => {
       const lastMod = vendor.date_updated || vendor.date_created || now;
       
-      // ✅ CRITICAL FIX: Encode the slug to prevent XML crashes (&) and handle Arabic/special chars
+      // ✅ Encode the slug to prevent XML crashes (&) and handle Arabic/special chars
       // Next.js will automatically decode this when the user visits the page.
       const encodedSlug = encodeURIComponent(vendor.slug);
-      
+
       return {
         url: `${baseUrl}/vendors/${encodedSlug}`,
-        lastModified: new Date(lastMod),
+        lastModified: lastMod,
         changeFrequency: 'weekly',
         priority: 0.6,
       };

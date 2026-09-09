@@ -30,20 +30,25 @@ export async function metadata({ searchParams }: Omit<SearchPageProps, 'params'>
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const [q, categories] = await Promise.all([
-    resolveQuery(searchParams),
-    getCategories(),
-  ]);
+  // Next 16: searchParams is async — must be awaited before use.
+  const q = await resolveQuery(searchParams);
 
   // Initial page of 12, total = filter_count (proven against api.easyfinder.ae).
+  // BOTH fetches are guarded: an API hiccup must degrade to an empty state,
+  // never a hard 500 ("A server error occurred") on a user-facing page.
   let vendors: (Vendor & { category: Category })[] = [];
   let total = 0;
+  let categories: Category[] = [];
   try {
-    const { items, total: t } = await searchVendors(q, 12, 0);
-    vendors = items;
-    total = t;
+    const [cats, search] = await Promise.all([
+      getCategories(),
+      searchVendors(q, 12, 0),
+    ]);
+    categories = cats;
+    vendors = search.items;
+    total = search.total;
   } catch (err) {
-    console.error('searchVendors failed on /search', err);
+    console.error('search page data fetch failed', err);
   }
 
   // JSON-LD — only when non-empty to avoid noise.

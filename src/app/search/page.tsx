@@ -1,9 +1,14 @@
+import { Suspense } from 'react';
 import { Metadata } from 'next';
 import SearchResultsClient from './SearchResultsClient';
 import { getCategories, searchVendors, Vendor, Category } from '@/lib/directus';
 
+// NOTE: no `force-dynamic` here on purpose — /vendors (the working reference)
+// omits it. With a fully static `export const metadata` there is no dynamic
+// metadata to evaluate at build time, so the static-metadata page pattern
+// holds on Vercel exactly like /vendors. Keep the two pages structurally
+// identical so we don't diverge into different flight-serialization paths.
 interface SearchPageProps {
-  params: Promise<{ q: string[] }>;
   searchParams: Promise<{ q?: string; page?: string }>;
 }
 
@@ -12,24 +17,26 @@ async function resolveQuery(searchParams: Promise<{ q?: string }>) {
   return (sp.q || '').toString().trim();
 }
 
-export async function metadata({ searchParams }: Omit<SearchPageProps, 'params'>): Promise<Metadata> {
-  const q = await resolveQuery(searchParams);
-  const baseTitle = q ? `Search "${q}" — EasyFinder UAE` : 'Search — EasyFinder UAE';
-  const baseDesc = q
-    ? `Browse service providers in UAE who match "${q}".`
-    : 'Search the UAE directory of service providers.';
-  return {
-    title: baseTitle,
-    description: baseDesc,
-    openGraph: {
-      title: baseTitle,
-      description: baseDesc,
-      url: q ? `/search?q=${encodeURIComponent(q)}` : '/search',
-    },
-  };
-}
+// Next 16 + React 19: an `export async function metadata` that awaits the
+// `searchParams` Promise fails inside React Flight when it serializes the
+// `Next.MetadataOutlet` slot during client navigation (router.push) —
+// `TypeError: Cannot read properties of undefined (reading '$$typeof')`.
+// A full page GET masks this (SSR is lenient), but the in-app search bar
+// (client nav) hits it and renders the error page. The working /vendors
+// page sidesteps this with a *static* `export const metadata`. Do the same.
+// Per-query SEO (dynamic title/OG/ItemList) is a follow-up — emit from the
+// client once this barrier is cleared, not via the RSC metadata path.
+export const metadata: Metadata = {
+  title: 'Search — EasyFinder UAE',
+  description: 'Search the UAE directory of verified service providers.',
+  openGraph: {
+    title: 'Search — EasyFinder UAE',
+    description: 'Find a reliable local provider in minutes.',
+    url: '/search',
+  },
+};
 
-export default async function SearchPage({ searchParams }: SearchPageProps) {
+async function SearchPageContent({ searchParams }: SearchPageProps) {
   // Next 16: searchParams is async — must be awaited before use.
   const q = await resolveQuery(searchParams);
 
@@ -51,7 +58,10 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     console.error('search page data fetch failed', err);
   }
 
-  // JSON-LD — only when non-empty to avoid noise.
+  // JSON-LD — ItemList of the current result page. Only emitted when there
+  // are vendors (no noise). Static metadata is separate; this block is the
+  // dynamic SEO payload. Same inline <script> pattern proven on
+  // /vendors/[slug] (two such scripts, working flight).
   const jsonLd = vendors.length ? {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -127,5 +137,19 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         />
       </div>
     </div>
+  );
+}
+
+function LoadingFallback() {
+  return (
+    <p className="text-ink/50 py-10 text-center">Loading providers…</p>
+  );
+}
+
+export default function SearchPage(props: SearchPageProps) {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <SearchPageContent {...props} />
+    </Suspense>
   );
 }

@@ -10,7 +10,7 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const { user, isAuthenticated, isLoading, logout } = useAuth();
-  
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -56,11 +56,12 @@ export default function Header() {
 
   // Navigation links
   const navLinks = [
-    { href: '/', label: 'Home', icon: 'home' },
-    { href: '/vendors', label: 'Browse Services', icon: 'storefront' },
-    { href: '/about', label: 'About', icon: 'info' },
-    { href: '/contact', label: 'Contact', icon: 'mail' },
-    { href: '/faq', label: 'FAQ', icon: 'help' },
+    { href: '/', label: 'Home' },
+    { href: '/vendors', label: 'Browse Services' },
+    { href: '/categories', label: 'Categories' },
+    { href: '/about', label: 'About' },
+    { href: '/contact', label: 'Contact' },
+    { href: '/faq', label: 'FAQ' },
   ];
 
   // Helper to check if link is active
@@ -70,209 +71,151 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
-          
+    <header className="sticky top-0 z-50 w-full border-b border-border-soft bg-white/85 backdrop-blur-md">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="flex h-16 items-center justify-between">
           {/* ============ LEFT: LOGO ============ */}
-          <Link 
-            href="/" 
-            className="flex items-center gap-2 group"
-          >
-            <div className="h-9 w-auto rounded-lg overflow-hidden shadow-md group-hover:shadow-lg transition-shadow flex-shrink-0">
+          <Link href="/" className="group flex items-center gap-2.5">
+            <div className="h-9 w-auto flex-shrink-0 overflow-hidden rounded-lg border border-border-soft bg-white group-hover:border-brass-soft transition-colors">
               <Image
                 src="/logo.png"
                 alt="EasyFinder UAE Logo"
-                width={200}
-                height={200}
+                width={160}
+                height={160}
                 className="h-9 w-auto"
                 priority
               />
             </div>
-            <div className="hidden sm:block">
-              <div className="text-lg font-bold text-gray-900 dark:text-white leading-tight">
+            <div className="hidden sm:block leading-none">
+              <div
+                className="text-[17px] font-medium tracking-tight text-ink"
+                style={{ fontFamily: 'var(--font-display), var(--font-sans)' }}
+              >
                 EasyFinder
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 -mt-0.5 leading-tight">UAE</div>
+              <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.3em] text-text-faint">
+                UAE
+              </div>
             </div>
           </Link>
 
-          {/* ============ CENTER: NAV LINKS (Desktop only) ============ */}
-          <nav className="hidden lg:flex items-center gap-1">
+          {/* ============ CENTER: NAV LINKS (Desktop) ============ */}
+          <nav className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                className={`relative rounded-full px-3.5 py-2 text-sm transition-colors ${
                   isActive(link.href)
-                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                    ? 'font-medium text-ink'
+                    : 'text-text-muted hover:bg-bone hover:text-ink'
                 }`}
               >
-                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
-                  {link.icon}
-                </span>
                 {link.label}
+                {isActive(link.href) && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute -bottom-0.5 left-3.5 right-3.5 h-0.5 rounded-full"
+                    style={{ background: 'var(--color-brass)' }}
+                  />
+                )}
               </Link>
             ))}
           </nav>
 
-          {/* ============ RIGHT: SUBMIT + AUTH + MOBILE MENU ============ */}
+          {/* ============ RIGHT: AUTH + MOBILE MENU ============ */}
           <div className="flex items-center gap-2 sm:gap-3">
-            
-            {/* Submit Vendor Button - Visible to ALL users (desktop) */}
-            <Link
-              href="/submit"
-              className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg transition-colors shadow-sm"
-            >
-              <span className="material-symbols-outlined text-base">add_business</span>
-              Submit Vendor
-            </Link>
+            {/* Add business CTA (desktop) */}
+            {isAuthenticated ? null : (
+              <Link href="/" className="hidden xl:inline text-sm text-text-muted hover:text-ink transition-colors">
+                Sign in
+              </Link>
+            )}
 
-            {/* Auth Section - Loading State */}
             {isLoading ? (
-              <div className="flex items-center gap-2">
-                {/* Loading skeleton for user menu */}
-                <div className="hidden sm:flex items-center gap-2 px-2 py-1.5">
-                  <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
-                  <div className="hidden sm:block">
-                    <div className="w-20 h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-1" />
-                    <div className="w-24 h-2 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-                  </div>
-                </div>
-                {/* Mobile: just show avatar skeleton */}
-                <div className="sm:hidden w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
-              </div>
+              <div className="h-9 w-9 animate-pulse rounded-full bg-bone" aria-hidden="true" />
             ) : !isAuthenticated ? (
-              /* Logged Out State */
               <>
-                {/* Login Button */}
+                {/* Sign in (desktop, ghost) */}
                 <Link
                   href="/login"
-                  className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                  className="hidden md:inline-flex items-center rounded-full px-4 py-2 text-sm font-medium text-text-muted transition-colors hover:bg-bone hover:text-ink"
                 >
-                  <span className="material-symbols-outlined text-base">login</span>
                   Sign In
                 </Link>
-
-                {/* Register Button */}
+                {/* Register (primary) */}
                 <Link
                   href="/register"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ink-soft sm:px-5 sm:py-2.5"
                 >
-                  <span className="material-symbols-outlined text-base">person_add</span>
+                  <span aria-hidden="true" className="text-brass-soft">+</span>
                   <span className="hidden sm:inline">Register</span>
                   <span className="sm:hidden">Sign Up</span>
                 </Link>
               </>
             ) : user ? (
-              /* Logged In State */
               <>
-                {/* Mobile Submit Button (icon only) */}
-                <Link
-                  href="/submit"
-                  className="md:hidden inline-flex items-center justify-center w-9 h-9 text-white bg-green-600 hover:bg-green-700 rounded-lg transition-colors shadow-sm"
-                  title="Submit Vendor"
-                >
-                  <span className="material-symbols-outlined text-lg">add_business</span>
-                </Link>
-
-                {/* User Menu Dropdown */}
+                {/* User Menu */}
                 <div className="relative" ref={menuRef}>
                   <button
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    className={`flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-1.5 transition-colors sm:pr-3 ${
+                      isMenuOpen ? 'bg-bone' : 'hover:bg-bone'
+                    }`}
                     aria-expanded={isMenuOpen}
                     aria-haspopup="true"
                   >
-                    {/* Avatar */}
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-sm font-semibold shadow-sm">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-sm font-semibold text-brass-soft">
                       {getUserInitials()}
-                    </div>
-                    
-                    {/* User Name (desktop only) */}
-                    <div className="hidden sm:block text-left">
-                      <div className="text-sm font-medium text-gray-900 dark:text-white leading-tight">
-                        {user.first_name}
-                      </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 leading-tight max-w-[120px] truncate">
-                        {user.email}
-                      </div>
-                    </div>
-                    
-                    {/* Dropdown Arrow */}
-                    <span 
-                      className={`material-symbols-outlined text-gray-400 transition-transform hidden sm:block ${
+                    </span>
+                    <span className="hidden sm:block max-w-[140px] truncate text-sm font-medium text-ink">
+                      {user.first_name}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className={`hidden sm:inline-block text-text-faint transition-transform ${
                         isMenuOpen ? 'rotate-180' : ''
                       }`}
-                      style={{ fontSize: '18px' }}
                     >
-                      expand_more
+                      ▾
                     </span>
                   </button>
 
-                  {/* Dropdown Menu */}
+                  {/* Dropdown */}
                   {isMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg py-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                      {/* User Info Header */}
-                      <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-800">
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">
+                    <div className="absolute right-0 mt-2 w-60 overflow-hidden rounded-2xl border border-border-soft bg-white shadow-xl shadow-ink/10">
+                      <div className="border-b border-border-soft px-4 py-3">
+                        <div className="truncate text-sm font-medium text-ink">
                           {user.first_name} {user.last_name}
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                          {user.email}
-                        </div>
+                        <div className="truncate text-xs text-text-faint">{user.email}</div>
                       </div>
-
-                      {/* Menu Items */}
-                      <div className="py-1">
-                        <button
-                          onClick={() => {
-                            setIsMenuOpen(false);
-                          }}
-                          className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-left"
+                      <div className="py-1.5">
+                        <Link
+                          href="/submit"
+                          className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-text-muted transition-colors hover:bg-bone hover:text-ink"
                         >
-                          <span className="material-symbols-outlined text-gray-400" style={{ fontSize: '18px' }}>
-                            person
-                          </span>
-                          My Account
-                          <span className="ml-auto text-xs text-gray-400 italic">Coming soon</span>
-                        </button>
-
-                        <button
-                          onClick={() => {
-                            setIsMenuOpen(false);
-                          }}
-                          className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-left"
+                          <span aria-hidden="true" className="text-brass-deep">↑</span>
+                          Submit a vendor
+                        </Link>
+                        <Link
+                          href="/"
+                          className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-text-muted transition-colors hover:bg-bone hover:text-ink"
                         >
-                          <span className="material-symbols-outlined text-gray-400" style={{ fontSize: '18px' }}>
-                            list_alt
-                          </span>
-                          My Submissions
-                          <span className="ml-auto text-xs text-gray-400 italic">Coming soon</span>
+                          <span aria-hidden="true">◍</span>
+                          My account
+                        </Link>
+                      </div>
+                      <div className="border-t border-border-soft">
+                        <button
+                          onClick={handleLogout}
+                          disabled={isLoggingOut}
+                          className="w-full px-4 py-2.5 text-left text-sm text-brass-deep transition-colors hover:bg-bone disabled:opacity-50"
+                        >
+                          {isLoggingOut ? 'Signing out…' : 'Sign out'}
                         </button>
                       </div>
-
-                      {/* Divider */}
-                      <div className="border-t border-gray-100 dark:border-gray-800 my-1" />
-
-                      {/* Logout */}
-                      <button
-                        onClick={handleLogout}
-                        disabled={isLoggingOut}
-                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left disabled:opacity-50"
-                      >
-                        {isLoggingOut ? (
-                          <span className="material-symbols-outlined animate-spin" style={{ fontSize: '18px' }}>
-                            progress_activity
-                          </span>
-                        ) : (
-                          <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
-                            logout
-                          </span>
-                        )}
-                        {isLoggingOut ? 'Signing out...' : 'Sign Out'}
-                      </button>
                     </div>
                   )}
                 </div>
@@ -283,46 +226,54 @@ export default function Header() {
             <div className="lg:hidden" ref={mobileMenuRef}>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="inline-flex items-center justify-center w-9 h-9 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-ink transition-colors hover:bg-bone"
                 aria-label="Toggle menu"
+                aria-expanded={isMobileMenuOpen}
               >
-                <span className="material-symbols-outlined text-2xl">
-                  {isMobileMenuOpen ? 'close' : 'menu'}
-                </span>
+                <span aria-hidden="true">{isMobileMenuOpen ? '✕' : '☰'}</span>
               </button>
 
-              {/* Mobile Dropdown Menu */}
               {isMobileMenuOpen && (
-                <div className="absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-lg animate-in fade-in slide-in-from-top-2 duration-200">
-                  <nav className="max-w-7xl mx-auto px-4 py-4 space-y-1">
+                <div className="absolute left-0 right-0 top-16 border-b border-border-soft bg-white shadow-lg">
+                  <nav className="mx-auto max-w-7xl space-y-0.5 px-4 py-4">
                     {navLinks.map((link) => (
                       <Link
                         key={link.href}
                         href={link.href}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                        className={`flex items-center justify-between rounded-xl px-4 py-3 text-[15px] transition-colors ${
                           isActive(link.href)
-                            ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                            ? 'bg-bone font-medium text-ink'
+                            : 'text-text-muted hover:bg-bone hover:text-ink'
                         }`}
                       >
-                        <span className="material-symbols-outlined text-gray-400" style={{ fontSize: '20px' }}>
-                          {link.icon}
-                        </span>
-                        <span className="font-medium">{link.label}</span>
+                        {link.label}
+                        {isActive(link.href) && <span aria-hidden="true" className="text-brass-deep">→</span>}
                       </Link>
                     ))}
-                    
-                    {/* Mobile-only: Submit Vendor link (for logged out users) */}
-                    {!isAuthenticated && (
-                      <Link
-                        href="/submit"
-                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors"
+
+                    {isAuthenticated ? (
+                      <button
+                        onClick={handleLogout}
+                        disabled={isLoggingOut}
+                        className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-[15px] text-brass-deep transition-colors hover:bg-bone disabled:opacity-50"
                       >
-                        <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
-                          add_business
-                        </span>
-                        <span className="font-medium">Submit Vendor</span>
-                      </Link>
+                        {isLoggingOut ? 'Signing out…' : 'Sign out'}
+                      </button>
+                    ) : (
+                      <div className="mt-2 flex gap-2 border-t border-border-soft pt-4">
+                        <Link
+                          href="/login"
+                          className="flex-1 rounded-full border border-border-soft px-4 py-2.5 text-center text-sm font-medium text-text-muted transition-colors hover:border-ink hover:text-ink"
+                        >
+                          Sign In
+                        </Link>
+                        <Link
+                          href="/register"
+                          className="flex-1 rounded-full bg-ink px-4 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-ink-soft"
+                        >
+                          Register
+                        </Link>
+                      </div>
                     )}
                   </nav>
                 </div>

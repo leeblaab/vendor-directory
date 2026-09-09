@@ -25,14 +25,22 @@ export default async function CategoriesPage() {
     <main className="max-w-7xl mx-auto px-4 py-8">
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Categories' }]} />
 
-      {/* Hero Header */}
-      <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl p-8 sm:p-12 shadow-xl mb-8">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-          Browse All Categories
-        </h1>
-        <p className="text-lg sm:text-xl opacity-90 max-w-2xl">
-          Discover trusted service providers across {categories.length} categories in the UAE
-        </p>
+      {/* Hero Header — Gulf ink & brass */}
+      <div className="bg-gradient-to-br from-ink to-ink-soft text-bone rounded-2xl p-8 sm:p-12 shadow-xl mb-8 relative overflow-hidden">
+        <div className="absolute -right-16 -top-16 w-56 h-56 rounded-full bg-brass/10 blur-3xl" />
+        <div className="relative">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-brass/15 border border-brass/30 flex items-center justify-center mb-5">
+            <span className="material-symbols-outlined text-brass text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+              grid_view
+            </span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 font-display">
+            Browse All Categories
+          </h1>
+          <p className="text-lg sm:text-xl text-bone/75 max-w-2xl">
+            Discover trusted service providers across {categories.length} categories in the UAE
+          </p>
+        </div>
       </div>
 
       {error ? (

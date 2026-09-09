@@ -40,11 +40,11 @@ export default function FilterBar({
   );
 
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 mb-6 shadow-sm">
+    <div className="bg-white border border-ink/10 rounded-xl p-4 mb-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Search */}
         <div className="relative">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-base">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-ink/40 text-base">
             search
           </span>
           <input
@@ -52,19 +52,19 @@ export default function FilterBar({
             placeholder="Search providers..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
+            className="w-full pl-10 pr-4 py-2.5 bg-bone border border-ink/10 rounded-lg text-sm text-ink focus:outline-none focus:border-brass focus:ring-2 focus:ring-brass/30"
           />
         </div>
 
         {/* Area/City */}
         <div className="relative">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-base">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-ink/40 text-base">
             location_on
           </span>
           <select
             value={selectedArea}
             onChange={(e) => setSelectedArea(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white appearance-none"
+            className="w-full pl-10 pr-4 py-2.5 bg-bone border border-ink/10 rounded-lg text-sm text-ink focus:outline-none focus:border-brass focus:ring-2 focus:ring-brass/30 appearance-none"
           >
             <option value="">All Areas</option>
             {allAreas.map((area) => (
@@ -77,13 +77,13 @@ export default function FilterBar({
 
         {/* Minimum Rating */}
         <div className="relative">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-base">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-ink/40 text-base">
             star
           </span>
           <select
             value={minRating}
             onChange={(e) => setMinRating(Number(e.target.value))}
-            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white appearance-none"
+            className="w-full pl-10 pr-4 py-2.5 bg-bone border border-ink/10 rounded-lg text-sm text-ink focus:outline-none focus:border-brass focus:ring-2 focus:ring-brass/30 appearance-none"
           >
             <option value={0}>Any Rating</option>
             <option value={4.5}>4.5+ Stars</option>
@@ -95,13 +95,13 @@ export default function FilterBar({
 
         {/* Minimum Google Rating */}
         <div className="relative">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-base">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-ink/40 text-base">
             star
           </span>
           <select
             value={minGoogleRating}
             onChange={(e) => setMinGoogleRating(Number(e.target.value))}
-            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white appearance-none"
+            className="w-full pl-10 pr-4 py-2.5 bg-bone border border-ink/10 rounded-lg text-sm text-ink focus:outline-none focus:border-brass focus:ring-2 focus:ring-brass/30 appearance-none"
           >
             <option value={0}>Any Google Rating</option>
             <option value={4.5}>4.5+ Google Stars</option>
@@ -118,10 +118,10 @@ export default function FilterBar({
               type="checkbox"
               checked={showVerifiedOnly}
               onChange={(e) => setShowVerifiedOnly(e.target.checked)}
-              className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="w-4 h-4 rounded border-ink/30 text-verified focus:ring-verified/50"
             />
-            <span className="text-sm text-gray-700 dark:text-gray-300 flex items-center gap-1">
-              <span className="material-symbols-outlined text-blue-600 text-base">
+            <span className="text-sm text-ink/70 flex items-center gap-1">
+              <span className="material-symbols-outlined text-verified text-base">
                 verified
               </span>
               Verified only
@@ -131,13 +131,13 @@ export default function FilterBar({
 
         {/* Sort By */}
         <div className="relative">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-base">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-ink/40 text-base">
             sort
           </span>
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as any)}
-            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white appearance-none"
+            className="w-full pl-10 pr-4 py-2.5 bg-bone border border-ink/10 rounded-lg text-sm text-ink focus:outline-none focus:border-brass focus:ring-2 focus:ring-brass/30 appearance-none"
           >
             <option value="name">Name (A-Z)</option>
             <option value="rating">Platform Rating</option>

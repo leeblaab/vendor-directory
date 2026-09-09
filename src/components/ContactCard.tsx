@@ -9,11 +9,11 @@ interface ContactItem {
 export default function ContactCard({ items }: { items: ContactItem[] }) {
   if (items.length === 0) {
     return (
-      <div className="p-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl text-center">
-        <span className="material-symbols-outlined text-yellow-600 dark:text-yellow-400 text-3xl mb-2">
+      <div className="p-6 bg-brass/[0.07] border border-brass/30 rounded-xl text-center">
+        <span className="material-symbols-outlined text-brass-deep text-3xl mb-2">
           info
         </span>
-        <p className="text-yellow-800 dark:text-yellow-300 text-sm">
+        <p className="text-ink/70 text-sm">
           Contact information not available
         </p>
       </div>
@@ -21,8 +21,8 @@ export default function ContactCard({ items }: { items: ContactItem[] }) {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
-      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-4 flex items-center gap-2">
+    <div className="border border-ink/10 rounded-xl p-6">
+      <h3 className="text-sm font-semibold text-ink/60 uppercase tracking-wide mb-4 flex items-center gap-2">
         <span className="material-symbols-outlined text-base">contact_phone</span>
         Contact Information
       </h3>
@@ -37,7 +37,7 @@ export default function ContactCard({ items }: { items: ContactItem[] }) {
           >
             <span className="material-symbols-outlined text-xl">{item.icon}</span>
             <div className="flex-1 min-w-0">
-              <div className="text-xs text-gray-500 dark:text-gray-400">{item.label}</div>
+              <div className="text-xs text-ink/50">{item.label}</div>
               <div className="text-sm font-medium truncate">{item.value}</div>
             </div>
           </a>

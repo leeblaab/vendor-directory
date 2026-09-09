@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { submitReviewClient as submitReview } from '@/lib/directus';
 import StarRating from './StarRating';
@@ -67,16 +68,16 @@ export default function ReviewForm({ vendorId, onSuccess }: ReviewFormProps) {
 
   if (!isAuthenticated) {
     return (
-      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 text-center">
-        <p className="text-blue-800 dark:text-blue-300 mb-2">
+      <div className="bg-verified-soft border border-verified/30 rounded-xl p-6 text-center">
+        <p className="text-ink/80 mb-2">
           Please log in to submit a review
         </p>
-        <a
+        <Link
           href="/login"
-          className="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors"
+          className="inline-block px-4 py-2 bg-brass hover:bg-brass-deep text-white text-sm font-medium rounded-lg transition-colors"
         >
           Sign In
-        </a>
+        </Link>
       </div>
     );
   }
@@ -100,7 +101,7 @@ export default function ReviewForm({ vendorId, onSuccess }: ReviewFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-ink/80 mb-2">
           Your Rating *
         </label>
         <StarRating
@@ -112,7 +113,7 @@ export default function ReviewForm({ vendorId, onSuccess }: ReviewFormProps) {
       </div>
 
       <div>
-        <label htmlFor="comment" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label htmlFor="comment" className="block text-sm font-medium text-ink/80 mb-2">
           Your Review *
         </label>
         <textarea
@@ -121,10 +122,10 @@ export default function ReviewForm({ vendorId, onSuccess }: ReviewFormProps) {
           onChange={(e) => setComment(e.target.value)}
           placeholder="Share your experience with this vendor..."
           rows={4}
-          className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"
+          className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-bone text-ink placeholder-ink/40 focus:ring-2 focus:ring-brass/40 focus:border-brass transition resize-none"
           maxLength={1000}
         />
-        <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+        <p className="text-xs text-ink/50 mt-1">
           {comment.length}/1000 characters (minimum 10)
         </p>
       </div>
@@ -141,7 +142,7 @@ export default function ReviewForm({ vendorId, onSuccess }: ReviewFormProps) {
       <button
         type="submit"
         disabled={isSubmitting || rating === 0}
-        className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
+        className="w-full py-3 px-6 bg-brass hover:bg-brass-deep disabled:bg-brass/50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
       >
         {isSubmitting ? (
           <>

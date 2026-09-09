@@ -39,13 +39,13 @@ export default function SearchBar() {
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Search for plumbers, electricians, AC repair..."
-          className="w-full px-6 py-4 pr-14 text-gray-700 bg-white rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-base md:text-lg"
+          className="w-full px-6 py-4 pr-14 text-ink bg-white rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-brass/60 focus:ring-offset-2 text-base md:text-lg"
           aria-label="Search for service providers"
           autoComplete="off"
         />
         <button
           type="submit"
-          className="absolute right-2 p-3 text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="absolute right-2 p-3 text-ink bg-brass rounded-full hover:bg-brass-deep hover:text-bone transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brass/60 focus:ring-offset-2"
           aria-label="Submit search"
         >
           <svg

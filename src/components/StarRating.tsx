@@ -54,7 +54,7 @@ export default function StarRating({
               onMouseLeave={() => interactive && setHoverRating(0)}
               className={`${sizeClasses[size]} transition-colors ${
                 interactive ? 'cursor-pointer hover:scale-110' : 'cursor-default'
-              } ${isFilled ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'}`}
+              } ${isFilled ? 'text-brass' : 'text-ink/20'}`}
               aria-label={`${starValue} star${starValue > 1 ? 's' : ''}`}
             >
               ★
@@ -65,11 +65,11 @@ export default function StarRating({
       
       {showValue && (
         <div className="flex items-center gap-1">
-          <span className="text-sm font-semibold text-gray-900 dark:text-white">
+          <span className="text-sm font-semibold text-ink">
             {rating.toFixed(1)}
           </span>
           {reviewCount !== undefined && (
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+            <span className="text-sm text-ink/60">
               ({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})
             </span>
           )}

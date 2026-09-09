@@ -32,7 +32,7 @@ export default function ShareButton({ vendorName, vendorUrl }: ShareButtonProps)
     <div className="relative flex items-center gap-2">
       <button
         onClick={handleCopyLink}
-        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-ink bg-white border border-ink/10 rounded-lg hover:bg-bone transition-colors"
         title="Copy link"
       >
         <span className="material-symbols-outlined text-base">
@@ -43,7 +43,7 @@ export default function ShareButton({ vendorName, vendorUrl }: ShareButtonProps)
 
       <button
         onClick={handleShareWhatsApp}
-        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/50 transition-colors"
+        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-verified bg-verified-soft border border-verified/30 rounded-lg hover:bg-verified/20 transition-colors"
         title="Share on WhatsApp"
       >
         <span className="material-symbols-outlined text-base">share</span>

@@ -203,6 +203,119 @@ export async function getVendorsPaginated(limit: number = 12): Promise<(Vendor &
   }
 }
 
+export type VendorSearchPage = {
+  items: (Vendor & { category: Category })[];
+  total: number;
+};
+
+/**
+ * Server-side search with paging. PROVEN against api.easyfinder.ae (public):
+ *  - filters name._icontains OR description._icontains, status=published
+ *  - category.name filter is 403 for anonymous -> excluded (searchable fields only)
+ *  - meta=filter_count returns the full total (e.g. 14,761 for "ac")
+ *  - name_ar omitted: empty-query guard on _icontains returns 400
+ * Uses the same fetch + Bearer pattern as getCategories() in this file.
+ */
+export async function searchVendors(
+  query: string,
+  limit: number = 12,
+  offset: number = 0
+): Promise<VendorSearchPage> {
+  try {
+    const q = query.trim();
+    const filter: Record<string, unknown> = q
+      ? {
+          _and: [
+            { status: { _eq: 'published' } },
+            {
+              _or: [
+                { name: { _icontains: q } },
+                { description: { _icontains: q } },
+              ],
+            },
+          ],
+        }
+      : { status: { _eq: 'published' } };
+
+    const params = new URLSearchParams({
+      filter: JSON.stringify(filter),
+      fields: VENDOR_FIELDS.join(','),
+      sort: '-verified,name',
+      limit: String(limit),
+      offset: String(offset),
+      meta: 'filter_count',
+    });
+    const url = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/items/vendors?${params.toString()}`;
+
+    const response = await fetch(url, {
+      headers: { Authorization: `Bearer ${process.env.DIRECTUS_API_TOKEN}` },
+      cache: 'no-store',
+    });
+    if (!response.ok) throw new Error('Failed to search vendors');
+
+    const json = await response.json();
+    return {
+      items: json.data || [],
+      total: json.meta?.filter_count ?? (json.data?.length || 0),
+    };
+  } catch (error) {
+    console.error('Error searching vendors from Directus:', error);
+    throw new Error('Failed to search vendors');
+  }
+}
+
+/**
+ * Browse /vendors with paging — all vendors or one category (numeric id).
+ * Slug params are resolved to ids in the page/server via getCategories().
+ * PROVEN against api.easyfinder.ae (anonymous, 2026-09-09):
+ *  - category { _eq: <id> } + status + meta=filter_count → movers = 2,828 (HTTP 200)
+ *  - offset paging returns the next 12 with no overlap
+ *  - sort -verified,name is deterministic across pages (verified first, then A–Z)
+ * Same fetch + Bearer pattern as searchVendors above (SDK readItems lacks meta).
+ */
+export async function getVendorsBrowsePage(
+  categoryId: number | null,
+  limit: number = 12,
+  offset: number = 0
+): Promise<VendorSearchPage> {
+  try {
+    const filter: Record<string, unknown> = categoryId
+      ? {
+          _and: [
+            { status: { _eq: 'published' } },
+            { category: { _eq: categoryId } },
+          ],
+        }
+      : { status: { _eq: 'published' } };
+
+    const params = new URLSearchParams({
+      filter: JSON.stringify(filter),
+      fields: VENDOR_FIELDS.join(','),
+      sort: '-verified,name',
+      limit: String(limit),
+      offset: String(offset),
+      meta: 'filter_count',
+    });
+    const url = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/items/vendors?${params.toString()}`;
+
+    const authHeader = `Bearer ${process.env.DIRECTUS_API_TOKEN}`;
+    const response = await fetch(url, {
+      headers: { Authorization: authHeader },
+      cache: 'no-store',
+    });
+    if (!response.ok) throw new Error('Failed to fetch vendors page');
+
+    const json = await response.json();
+    return {
+      items: json.data || [],
+      total: json.meta?.filter_count ?? (json.data?.length || 0),
+    };
+  } catch (error) {
+    console.error('Error fetching vendors page from Directus:', error);
+    throw new Error('Failed to fetch vendors page');
+  }
+}
+
 export async function getVendorBySlug(slug: string): Promise<(Vendor & { category: Category }) | null> {
   try {
     // Decode URL-encoded characters (emojis, Arabic text, etc.)

@@ -1,133 +1,126 @@
 import { Metadata } from 'next';
-import { getAllVendors, getCategories, Vendor, Category } from '@/lib/directus';
-import Breadcrumbs from '@/components/Breadcrumbs';
-import SearchBar from '@/components/SearchBar';
 import SearchResultsClient from './SearchResultsClient';
+import { getCategories, searchVendors, Vendor, Category } from '@/lib/directus';
 
-export const metadata: Metadata = {
-  title: 'Search Results - EasyFinder UAE',
-  description: 'Search for trusted service providers across the UAE',
-};
+interface SearchPageProps {
+  params: Promise<{ q: string[] }>;
+  searchParams: Promise<{ q?: string; page?: string }>;
+}
 
-export default async function SearchPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const params = await searchParams;
-  const query = (params.q as string) || '';
+async function resolveQuery(searchParams: Promise<{ q?: string }>) {
+  const sp = await searchParams;
+  return (sp.q || '').toString().trim();
+}
 
+export async function metadata({ searchParams }: Omit<SearchPageProps, 'params'>): Promise<Metadata> {
+  const q = await resolveQuery(searchParams);
+  const baseTitle = q ? `Search "${q}" — EasyFinder UAE` : 'Search — EasyFinder UAE';
+  const baseDesc = q
+    ? `Browse service providers in UAE who match "${q}".`
+    : 'Search the UAE directory of service providers.';
+  return {
+    title: baseTitle,
+    description: baseDesc,
+    openGraph: {
+      title: baseTitle,
+      description: baseDesc,
+      url: q ? `/search?q=${encodeURIComponent(q)}` : '/search',
+    },
+  };
+}
+
+export default async function SearchPage({ searchParams }: SearchPageProps) {
+  const [q, categories] = await Promise.all([
+    resolveQuery(searchParams),
+    getCategories(),
+  ]);
+
+  // Initial page of 12, total = filter_count (proven against api.easyfinder.ae).
   let vendors: (Vendor & { category: Category })[] = [];
-  let categories: Category[] = [];
-  let error = false;
-
+  let total = 0;
   try {
-    // Fetch all vendors and categories in parallel
-    const [allVendors, allCategories] = await Promise.all([
-      getAllVendors(),
-      getCategories(),
-    ]);
-
-    // Filter vendors based on search query (server-side pre-filter)
-    if (query) {
-      const searchLower = query.toLowerCase();
-      vendors = allVendors.filter((vendor) => {
-        if (vendor.name.toLowerCase().includes(searchLower)) return true;
-        if (vendor.description?.toLowerCase().includes(searchLower)) return true;
-        if (vendor.category?.name?.toLowerCase().includes(searchLower)) return true;
-        
-        if (vendor.service_areas) {
-          try {
-            const areas = typeof vendor.service_areas === 'string'
-              ? JSON.parse(vendor.service_areas)
-              : vendor.service_areas;
-            
-            if (areas.some((area: string) => area.toLowerCase().includes(searchLower))) {
-              return true;
-            }
-          } catch {
-            // Ignore parse errors
-          }
-        }
-        
-        return false;
-      });
-    } else {
-      vendors = allVendors;
-    }
-
-    categories = allCategories;
+    const { items, total: t } = await searchVendors(q, 12, 0);
+    vendors = items;
+    total = t;
   } catch (err) {
-    console.error('Failed to search vendors:', err);
-    error = true;
+    console.error('searchVendors failed on /search', err);
   }
 
-  const breadcrumbs = [
-    { label: 'Home', href: '/' },
-    { label: query ? `Search: "${query}"` : 'Search Results' },
-  ];
+  // JSON-LD — only when non-empty to avoid noise.
+  const jsonLd = vendors.length ? {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: q ? `Results for "${q}"` : 'Search results',
+    numberOfItems: total,
+    itemListElement: vendors.slice(0, 30).map((v, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: v.name,
+      url: `/vendors/${v.slug}`,
+    })),
+  } : null;
 
   return (
-    <main className="max-w-7xl mx-auto px-4 py-8">
-      {/* Breadcrumbs */}
-      <Breadcrumbs items={breadcrumbs} />
+    <div style={{ backgroundColor: 'var(--color-bone)' }} className="min-h-screen">
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
 
-      {/* Search Header */}
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 sm:p-8 shadow-sm mb-6">
-        <div className="flex flex-col sm:flex-row items-start gap-5">
-          {/* Icon */}
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white flex-shrink-0 shadow-md">
-            <span className="material-symbols-outlined text-4xl">search</span>
-          </div>
-
-          {/* Content */}
-          <div className="flex-1 min-w-0 w-full">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
-              {query ? `Results for "${query}"` : 'Search Service Providers'}
+      {/* HEADER BAND */}
+      <div
+        style={{
+          background: 'linear-gradient(135deg, var(--color-ink) 0%, var(--color-ink-soft) 100%)',
+        }}
+        className="px-6 py-10 md:py-14"
+      >
+        <div className="mx-auto flex max-w-6xl items-end justify-between gap-6">
+          <div className="flex-1">
+            <div className="mb-3 flex items-center gap-2 text-xs uppercase tracking-widest"
+              style={{ color: 'var(--color-brass)' }}
+            >
+              <span className="material-symbols-outlined text-sm">search</span>
+              Search the directory
+            </div>
+            <h1 className="font-display text-3xl font-bold md:text-4xl"
+              style={{ color: 'var(--color-bone)' }}
+            >
+              {q ? <>Results for "{q}"</> : 'Find a provider'}
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              {query
-                ? `Found ${vendors.length} provider${vendors.length !== 1 ? 's' : ''} matching your search`
-                : 'Enter a search term to find trusted service providers'}
+            <p className="mt-2 max-w-2xl text-sm md:text-base"
+              style={{ color: 'rgba(244,241,234,0.65)' }}
+            >
+              {q
+                ? <>Showing the top matches first — verified providers are pinned to the top.</>
+                : <>Type a service, a name, or a city — then hit search up top.</>}
             </p>
-
-            {/* Search Bar */}
-            <div className="max-w-2xl">
-              <SearchBar />
+          </div>
+          <div
+            className="hidden rounded-2xl px-5 py-4 text-right md:flex"
+            style={{ background: 'rgba(244,241,234,0.06)', border: '1px solid rgba(244,241,234,0.12)' }}
+          >
+            <div className="font-display text-2xl font-bold" style={{ color: 'var(--color-brass)' }}>
+              {total.toLocaleString()}
+            </div>
+            <div className="text-[11px] uppercase tracking-wider" style={{ color: 'rgba(244,241,234,0.5)' }}>
+              providers match
             </div>
           </div>
         </div>
       </div>
 
-      {/* Content */}
-      {error ? (
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-8 text-center">
-          <span className="material-symbols-outlined text-red-500 dark:text-red-400 text-4xl mb-3 block">
-            error
-          </span>
-          <p className="text-red-700 dark:text-red-300 font-medium">
-            Unable to search service providers. Please try again later.
-          </p>
-        </div>
-      ) : !query ? (
-        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-8 text-center">
-          <span className="material-symbols-outlined text-blue-500 dark:text-blue-400 text-4xl mb-3 block">
-            search
-          </span>
-          <p className="text-blue-800 dark:text-blue-300 font-medium mb-2">
-            Enter a search term above
-          </p>
-          <p className="text-sm text-blue-600 dark:text-blue-400">
-            Try searching for "plumber", "electrician", "Dubai", or "AC repair"
-          </p>
-        </div>
-      ) : (
+      {/* RESULTS */}
+      <div className="mx-auto max-w-6xl px-6 py-10 md:py-14">
         <SearchResultsClient
-          vendors={vendors}
+          key={q}
+          initialVendors={vendors}
+          total={total}
+          query={q}
           categories={categories}
-          searchQuery={query}
         />
-      )}
-    </main>
+      </div>
+    </div>
   );
 }

@@ -26,9 +26,9 @@ export default function CategoriesClient({ categories }: CategoriesClientProps) 
   return (
     <div>
       {/* Search Bar */}
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm mb-8">
+      <div className="bg-white border border-ink/10 rounded-xl p-6 shadow-sm mb-8">
         <div className="relative max-w-2xl mx-auto">
-          <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-2xl">
+          <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-ink/35 text-2xl">
             search
           </span>
           <input
@@ -36,25 +36,25 @@ export default function CategoriesClient({ categories }: CategoriesClientProps) 
             placeholder="Search categories (e.g., plumber, electrician, mover...)"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+            className="w-full pl-12 pr-4 py-4 bg-bone/60 border border-ink/10 rounded-xl focus:ring-2 focus:ring-brass/50 focus:border-transparent text-lg text-ink placeholder:text-ink/40"
           />
         </div>
         
         {/* Results count */}
         <div className="text-center mt-4">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            Showing <span className="font-semibold text-gray-900 dark:text-white">{filteredCategories.length}</span> of {categories.length} categories
+          <p className="text-sm text-muted">
+            Showing <span className="font-semibold text-ink">{filteredCategories.length}</span> of {categories.length} categories
           </p>
         </div>
       </div>
 
       {/* Categories Grid */}
       {filteredCategories.length === 0 ? (
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-8 text-center">
-          <span className="material-symbols-outlined text-yellow-500 dark:text-yellow-400 text-4xl mb-3 block">
+        <div className="bg-brass/[0.07] border border-brass/30 rounded-xl p-8 text-center">
+          <span className="material-symbols-outlined text-brass-deep text-4xl mb-3 block">
             search_off
           </span>
-          <p className="text-yellow-800 dark:text-yellow-300 font-medium">
+          <p className="text-ink/70 font-medium">
             No categories match your search. Try a different keyword.
           </p>
         </div>
@@ -67,13 +67,14 @@ export default function CategoriesClient({ categories }: CategoriesClientProps) 
               className="block group"
             >
               <SpotlightCard
-                spotlightColor="rgba(59, 130, 246, 0.15)"
+                spotlightColor="rgba(199, 154, 77, 0.15)"
                 spotlightSize={250}
+                className="border-ink/10 hover:border-brass/50"
               >
                 <div className="p-5 text-center">
                   {/* Category Image */}
                   {category.category_image ? (
-                    <div className="relative w-full aspect-square mb-3 rounded-lg overflow-hidden bg-gray-50">
+                    <div className="relative w-full aspect-square mb-3 rounded-lg overflow-hidden bg-bone">
                       <Image
                         src={`/api/directus/assets/${category.category_image.id}`}
                         alt={category.name}
@@ -87,23 +88,23 @@ export default function CategoriesClient({ categories }: CategoriesClientProps) 
                     category.icon && (
                       <div className="mb-3 flex justify-center">
                         <div className="relative">
-                          <span className="material-symbols-outlined text-5xl text-blue-600 group-hover:scale-110 transition-transform duration-300">
+                          <span className="material-symbols-outlined text-5xl text-brass-deep group-hover:scale-110 transition-transform duration-300">
                             {category.icon}
                           </span>
-                          <div className="absolute inset-0 blur-xl bg-blue-400/30 rounded-full scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <div className="absolute inset-0 blur-xl bg-brass/25 rounded-full scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
                       </div>
                     )
                   )}
                   
                   {/* Category Name */}
-                  <h3 className="font-semibold text-gray-800 dark:text-gray-200 text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                  <h3 className="font-semibold text-ink text-sm group-hover:text-brass-deep transition-colors duration-300">
                     {category.name}
                   </h3>
                   
                   {/* Hover indicator */}
                   <div className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">
+                    <span className="text-xs text-brass-deep font-medium">
                       Explore →
                     </span>
                   </div>

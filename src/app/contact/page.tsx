@@ -1,99 +1,115 @@
 'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import { Mail, MessageSquare, AtSign, Link as LinkIcon, GitBranch, ArrowLeft } from 'lucide-react';
 
 export default function Contact() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#EEF5FF] to-[#B4D4FF] dark:from-slate-900 dark:to-slate-950">
-      <div className="container mx-auto max-w-4xl px-4 py-16">
-        {/* Header Section */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-[#176B87] to-[#86B6F6] mb-6 shadow-lg">
-            <Mail className="text-white text-3xl" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#176B87] via-[#86B6F6] to-[#B4D4FF] bg-clip-text text-transparent">
-            Get In Touch
+    <main className="bg-bone text-text">
+      {/* Hero */}
+      <section>
+        <div className="mx-auto max-w-3xl px-5 pt-16 pb-10 text-center sm:pt-24 sm:pb-14">
+          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-text-faint">
+            Contact — 01
+          </p>
+          <div className="mx-auto mt-4 h-px w-16" style={{ background: 'var(--color-brass)' }} />
+          <h1
+            className="mt-7 text-4xl leading-[1.05] tracking-tight text-ink sm:text-5xl"
+            style={{ fontFamily: 'var(--font-display), var(--font-sans)' }}
+          >
+            Say hello.
+            <span className="block text-brass-deep">We read everything.</span>
           </h1>
-          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-            Have a question or want to work together? We'd love to hear from you!
+          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-text-muted">
+            A question about a listing, a partner idea, or just feedback — one
+            email does it all.
           </p>
         </div>
+      </section>
 
-        {/* Contact Cards */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {/* Email Card */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl border border-[#B4D4FF] dark:border-slate-700 text-center">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#EEF5FF] dark:bg-slate-700 text-[#176B87] dark:text-indigo-400 mb-6">
-              <Mail size={24} />
+      {/* Content */}
+      <div className="mx-auto max-w-5xl px-5 py-10 sm:py-12">
+        <div className="grid gap-6 md:grid-cols-2">
+          {/* Email */}
+          <div className="rounded-3xl border border-border-soft bg-white p-8">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl"
+              style={{ background: 'var(--color-brass-fog)' }}
+            >
+              <span aria-hidden="true" className="text-xl text-brass-deep">✉</span>
             </div>
-            <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">Email Us</h3>
-            <p className="text-slate-600 dark:text-slate-400 mb-4">For general inquiries</p>
+            <h2
+              className="mt-6 text-xl text-ink"
+              style={{ fontFamily: 'var(--font-display), var(--font-sans)' }}
+            >
+              Email us
+            </h2>
+            <p className="mt-2 text-sm text-text-muted">
+              For general inquiries, corrections, or partnerships.
+            </p>
             <a
-              href="mailto:easyfinderuae@gmail.com" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#176B87] hover:bg-[#86B6F6] text-white font-semibold rounded-full transition-all shadow-lg">
+              href="mailto:easyfinderuae@gmail.com"
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-ink-soft"
+            >
               easyfinderuae@gmail.com
+              <span aria-hidden="true" className="text-brass-soft">→</span>
             </a>
           </div>
 
-          {/* Social Card */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl border border-[#B4D4FF] dark:border-slate-700 text-center">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#EEF5FF] dark:bg-slate-700 text-[#176B87] dark:text-indigo-400 mb-6">
-              <MessageSquare size={24} />
+          {/* Submit a business */}
+          <div className="rounded-3xl border border-border-soft bg-white p-8">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl"
+              style={{ background: 'var(--color-verified-soft)' }}
+            >
+              <span aria-hidden="true" className="text-xl text-verified">+</span>
             </div>
-            <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">Connect With Us</h3>
-            <p className="text-slate-600 dark:text-slate-400 mb-6">Follow us on social media</p>
-            <div className="flex justify-center gap-4">
-              <a
-                href="https://twitter.com/EasyFinderuae" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-[#EEF5FF] dark:bg-slate-700 rounded-full text-[#176B87] dark:text-indigo-400 hover:bg-[#B4D4FF] transition-all">
-                  <AtSign size={24} />
-                </a>
-              <a
-                href="https://instagram.com/EasyFinderuae" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-[#EEF5FF] dark:bg-slate-700 rounded-full text-[#176B87] dark:text-indigo-400 hover:bg-[#B4D4FF] transition-all">
-                  <GitBranch size={24} />
-                </a>
-              <a
-                href="https://linkedin.com/company/EasyFinderuae" target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center bg-[#EEF5FF] dark:bg-slate-700 rounded-full text-[#176B87] dark:text-indigo-400 hover:bg-[#B4D4FF] transition-all">
-                  <LinkIcon size={24} />
-                </a>
-            </div>
+            <h2
+              className="mt-6 text-xl text-ink"
+              style={{ fontFamily: 'var(--font-display), var(--font-sans)' }}
+            >
+              Own a business?
+            </h2>
+            <p className="mt-2 text-sm text-text-muted">
+              Get listed for free in minutes — most requests are verified
+              within two business days.
+            </p>
+            <Link
+              href="/submit"
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-border-soft px-6 py-3.5 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-bone"
+            >
+              Submit your vendor
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </div>
 
-        {/* CTA Section */}
-        <div className="bg-gradient-to-r from-[#176B87] to-[#86B6F6] rounded-3xl p-10 text-white text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Get Started?</h2>
-          <p className="text-indigo-100 mb-6 max-w-2xl mx-auto">
-            Join thousands of satisfied customers who trust EasyFinder UAE
-          </p>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#176B87] font-bold rounded-full hover:bg-[#EEF5FF] transition-all shadow-lg"
-          >
-            <ArrowLeft size={20} className="rotate-180" />
-            Browse Services
-          </Link>
-        </div>
-
-        {/* Back to Home Button */}
-        <div className="mt-12 text-center">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-medium rounded-full transition-all border border-[#B4D4FF] dark:border-slate-700 shadow-md"
-          >
-            <ArrowLeft size={18} />
-            Back to Home
-          </Link>
+        {/* Quick links */}
+        <div className="mt-6 grid gap-3 rounded-3xl border border-border-soft bg-white p-8 sm:grid-cols-3">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-faint">
+              Not finding a pro?
+            </p>
+            <Link href="/vendors" className="mt-1.5 inline-block text-sm font-medium text-brass-deep hover:underline">
+              Browse all services →
+            </Link>
+          </div>
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-faint">
+              Have a question?
+            </p>
+            <Link href="/faq" className="mt-1.5 inline-block text-sm font-medium text-brass-deep hover:underline">
+              Read the FAQ →
+            </Link>
+          </div>
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-faint">
+              How we work
+            </p>
+            <Link href="/about" className="mt-1.5 inline-block text-sm font-medium text-brass-deep hover:underline">
+              About EasyFinder →
+            </Link>
+          </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="py-10 border-t border-[#B4D4FF] dark:border-slate-800">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-slate-500 dark:text-slate-400 text-sm">
-            &copy; {new Date().getFullYear()} EasyFinder UAE. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </main>
   );
 }

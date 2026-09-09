@@ -1,114 +1,111 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import VendorCard from '@/components/VendorCard';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import VendorCard from '@/components/VendorCard';
 import { Vendor, Category } from '@/lib/directus';
 
+type VendorRow = Vendor & { category: Category };
+
 interface SearchResultsClientProps {
-  vendors: (Vendor & { category: Category })[];
+  initialVendors: VendorRow[];
+  total: number;
+  query: string;
   categories: Category[];
-  searchQuery: string;
 }
 
-type SortOption = 'name' | 'verified' | 'category';
+type SortOption = 'verified' | 'name' | 'category';
+const PAGE_SIZE = 12;
 
 export default function SearchResultsClient({
-  vendors,
+  initialVendors,
+  total,
+  query,
   categories,
-  searchQuery,
 }: SearchResultsClientProps) {
-  const [selectedLocation, setSelectedLocation] = useState('');
+  // Data state — grows as user clicks "Load more".
+  const [loaded, setLoaded] = useState<VendorRow[]>(initialVendors);
+  const [loading, setLoading] = useState(false);
+  const offsetRef = useRef(initialVendors.length);
+
+  // UI state — same as before.
+  const [sortBy, setSortBy] = useState<SortOption>('verified');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [verifiedOnly, setVerifiedOnly] = useState(false);
-  const [sortBy, setSortBy] = useState<SortOption>('verified');
 
-  // Extract unique locations from service_areas
-  const locations = useMemo(() => {
-    const locationSet = new Set<string>();
-    vendors.forEach((vendor) => {
-      try {
-        const areas = typeof vendor.service_areas === 'string'
-          ? JSON.parse(vendor.service_areas)
-          : vendor.service_areas || [];
-        areas.forEach((area: string) => locationSet.add(area));
-      } catch {
-        // Ignore parse errors
-      }
-    });
-    return Array.from(locationSet).sort();
-  }, [vendors]);
+  const hasMore = loaded.length < total;
 
-  // Apply filters and sorting
-  const filteredVendors = useMemo(() => {
-    let result = [...vendors];
-
-    // Filter by location
-    if (selectedLocation) {
-      result = result.filter((vendor) => {
-        try {
-          const areas = typeof vendor.service_areas === 'string'
-            ? JSON.parse(vendor.service_areas)
-            : vendor.service_areas || [];
-          return areas.includes(selectedLocation);
-        } catch {
-          return false;
-        }
-      });
-    }
-
-    // Filter by category
-    if (selectedCategory) {
-      result = result.filter(
-        (vendor) => String(vendor.category?.id) === selectedCategory
+  const loadMore = useCallback(async () => {
+    setLoading(true);
+    try {
+      const offset = offsetRef.current;
+      const next = await fetch(
+        `/api/search?q=${encodeURIComponent(query)}&limit=${PAGE_SIZE}&offset=${offset}`,
+        { cache: 'no-store' }
       );
-    }
-
-    // Filter by verified
-    if (verifiedOnly) {
-      result = result.filter((vendor) => vendor.verified);
-    }
-
-    // Sort
-    result.sort((a, b) => {
-      switch (sortBy) {
-        case 'name':
-          return a.name.localeCompare(b.name);
-        case 'verified':
-          return (b.verified ? 1 : 0) - (a.verified ? 1 : 0) || a.name.localeCompare(b.name);
-        case 'category':
-          return (a.category?.name || '').localeCompare(b.category?.name || '');
-        default:
-          return 0;
+      const json = await next.json();
+      if (json.items && json.items.length) {
+        setLoaded((prev) => [...prev, ...json.items]);
+        offsetRef.current += json.items.length;
       }
-    });
+    } catch (err) {
+      console.error('load-more failed', err);
+    } finally {
+      setLoading(false);
+    }
+  }, [query]);
 
-    return result;
-  }, [vendors, selectedLocation, selectedCategory, verifiedOnly, sortBy]);
+  // Reset on query change (parent remounts by key, but be defensive).
+  useEffect(() => {
+    setLoaded(initialVendors);
+    offsetRef.current = initialVendors.length;
+    setSelectedCategory('');
+    setVerifiedOnly(false);
+    setSortBy('verified');
+  }, [initialVendors]);
 
-  // Clear all filters
-  const clearAllFilters = () => {
-    setSelectedLocation('');
+  // Filter + sort over the *loaded subset* (bounded small), not 17k.
+  let filtered = [...loaded];
+  if (selectedCategory) {
+    filtered = filtered.filter(
+      (v) => String((v.category as Category)?.id) === selectedCategory
+    );
+  }
+  if (verifiedOnly) {
+    filtered = filtered.filter((v) => v.verified);
+  }
+  filtered.sort((a, b) => {
+    switch (sortBy) {
+      case 'name':
+        return a.name.localeCompare(b.name);
+      case 'category':
+        return a.category?.name?.localeCompare(b.category?.name || '') || 0;
+      case 'verified':
+      default:
+        return (b.verified ? 1 : 0) - (a.verified ? 1 : 0) || a.name.localeCompare(b.name);
+    }
+  });
+
+  const clearAll = () => {
     setSelectedCategory('');
     setVerifiedOnly(false);
     setSortBy('verified');
   };
-
-  const hasActiveFilters = selectedLocation || selectedCategory || verifiedOnly;
+  const hasActiveFilters = selectedCategory || verifiedOnly;
 
   return (
     <>
-      {/* Filters Bar */}
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide flex items-center gap-2">
+      {/* FILTER BAR — restyled to Gulf-ink palette */}
+      <div className="rounded-2xl border border-ink/10 bg-bone p-5 sm:p-6">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink/50">
             <span className="material-symbols-outlined text-base">tune</span>
-            Filter Results
+            Filter results
           </h2>
           {hasActiveFilters && (
             <button
-              onClick={clearAllFilters}
-              className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+              onClick={clearAll}
+              className="flex items-center gap-1 text-sm text-brass hover:text-brass-deep"
             >
               <span className="material-symbols-outlined text-base">close</span>
               Clear all
@@ -116,37 +113,19 @@ export default function SearchResultsClient({
           )}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Location Filter */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          {/* Category */}
           <div>
-            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5 flex items-center gap-1">
-              <span className="material-symbols-outlined text-sm">location_on</span>
-              Location
-            </label>
-            <select
-              value={selectedLocation}
-              onChange={(e) => setSelectedLocation(e.target.value)}
-              className="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-            >
-              <option value="">All Locations</option>
-              {locations.map((loc) => (
-                <option key={loc} value={loc}>{loc}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Category Filter */}
-          <div>
-            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5 flex items-center gap-1">
+            <label className="mb-1.5 flex items-center gap-1 text-xs font-medium text-ink/60">
               <span className="material-symbols-outlined text-sm">category</span>
               Category
             </label>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+              className="w-full rounded-lg border border-ink/15 bg-white px-3 py-2.5 text-sm text-ink transition focus:border-brass focus:outline-none focus:ring-2 focus:ring-brass/30"
             >
-              <option value="">All Categories</option>
+              <option value="">All categories</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
                   {cat.icon} {cat.name}
@@ -155,143 +134,123 @@ export default function SearchResultsClient({
             </select>
           </div>
 
-          {/* Verified Only Toggle */}
+          {/* Verified only */}
           <div>
-            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5 flex items-center gap-1">
+            <label className="mb-1.5 flex items-center gap-1 text-xs font-medium text-ink/60">
               <span className="material-symbols-outlined text-sm">verified</span>
               Verification
             </label>
             <button
               onClick={() => setVerifiedOnly(!verifiedOnly)}
-              className={`w-full px-3 py-2.5 border rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${
+              className={`flex w-full items-center justify-center gap-2 rounded-lg border px-3 py-2.5 text-sm font-medium transition ${
                 verifiedOnly
-                  ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-300'
-                  : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-blue-200 dark:hover:border-blue-800'
+                  ? 'border-verified/60 bg-verified-soft text-verified'
+                  : 'border-ink/15 bg-white text-ink/70 hover:border-ink/30'
               }`}
             >
               <span className="material-symbols-outlined text-base">
                 {verifiedOnly ? 'check_circle' : 'radio_button_unchecked'}
               </span>
-              Verified Only
+              Verified only
             </button>
           </div>
 
           {/* Sort */}
           <div>
-            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1.5 flex items-center gap-1">
+            <label className="mb-1.5 flex items-center gap-1 text-xs font-medium text-ink/60">
               <span className="material-symbols-outlined text-sm">sort</span>
-              Sort By
+              Sort by
             </label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+              className="w-full rounded-lg border border-ink/15 bg-white px-3 py-2.5 text-sm text-ink transition focus:border-brass focus:outline-none focus:ring-2 focus:ring-brass/30"
             >
-              <option value="verified">Verified First</option>
-              <option value="name">Name (A-Z)</option>
+              <option value="verified">Verified first</option>
+              <option value="name">Name (A–Z)</option>
               <option value="category">Category</option>
             </select>
           </div>
         </div>
+      </div>
 
-        {/* Active Filters Display */}
-        {hasActiveFilters && (
-          <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-800 flex-wrap">
-            <span className="text-xs text-gray-500 dark:text-gray-400">Active:</span>
-            {selectedLocation && (
-              <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded-md">
-                📍 {selectedLocation}
-                <button
-                  onClick={() => setSelectedLocation('')}
-                  className="hover:text-blue-900 dark:hover:text-blue-100"
-                >
-                  <span className="material-symbols-outlined text-xs">close</span>
-                </button>
-              </span>
-            )}
-            {selectedCategory && (
-              <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded-md">
-                {categories.find((c) => String(c.id) === selectedCategory)?.icon}{' '}
-                {categories.find((c) => String(c.id) === selectedCategory)?.name}
-                <button
-                  onClick={() => setSelectedCategory('')}
-                  className="hover:text-blue-900 dark:hover:text-blue-100"
-                >
-                  <span className="material-symbols-outlined text-xs">close</span>
-                </button>
-              </span>
-            )}
-            {verifiedOnly && (
-              <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs rounded-md">
-                ✓ Verified Only
-                <button
-                  onClick={() => setVerifiedOnly(false)}
-                  className="hover:text-green-900 dark:hover:text-green-100"
-                >
-                  <span className="material-symbols-outlined text-xs">close</span>
-                </button>
-              </span>
-            )}
-          </div>
+      {/* COUNT */}
+      <div className="mb-4 flex items-baseline justify-between px-1">
+        <p className="text-sm text-ink/60">
+          Showing <strong className="text-ink">{filtered.length}</strong> of{' '}
+          <strong className="text-ink">{total.toLocaleString()}</strong> results
+          {hasActiveFilters && <span className="ml-2 text-brass">(filtered)</span>}
+        </p>
+        {hasMore && !loading && (
+          <span className="hidden text-xs text-ink/40 sm:inline">
+            {loaded.length} loaded so far
+          </span>
         )}
       </div>
 
-      {/* Results Summary */}
-      <div className="flex items-center justify-between mb-4 px-1">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Showing <strong className="text-gray-900 dark:text-white">{filteredVendors.length}</strong> of{' '}
-          <strong className="text-gray-900 dark:text-white">{vendors.length}</strong> results
-          {hasActiveFilters && (
-            <span className="ml-2 text-blue-600 dark:text-blue-400">(filtered)</span>
-          )}
-        </p>
-      </div>
-
-      {/* Results Grid or Empty State */}
-      {filteredVendors.length === 0 ? (
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-8 text-center">
-          <span className="material-symbols-outlined text-yellow-500 dark:text-yellow-400 text-4xl mb-3 block">
+      {/* EMPTY STATE (after filters) */}
+      {filtered.length === 0 ? (
+        <div className="rounded-2xl border border-ink/10 bg-bone p-8 text-center">
+          <span className="material-symbols-outlined mb-3 block text-4xl text-brass">
             filter_alt_off
           </span>
-          <p className="text-yellow-800 dark:text-yellow-300 font-medium mb-2">
-            No providers match your filters
+          <p className="mb-2 font-medium text-ink">No providers match your filters</p>
+          <p className="mb-4 text-sm text-ink/60">
+            Try changing your filters or searching something different.
           </p>
-          <p className="text-sm text-yellow-700 dark:text-yellow-400 mb-4">
-            Try adjusting your filters or search for something else
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            {hasActiveFilters && (
-              <button
-                onClick={clearAllFilters}
-                className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium rounded-lg transition-colors"
-              >
-                <span className="material-symbols-outlined text-base">refresh</span>
-                Clear filters
-              </button>
-            )}
-            <Link
-              href="/vendors"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors"
-            >
-              <span className="material-symbols-outlined text-base">list</span>
-              Browse all providers
-            </Link>
-          </div>
+          <button
+            onClick={clearAll}
+            className="inline-flex items-center gap-2 rounded-lg bg-ink px-4 py-2 text-sm font-medium text-bone transition hover:bg-brass"
+          >
+            <span className="material-symbols-outlined text-base">refresh</span>
+            Clear filters
+          </button>
         </div>
       ) : (
         <>
-          {/* Vendor Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredVendors.map((vendor) => (
+          {/* GRID */}
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((vendor) => (
               <VendorCard key={vendor.id} vendor={vendor} />
             ))}
           </div>
 
-          {/* Browse All Link */}
-          <div className="text-center mt-10">
+          {/* LOAD MORE */}
+          {hasMore && (
+            <div className="mt-10 text-center">
+              <button
+                onClick={loadMore}
+                disabled={loading}
+                className="group inline-flex items-center gap-2 rounded-xl bg-ink px-6 py-3 text-sm font-semibold text-bone transition hover:bg-brass disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {loading ? (
+                  <>
+                    <span className="material-symbols-outlined text-base animate-spin">
+                      autorenew
+                    </span>
+                    Loading…
+                  </>
+                ) : (
+                  <>
+                    <span className="material-symbols-outlined text-base">expand_more</span>
+                    Show more results
+                  </>
+                )}
+              </button>
+              {!loading && (
+                <p className="mt-2 text-xs text-ink/40">
+                  {Math.min(loaded.length + PAGE_SIZE, total).toLocaleString()} of{' '}
+                  {total.toLocaleString()} loaded
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* BROWSE ALL — always visible */}
+          <div className="mt-10 text-center">
             <Link
               href="/vendors"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl border border-ink/20 px-6 py-3 text-sm font-medium text-ink transition hover:border-brass hover:text-brass"
             >
               <span className="material-symbols-outlined text-base">list</span>
               Browse all providers

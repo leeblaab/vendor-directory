@@ -10,6 +10,7 @@ import ReviewList from '@/components/ReviewList';
 import ReviewForm from '@/components/ReviewForm';
 import type { Metadata } from 'next';
 import LocationMap from '@/components/LocationMap';
+import Link from 'next/link';
 
 export const revalidate = 300; // Revalidate every 5 minutes
 
@@ -127,7 +128,7 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
       label: 'WhatsApp',
       value: 'Chat Now',
       href: waLink,
-      color: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/40',
+      color: 'bg-verified/10 border-verified/25 text-verified hover:bg-verified/20',
     });
   }
   if (vendor.phone) {
@@ -136,7 +137,7 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
       label: 'Phone',
       value: vendor.phone,
       href: `tel:${vendor.phone}`,
-      color: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40',
+      color: 'bg-ink/[0.04] border-ink/15 text-ink hover:bg-ink/[0.08]',
     });
   }
   if (vendor.email) {
@@ -145,7 +146,7 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
       label: 'Email',
       value: vendor.email,
       href: `mailto:${vendor.email}`,
-      color: 'bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/40',
+      color: 'bg-brass/[0.08] border-brass/30 text-brass-deep hover:bg-brass/[0.14]',
     });
   }
   if (vendor.website) {
@@ -160,7 +161,7 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
         }
       })(),
       href: vendor.website,
-      color: 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800 text-orange-700 dark:text-orange-400 hover:bg-orange-100 dark:hover:bg-orange-900/40',
+      color: 'bg-ink/[0.04] border-ink/15 text-ink hover:bg-ink/[0.08]',
     });
   }
 
@@ -274,7 +275,7 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
         ]}
       />
 
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 sm:p-8 shadow-sm mb-6">
+      <div className="bg-white border border-ink/10 rounded-2xl p-6 sm:p-8 shadow-sm mb-6">
         <div className="flex flex-col sm:flex-row items-start gap-6">
           {logoUrl ? (
             <Image
@@ -282,12 +283,12 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
               alt={`${vendor.name} - ${categoryName} logo`}
               width={96}
               height={96}
-              className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover bg-gray-100 dark:bg-gray-800 flex-shrink-0 border border-gray-200 dark:border-gray-700"
+              className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover bg-bone flex-shrink-0 border border-ink/10"
               priority
               itemProp="image"
             />
           ) : (
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-3xl font-bold flex-shrink-0">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-ink to-ink-soft flex items-center justify-center text-brass text-3xl font-bold flex-shrink-0">
               {vendor.name.charAt(0)}
             </div>
           )}
@@ -296,11 +297,11 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white" itemProp="name">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-ink" itemProp="name">
                     {vendor.name}
                   </h1>
                   {vendor.verified && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/40 rounded-full">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-verified bg-verified-soft rounded-full">
                       <span className="material-symbols-outlined text-sm">verified</span>
                       Verified
                     </span>
@@ -314,12 +315,15 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
                 )}
 
                 <div className="flex items-center gap-2 mt-3 flex-wrap">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <Link
+                    href={`/vendors?category=${typeof vendor.category === 'object' ? vendor.category.slug : ''}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-brass-soft text-brass-deep text-sm font-medium hover:bg-brass/20 transition-colors"
+                  >
                     {typeof vendor.category === 'object' && vendor.category.icon && <span>{vendor.category.icon}</span>}
                     {categoryName}
-                  </span>
+                  </Link>
                   {serviceAreas.length > 0 && (
-                    <span className="inline-flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+                    <span className="inline-flex items-center gap-1 text-sm text-ink/60">
                       <span className="material-symbols-outlined text-base">location_on</span>
                       {serviceAreas.slice(0, 3).join(', ')}
                       {serviceAreas.length > 3 && ` +${serviceAreas.length - 3}`}
@@ -338,26 +342,26 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
       </div>
 
       {vendor.description && (
-        <section className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm mb-6">
-          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 flex items-center gap-2">
+        <section className="bg-white border border-ink/10 rounded-xl p-6 shadow-sm mb-6">
+          <h2 className="text-sm font-semibold text-ink/55 uppercase tracking-wide mb-3 flex items-center gap-2">
             <span className="material-symbols-outlined text-base">info</span>
             About
           </h2>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line" itemProp="description">
+          <p className="text-ink/75 leading-relaxed whitespace-pre-line" itemProp="description">
             {vendor.description}
           </p>
         </section>
       )}
 
       {serviceAreas.length > 0 && (
-        <section className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm mb-6">
-          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 flex items-center gap-2">
+        <section className="bg-white border border-ink/10 rounded-xl p-6 shadow-sm mb-6">
+          <h2 className="text-sm font-semibold text-ink/55 uppercase tracking-wide mb-3 flex items-center gap-2">
             <span className="material-symbols-outlined text-base">map</span>
             Service Areas
           </h2>
           <div className="flex flex-wrap gap-2">
             {serviceAreas.map((area: string) => (
-              <span key={area} className="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm rounded-lg border border-blue-100 dark:border-blue-800 capitalize">
+              <span key={area} className="inline-flex items-center gap-1 px-3 py-1.5 bg-ink/[0.04] text-ink/80 text-sm rounded-lg border border-ink/15 capitalize">
                 <span className="material-symbols-outlined text-sm">location_on</span>
                 {area}
               </span>
@@ -367,18 +371,18 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
       )}
 
       {vendor.latitude && vendor.longitude && (
-        <section className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm mb-6">
-          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 flex items-center gap-2">
+        <section className="bg-white border border-ink/10 rounded-xl p-6 shadow-sm mb-6">
+          <h2 className="text-sm font-semibold text-ink/55 uppercase tracking-wide mb-3 flex items-center gap-2">
             <span className="material-symbols-outlined text-base">location_on</span>
             Location
           </h2>
           <LocationMap latitude={vendor.latitude} longitude={vendor.longitude} vendorName={vendor.name} />
           <div className="mt-4 flex flex-wrap gap-4">
-            <a href={`https://www.google.com/maps?q=${vendor.latitude},${vendor.longitude}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+            <a href={`https://www.google.com/maps?q=${vendor.latitude},${vendor.longitude}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-brass-deep hover:text-brass transition-colors">
               <span className="material-symbols-outlined text-base">open_in_new</span>
               Open in Google Maps
             </a>
-            <a href={`https://www.google.com/maps/dir/?api=1&destination=${vendor.latitude},${vendor.longitude}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors">
+            <a href={`https://www.google.com/maps/dir/?api=1&destination=${vendor.latitude},${vendor.longitude}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-verified hover:text-ink transition-colors">
               <span className="material-symbols-outlined text-base">directions</span>
               Get Directions
             </a>
@@ -387,12 +391,12 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
       )}
 
       {vendor.notes && (
-        <section className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-6 mb-6">
-          <h2 className="text-sm font-semibold text-amber-800 dark:text-amber-300 uppercase tracking-wide mb-2 flex items-center gap-2">
+        <section className="bg-brass/[0.06] border border-brass/30 rounded-xl p-6 mb-6">
+          <h2 className="text-sm font-semibold text-brass-deep uppercase tracking-wide mb-2 flex items-center gap-2">
             <span className="material-symbols-outlined text-base">sticky_note_2</span>
             Additional Notes
           </h2>
-          <p className="text-amber-900 dark:text-amber-200 text-sm leading-relaxed">
+          <p className="text-ink/75 text-sm leading-relaxed">
             {vendor.notes}
           </p>
         </section>
@@ -400,14 +404,14 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
 
       {/* ✅ NEW: Google Rating Section */}
       {vendor.google_review_rating && vendor.google_review_count && vendor.google_review_count > 0 && (
-        <section className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm mb-6">
+        <section className="bg-white border border-ink/10 rounded-xl p-6 shadow-sm mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <span className="material-symbols-outlined text-blue-600">star</span>
+            <h2 className="text-xl font-bold text-ink flex items-center gap-2">
+              <span className="material-symbols-outlined text-brass">star</span>
               Google Rating
             </h2>
             {vendor.website && (
-              <a href={vendor.website} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
+              <a href={vendor.website} target="_blank" rel="noopener noreferrer" className="text-sm text-brass-deep hover:underline flex items-center gap-1">
                 View on Google Maps
                 <span className="material-symbols-outlined text-sm">open_in_new</span>
               </a>
@@ -415,7 +419,7 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
           </div>
           
           <div className="flex items-center gap-4">
-            <div className="text-4xl font-bold text-gray-900 dark:text-white">
+            <div className="text-4xl font-bold text-ink">
               {Number(vendor.google_review_rating).toFixed(1)}
             </div>
             <div>
@@ -425,15 +429,15 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
                     key={star}
                     className={`material-symbols-outlined text-2xl ${
                       star <= Math.round(Number(vendor.google_review_rating)) 
-                        ? 'text-yellow-500' 
-                        : 'text-gray-300 dark:text-gray-600'
+                        ? 'text-brass' 
+                        : 'text-ink/15'
                     }`}
                   >
                     star
                   </span>
                 ))}
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-sm text-ink/55 mt-1">
                 Based on {vendor.google_review_count} Google reviews
               </p>
             </div>
@@ -442,20 +446,20 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
       )}
 
       <section className="mb-6">
-        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm mb-6">
+        <div className="bg-white border border-ink/10 rounded-xl p-6 shadow-sm mb-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <span className="material-symbols-outlined text-blue-500">rate_review</span>
+            <h2 className="text-xl font-bold text-ink flex items-center gap-2">
+              <span className="material-symbols-outlined text-brass">rate_review</span>
               Customer Reviews
               {ratingData && (
-                <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                <span className="text-sm font-normal text-ink/55">
                   ({ratingData.count} {ratingData.count === 1 ? 'review' : 'reviews'})
                 </span>
               )}
             </h2>
             {ratingData && (
-              <div className="flex items-center gap-2 bg-blue-50 dark:bg-blue-900/20 px-4 py-2 rounded-lg">
-                <span className="text-2xl font-bold text-blue-700 dark:text-blue-300">
+              <div className="flex items-center gap-2 bg-ink/[0.05] px-4 py-2 rounded-lg">
+                <span className="text-2xl font-bold text-ink">
                   {ratingData.average.toFixed(1)}
                 </span>
                 <StarRating rating={ratingData.average} size="sm" />
@@ -464,12 +468,12 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
           </div>
 
           <div className="mb-8">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Write a Review</h3>
+            <h3 className="text-lg font-semibold text-ink mb-4">Write a Review</h3>
             <ReviewForm vendorId={vendor.id} />
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <h3 className="text-lg font-semibold text-ink mb-4">
               {reviews.length > 0 ? `All Reviews (${reviews.length})` : 'No Reviews Yet'}
             </h3>
             <ReviewList reviews={reviews} vendorId={vendor.id} />

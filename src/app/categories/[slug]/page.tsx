@@ -114,7 +114,7 @@ export default async function CategoryPage({
             {seo?.description
               || `Browse EasyFinder UAE's verified ${category.name.toLowerCase()} providers across the UAE, and connect directly by phone or WhatsApp.`}
           </p>
-          <p className="mt-3 text-sm text-gray-500">
+          <p className="mt-3 text-sm text-text-muted">
             Showing {vendors.length} featured{' '}
             {category.name.toLowerCase()}{' '}
             {vendors.length === 1 ? 'provider' : 'providers'} — verified
@@ -130,7 +130,7 @@ export default async function CategoryPage({
             ))}
           </div>
         ) : (
-          <p className="py-16 text-center text-gray-500">
+          <p className="py-16 text-center text-text-muted">
             We're onboarding providers in this category — check back soon.
           </p>
         )}
@@ -139,7 +139,7 @@ export default async function CategoryPage({
         <div className="mt-10 text-center md:mt-14">
           <Link
             href={`/vendors?category=${category.slug}`}
-            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+            className="inline-flex items-center gap-2 rounded-xl bg-brass px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-brass-deep hover:text-bone"
           >
             Browse all {category.name.toLowerCase()} vendors
             <span className="material-symbols-outlined text-lg">

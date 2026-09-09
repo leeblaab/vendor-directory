@@ -126,12 +126,14 @@ export default function Header() {
 
           {/* ============ RIGHT: AUTH + MOBILE MENU ============ */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Add business CTA (desktop) */}
-            {isAuthenticated ? null : (
-              <Link href="/" className="hidden xl:inline text-sm text-text-muted hover:text-ink transition-colors">
-                Sign in
-              </Link>
-            )}
+            {/* Add business CTA — always visible (logged in or out) */}
+            <Link
+              href="/submit"
+              className="hidden md:inline-flex items-center gap-1.5 rounded-full border border-ink/20 px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-bone"
+            >
+              <span aria-hidden="true" className="text-brass-deep">+</span>
+              <span>Add business</span>
+            </Link>
 
             {isLoading ? (
               <div className="h-9 w-9 animate-pulse rounded-full bg-bone" aria-hidden="true" />

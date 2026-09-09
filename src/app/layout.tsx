@@ -84,37 +84,21 @@ export default function RootLayout({
           }}
         />
 
-        {/* Preload the Google Fonts CSS to prevent layout shift (CLS) */}
+        {/* Material Symbols — loaded as a plain, non-JS-depended stylesheet.
+            A previous implementation hid the stylesheet behind media="print"
+            and flipped it to "all" with an inline JS call, which intermittently
+            failed (blocked JS, extensions, hydration races) and left icon
+            ligatures like "chevron_right" / "location_on" rendering as raw
+            text. A normal <link rel="stylesheet"> has no such race. */}
         <link
           rel="preload"
           as="style"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
         />
-        {/* Load Material Symbols font with media="print" initially, then switch to "all" with JavaScript */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
-          media="print"
-          id="material-symbols-font"
-          suppressHydrationWarning
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                if (typeof document !== 'undefined') {
-                  const fontLink = document.getElementById('material-symbols-font');
-                  if (fontLink) {
-                    fontLink.media = 'all';
-                  }
-                }
-              }());
-            `,
-          }}
-        />
-        <noscript>
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" />
-        </noscript>
 
         {/* Google Analytics - Production Only with lazyOnload strategy for mobile */}
         {isProduction && gaId && (

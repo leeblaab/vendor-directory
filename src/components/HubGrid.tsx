@@ -50,9 +50,9 @@ function HubCard({ hub }: { hub: Hub }) {
           </Link>
         ))}
         <Link
-          href={`/categories/${all[all.length - 1]}`}
+          href={`/hubs/${hub.id}`}
           className="text-xs font-medium text-brass-deep transition-colors hover:text-ink"
-          aria-label={`More in ${hub.name}`}
+          aria-label={`All ${hub.name} categories`}
         >
           +{hub.moreSlugs.length} more →
         </Link>

@@ -112,6 +112,19 @@ export default function RootLayout({
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
+                // Consent Mode v2: without an explicit gtag('consent') call BEFORE
+                // gtag('config'), consent defaults to DENIED across EEA-like policy
+                // and ALL custom events (vendor_view / contact_click /
+                // search_impression) queue un-sent while page_view still ships.
+                // UAE (no GDPR) — grant defaults so our custom events actually
+                // reach GA4. A full cookie banner remains a future phase.
+                gtag('consent', 'default', {
+                  analytics_storage: 'granted',
+                  ad_storage: 'granted',
+                  ad_user_data: 'granted',
+                  ad_personalization: 'granted',
+                  wait_for_update: 500,
+                });
                 gtag('config', '${gaId}', {
                   page_path: window.location.pathname,
                 });

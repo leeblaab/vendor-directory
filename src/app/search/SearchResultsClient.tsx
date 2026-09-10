@@ -4,6 +4,7 @@ import { useCallback, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import VendorCard from '@/components/VendorCard';
 import { Vendor, Category } from '@/lib/directus';
+import { track } from '@/lib/track';
 
 type VendorRow = Vendor & { category: Category };
 
@@ -62,6 +63,17 @@ export default function SearchResultsClient({
     setSelectedCategory('');
     setVerifiedOnly(false);
     setSortBy('verified');
+    // Phase 2.2: one impression per search query (parent remounts by key per query).
+    // Only fire for non-empty queries — the empty-state "popular categories" landing
+    // is not a search and would pollute the keyword signal.
+    if (query.trim()) {
+      track('search_impression', {
+        search_term: query.trim(),
+        results_count: total,
+        has_results: initialVendors.length > 0,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialVendors]);
 
   // Filter + sort over the *loaded subset* (bounded small), not 17k.

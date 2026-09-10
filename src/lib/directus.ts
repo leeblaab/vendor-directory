@@ -169,6 +169,18 @@ export async function getCategories(): Promise<Category[]> {
 
 // ============ VENDOR FUNCTIONS ============
 
+/**
+ * SEO slug gate (Phase 2.1). Returns false for degenerate slugs: empty, or
+ * containing NO letter/digit from any script (only dashes/colons/dots/whitespace,
+ * e.g. '-', '----', ':::.-name-.:::'). Script-agnostic, so real Arabic / CJK /
+ * math-alphanumeric brand slugs pass. Used to keep dead cluster URLs out of the
+ * sitemap and out of getVendorBySlug lookups.
+ */
+export function isUsableSlug(slug: string): boolean {
+  if (!slug) return false;
+  return Array.from(slug).some((ch) => /\p{L}|\p{N}/u.test(ch));
+}
+
 export async function getAllVendors(): Promise<(Vendor & { category: Category })[]> {
   try {
     const vendors = await directus.request<(Vendor & { category: Category })[]>(
@@ -179,7 +191,9 @@ export async function getAllVendors(): Promise<(Vendor & { category: Category })
         sort: ['name'],
       })
     );
-    return vendors || [];
+    const usable = (vendors || []).filter((v) => isUsableSlug(v.slug));
+    // Phase 2.1: exclude degenerate slugs (e.g. '-' cluster) from sitemap
+    return usable;
   } catch (error) {
     console.error('Error fetching vendors from Directus:', error);
     throw new Error('Failed to fetch vendors');
@@ -320,7 +334,15 @@ export async function getVendorBySlug(slug: string): Promise<(Vendor & { categor
   try {
     // Decode URL-encoded characters (emojis, Arabic text, etc.)
     const decodedSlug = decodeURIComponent(slug);
-    
+
+    // SEO gate (Phase 2.1): reject degenerate slugs (no letter/digit from any script,
+    // e.g. '-', '----', ':::.-name-.:::') so stale cluster URLs 404 instead of serving
+    // an arbitrary vendor. Script-agnostic: Latin, Arabic, CJK, math-alphanumeric brands.
+    if (!isUsableSlug(decodedSlug)) {
+      console.warn('Slug gate: rejected degenerate slug', JSON.stringify(decodedSlug));
+      return null;
+    }
+
     console.log('🔍 Looking for slug:', { encoded: slug, decoded: decodedSlug });
     
     const vendors = await directus.request<(Vendor & { category: Category })[]>(

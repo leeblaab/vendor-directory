@@ -6,6 +6,7 @@ import ShareButton from '@/components/ShareButton';
 import ContactCard from '@/components/ContactCard';
 import RelatedVendors from '@/components/RelatedVendors';
 import StarRating from '@/components/StarRating';
+import { VendorViewTracker } from '@/components/VendorViewTracker';
 import ReviewList from '@/components/ReviewList';
 import ReviewForm from '@/components/ReviewForm';
 import type { Metadata } from 'next';
@@ -267,6 +268,9 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
+      {/* Phase 2.2: fires the 'vendor_view' custom GA4 event once on mount */}
+      <VendorViewTracker key={vendor.name} vendorName={vendor.name} vendorCategory={categoryName} />
+
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
@@ -338,7 +342,7 @@ export default async function VendorPage({ params }: { params: Promise<{ slug: s
       </div>
 
       <div className="mb-6">
-        <ContactCard items={contactItems} />
+        <ContactCard items={contactItems} vendorName={vendor.name} vendorCategory={categoryName} />
       </div>
 
       {vendor.description && (

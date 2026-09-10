@@ -1,3 +1,7 @@
+'use client';
+
+import { track } from '@/lib/track';
+
 interface ContactItem {
   icon: string;
   label: string;
@@ -6,7 +10,23 @@ interface ContactItem {
   color: string;
 }
 
-export default function ContactCard({ items }: { items: ContactItem[] }) {
+interface ContactCardProps {
+  items: ContactItem[];
+  /** Vendor + category for the contact CTA click event (Phase 2.2). */
+  vendorName?: string;
+  vendorCategory?: string;
+}
+
+/** Derive a stable method from the href — used as the GA4 `method` param. */
+function methodFromHref(href: string): string {
+  if (href.startsWith('tel:')) return 'phone';
+  if (href.startsWith('mailto:')) return 'email';
+  if (/wa\.me|whatsapp/i.test(href)) return 'whatsapp';
+  if (href.startsWith('http://') || href.startsWith('https://')) return 'website';
+  return 'other';
+}
+
+export default function ContactCard({ items, vendorName, vendorCategory }: ContactCardProps) {
   if (items.length === 0) {
     return (
       <div className="p-6 bg-brass/[0.07] border border-brass/30 rounded-xl text-center">
@@ -19,6 +39,16 @@ export default function ContactCard({ items }: { items: ContactItem[] }) {
       </div>
     );
   }
+
+  const handleContactClick = (item: ContactItem) => {
+    track('contact_click', {
+      vendor_name: vendorName || undefined,
+      vendor_category: vendorCategory || undefined,
+      method: methodFromHref(item.href),
+    });
+    // Let the native link / tel: / mailto: / wa.me navigation proceed.
+    // No preventDefault — we want the dialer, mail app, or WhatsApp to open.
+  };
 
   return (
     <div className="border border-ink/10 rounded-xl p-6">
@@ -33,6 +63,7 @@ export default function ContactCard({ items }: { items: ContactItem[] }) {
             href={item.href}
             target={item.href.startsWith('http') ? '_blank' : undefined}
             rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            onClick={() => handleContactClick(item)}
             className={`flex items-center gap-3 p-3 rounded-lg border transition-all hover:scale-[1.02] ${item.color}`}
           >
             <span className="material-symbols-outlined text-xl">{item.icon}</span>

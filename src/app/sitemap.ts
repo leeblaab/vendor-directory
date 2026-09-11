@@ -39,7 +39,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const vendors = await getAllVendors();
     vendorPages = vendors.map((vendor) => {
-      const lastMod = vendor.date_updated || vendor.date_created || now;
+      // GSC requires W3C/ISO-8601 dates WITH a timezone designator (Z/offset).
+      // Directus returns naive strings like "2026-08-24T10:00:00" → GSC rejects them.
+      const toISO = (v: unknown): string => {
+        if (v instanceof Date && !isNaN(v.getTime())) return v.toISOString();
+        if (typeof v === 'string' && v) {
+          const d = new Date(v);
+          if (!isNaN(d.getTime())) return d.toISOString();
+        }
+        return now.toISOString();
+      };
+      const lastMod = toISO(vendor.date_updated ?? vendor.date_created);
       
       // ✅ Encode the slug to prevent XML crashes (&) and handle Arabic/special chars
       // Next.js will automatically decode this when the user visits the page.

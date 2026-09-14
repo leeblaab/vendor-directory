@@ -77,7 +77,7 @@ function HubRow({ hub }: { hub: Hub }) {
   const all = [...hub.slugPreview, ...hub.moreSlugs];
 
   return (
-    <div className="py-0.5">
+    <div className="py-0.5" role="listitem">
       <h3>
         <button
           id={buttonId}

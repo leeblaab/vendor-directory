@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Manrope, JetBrains_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import { AuthProvider } from '@/components/AuthProvider';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -39,7 +40,16 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 // NOTE: the `font-mono` variable is consumed by globals.css (@theme inline) as --font-mono.
-// Clash Display: self-served from Fontshare CDN via head link (same pattern as Material Symbols below).
+// Clash Display (display face): self-hosted via next/font/local — the font file ships
+// from our own origin with an immutable hash, so it is NOT a render-blocking third-party
+// CSS request (previously Fontshare CDN css f[]=clash-display, ~750ms + 4 preconnects).
+// The `--font-display` variable is consumed by globals.css (@theme) via var(--font-display).
+const clashDisplay = localFont({
+  src: '../../public/fonts/clash-display.woff2',
+  variable: '--font-clash-display',
+  weight: '200 700',
+  display: 'swap',
+});
 
 export default function RootLayout({
   children,
@@ -52,37 +62,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn('h-full', 'antialiased', manrope.variable, jetBrainsMono.variable)}
+      className={cn('h-full', 'antialiased', manrope.variable, jetBrainsMono.variable, clashDisplay.variable)}
     >
       <head>
         {/* Preconnect to Directus API to reduce TTFB */}
         <link rel="preconnect" href={process.env.NEXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055'} />
-        {/* Preconnect to Google Fonts domains for performance */}
+        {/* Preconnect to Google Fonts domains (Material Symbols) for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        {/* Clash Display (display face) from Fontshare — self-served, no Next optimization dependency */}
-        <link rel="preconnect" href="https://api.fontshare.com" />
-        <link rel="preconnect" href="https://cdn.fontshare.com" />
-        <link rel="preconnect" href="https://fonts.fontshare.com" />
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=clash-display&display=swap"
-          id="clash-display-font"
-          suppressHydrationWarning
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                if (typeof document !== 'undefined') {
-                  const link = document.getElementById('clash-display-font');
-                  if (link) { link.media = 'all'; }
-                }
-              }());
-            `,
-          }}
-        />
+        {/* Clash Display is now self-hosted via next/font/local (see clashDisplay above) —
+            no Fontshare CSS/preconnect needed. Preconnect count trimmed to 3 (PSI warns >4). */}
 
         {/* Material Symbols — loaded as a plain, non-JS-depended stylesheet.
             A previous implementation hid the stylesheet behind media="print"

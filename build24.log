@@ -1,0 +1,90 @@
+
+> vendor-directory@0.1.0 build
+> next build
+
+▲ Next.js 16.2.9 (Turbopack)
+- Environments: .env.local, .env
+- Experiments (use with caution):
+  · optimizePackageImports
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.5s
+  Running TypeScript ...
+  Finished TypeScript in 2.5s ...
+  Collecting page data using 23 workers ...
+Error fetching categories: TypeError: fetch failed
+    at async q (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\ssr\src_lib_directus_ts_0-b70lb._.js:1:7390)
+    at async k (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\ssr\[root-of-the-server]__0xwvl76._.js:1:5471) {
+  [cause]: AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+  Generating static pages using 23 workers (0/15) ...
+  Generating static pages using 23 workers (3/15) 
+  Generating static pages using 23 workers (7/15) 
+Error fetching categories: Error: Dynamic server usage: Route /sitemap.xml couldn't be rendered statically because it used revalidate: 0 fetch http://localhost:8055/items/categories?fields=id,name,slug,icon,category_image.id,category_image.filename_disk&limit=100 /sitemap.xml. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at v (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\ssr\[root-of-the-server]__0g84hko._.js:8:81032)
+    at <unknown> (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\ssr\[root-of-the-server]__0g84hko._.js:17:13439)
+    at <unknown> (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\ssr\[root-of-the-server]__0g84hko._.js:1:30866)
+    at <unknown> (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\ssr\[root-of-the-server]__0g84hko._.js:1:30394) {
+  description: "Route /sitemap.xml couldn't be rendered statically because it used revalidate: 0 fetch http://localhost:8055/items/categories?fields=id,name,slug,icon,category_image.id,category_image.filename_disk&limit=100 /sitemap.xml. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Error fetching vendors from Directus: TypeError: fetch failed
+    at async Object.request (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\[root-of-the-server]__0f_kirz._.js:16:6859)
+    at async m (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\[root-of-the-server]__0f_kirz._.js:16:7582)
+    at async _ (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\[root-of-the-server]__0f_kirz._.js:16:10774)
+    at async x (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\[root-of-the-server]__0f_kirz._.js:16:11122) {
+  [cause]: AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error fetching vendors for sitemap: Error: Failed to fetch vendors
+    at m (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\[root-of-the-server]__0f_kirz._.js:16:7842)
+    at async _ (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\[root-of-the-server]__0f_kirz._.js:16:10774)
+    at async x (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\[root-of-the-server]__0f_kirz._.js:16:11122)
+Error fetching elite vendors from Directus: TypeError: fetch failed
+    at async Object.request (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\ssr\src_lib_directus_ts_0-b70lb._.js:1:6713)
+    at async p (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\ssr\src_lib_directus_ts_0-b70lb._.js:1:7043)
+    at async n (C:\Users\learn\Documents\Helpme\vendor-directory\.next\server\chunks\ssr\[root-of-the-server]__0w1zbw5._.js:1:13286) {
+  [cause]: AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+  Generating static pages using 23 workers (11/15) 
+✓ Generating static pages using 23 workers (15/15) in 451ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ƒ /api/browse
+├ ƒ /api/directus/[...path]
+├ ƒ /api/search
+├ ƒ /categories
+├ ● /categories/[slug]
+├ ○ /contact
+├ ○ /faq
+├ ƒ /hubs/[id]
+├ ○ /login
+├ ○ /manifest.webmanifest
+├ ○ /register
+├ ○ /robots.txt
+├ ƒ /search
+├ ƒ /sitemap.xml
+├ ○ /submit
+├ ƒ /vendors
+└ ƒ /vendors/[slug]
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

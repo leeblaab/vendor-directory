@@ -91,11 +91,12 @@
 
   /* Fonts — body + headings + mono
      Manrope: served via next/font (layout.tsx variable --font-manrope)
-     Clash Display: self-served head link to Fontshare (layout.tsx)
+     Clash Display: SELF-HOSTED via next/font/local (layout.tsx variable --font-clash-display,
+                    file at /public/fonts/clash-display.woff2)
      JetBrains Mono: served via next/font (layout.tsx variable --font-mono)
      All fall back to a safe local/system stack so we never see tofu. */
   --font-sans: var(--font-manrope), 'Inter', ui-sans-serif, system-ui, 'Segoe UI', 'Roboto', sans-serif;
-  --font-display: 'Clash Display', var(--font-manrope), ui-sans-serif, sans-serif;
+  --font-display: var(--font-clash-display), 'Clash Display', var(--font-manrope), ui-sans-serif, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, 'SFMono-Regular', Menlo, monospace;
 }
 

@@ -1,0 +1,55 @@
+PLAN A (slug writes): 39
+   703 | abudhabilocksmithcall24hours | from ":::.-abu-dhabi-locksmith-.:::-call-24-hours"
+   17245 | البيتالأنيقلخدماتالتنظيفشركةالشخصالواحدذمم | from "-------"
+   20156 | الفنكالذهبيلتنظيمالفعاليات | from "---"
+   19063 | المتناوللخدماتالتنظيف | from "--"
+   19221 | المصدرالمنيرلتركيبأجهزةالطاقةالشمسية | from "-----"
+   16828 | اميرالجزيرةلاصلاحالمكيفات | from "---"
+   23222 | تاجالعمارةللمقاولات | from "--"
+   23194 | جينياسللمقاولاتالعامهوالالمونيوموالزجاج | from "----"
+   19072 | خزانالراشدية | from "-"
+   23478 | شركةأوربيتكسللمصاعدوالسلالمالكهربائية | from "----"
+   19107 | شركةالبيانالكافيلمكافحةالحشراتوخدماتالتنظيف | from "------"
+   15082 | شركةالتوازننقلالاثاثدبي | from "----"
+   15546 | شركةالدررلتأجيرالسيارات | from "---"
+   17997 | شركةاليزانقلاثاثدبي | from "----"
+   14292 | شركةترانسفيرسنقلالأثاثذمم | from "----"
+   14350 | شركةتركيبطاردحمامفيدبيتركيبسلكطاردللطيورمكافحةالحمام | from "-----------"
+   17477 | شركةمكافحةصراصيرمكافحةالرمةمكافحةالحشراتمكافحةالحمام | from "--------"
+   16115 | شركهتنظيفمنازلفيدبيتنظيفسجادتنظيفكنبتنظيففللتنظيفخزاناتتنظيف | from "----------------------"
+   18527 | شمسالياسمينلمقاولاتالبناء | from "---"
+   22849 | عبقريةتكنولوجياالمعلوماتواستشاراتالذكاءالإصطناعي | from "-----"
+   15227 | عشالعروس | from "-"
+   16159 | غسيل | from null
+   17831 | قمةميسلونللمقاولاتذمم | from "---"
+   19902 | كراجمتنقلابوظبيتصليحسياراتابوظبي | from "-------"
+   17937 | لاميركانتيللأثاثالمكتبيالإيطاليمكتبإداريتنفيذيمصنوعفيإيط | from "----------"
+   23225 | مؤسسهإشراقه | from "-"
+   15019 | مالترانسجبلعلي | from "--"
+   16391 | محمدعبداللهشمسي | from "--"
+   21055 | مخبزالجديد | from "-"
+   22468 | مدرسةالعقيدلتعليمقيادةالسيارات | from "----"
+   15377 | منجرةالسلمان | from "-"
+   15098 | هلالالشمسلنقلالاثاث | from "---"
+   16275 | 众信汽车服务中心 | from null
+   15735 | sunsoukcarrental|dubaicarrentals | from "-------"
+   22781 | systemexpertitservices|digitalmarketingservices|endtoenditse | from "---------------"
+   20123 | twtautocarecarupholsteryandcaraccessoriesalquozdubai | from "------------"
+   15779 | thecarlabautorepaircenter | from "-----"
+   22007 | easycutgentssalon(صالونايزيكت) | from "------"
+   19949 | eurospotautorepairing|adascalibration|autoprogramingcenter | from "----------"
+PLAN C (status->draft): 293
+   23x contact-us
+   21x emirates-driving-institute
+   10x contact
+   4x junk-removal-dubai
+   4x miniso
+   3x beauty-room-salon--spa
+   3x home
+   3x international-city
+   3x locksmith-in-dubai
+   3x movers-and-packers-in-abu-dhabi
+   2x 3m-our-car-auto-accessories-fixing
+   2x aluminium-and-glass-work-dubai
+collisions checked: 39 unique
+WROTE write-plan.json

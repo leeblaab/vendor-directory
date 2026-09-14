@@ -1,0 +1,16 @@
+loaded 16740 URLs from C:\Users\learn\AppData\Local\Temp\urls_clean.txt
+batch 1/13 (1350 urls) -> 200 in 2082ms 
+batch 2/13 (1350 urls) -> 200 in 1225ms 
+batch 3/13 (1350 urls) -> 200 in 871ms 
+batch 4/13 (1350 urls) -> 200 in 1226ms 
+batch 5/13 (1350 urls) -> 200 in 667ms 
+batch 6/13 (1350 urls) -> 200 in 718ms 
+batch 7/13 (1350 urls) -> 200 in 767ms 
+batch 8/13 (1350 urls) -> 200 in 1076ms 
+batch 9/13 (1350 urls) -> 200 in 816ms 
+batch 10/13 (1350 urls) -> 200 in 511ms 
+batch 11/13 (1350 urls) -> 200 in 510ms 
+batch 12/13 (1350 urls) -> 200 in 819ms 
+batch 13/13 (540 urls) -> 200 in 771ms 
+
+Total: 13 ok, 0 failed, sent 13 batches x ~1350 urls

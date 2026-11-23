@@ -5,6 +5,7 @@ const NAV = [
   { href: '/', label: 'Home' },
   { href: '/vendors', label: 'Browse Services' },
   { href: '/categories', label: 'Categories' },
+  { href: '/areas', label: 'Service Areas' },
   { href: '/submit', label: 'Add Your Business' },
   { href: '/about', label: 'About' },
   { href: '/faq', label: 'FAQ' },

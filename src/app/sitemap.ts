@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllVendors, getCategories } from '@/lib/directus';
+import { getGatedAreas } from '@/lib/areas';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
@@ -34,11 +35,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('sitemap: categories fetch failed', e);
   }
 
-  // 2. Fetch vendors
+  // 1c. Areas (Phase C.1: only gated areas with >= 10 real vendors).
+  // The gated list is derived below from the same vendor fetch (single API hit).
+  let areaPages: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/areas`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+  ];
+
+  // 2. Fetch vendors ONCE — reused for both vendor URLs and the derived
+  // area index (service_areas is a `json` field; Directus rejects LIKE on
+  // it, so areas are computed in-process from this same array).
   let vendorPages: MetadataRoute.Sitemap = [];
+  let allVendors: Awaited<ReturnType<typeof getAllVendors>> = [];
   try {
-    const vendors = await getAllVendors();
-    vendorPages = vendors.map((vendor) => {
+    allVendors = await getAllVendors();
+    vendorPages = allVendors.map((vendor) => {
       // GSC requires W3C/ISO-8601 dates WITH a timezone designator (Z/offset).
       // Directus returns naive strings like "2026-08-24T10:00:00" → GSC rejects them.
       const toISO = (v: unknown): string => {
@@ -62,9 +72,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.6,
       };
     });
+    const areas = await getGatedAreas(allVendors);
+    areaPages = [
+      ...areaPages,
+      ...areas.map(
+        (a): MetadataRoute.Sitemap[number] => ({
+          url: `${baseUrl}/areas/${encodeURIComponent(a.slug)}`,
+          lastModified: now,
+          changeFrequency: 'weekly',
+          priority: 0.8,
+        })
+      ),
+    ];
   } catch (error) {
     console.error('Error fetching vendors for sitemap:', error);
   }
 
-  return [...staticPages, ...categoryPages, ...vendorPages];
+  return [...staticPages, ...categoryPages, ...areaPages, ...vendorPages];
 }

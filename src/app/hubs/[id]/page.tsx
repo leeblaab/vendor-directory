@@ -169,6 +169,13 @@ export default async function HubPage({
               All providers
               <span className="material-symbols-outlined text-lg">arrow_forward</span>
             </Link>
+            <Link
+              href="/areas"
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-ink/20 bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:border-brass"
+            >
+              Service areas
+              <span className="material-symbols-outlined text-lg">location_on</span>
+            </Link>
           </div>
         </div>
       </div>

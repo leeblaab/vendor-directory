@@ -123,7 +123,7 @@ export default async function AreaPage({
                 href={`/categories/${c.slug}`}
                 className="rounded-full border border-border-soft bg-brass-fog px-4 py-1.5 text-sm font-medium text-ink transition-colors hover:border-brass"
               >
-                {c.name} in {area.displayName}{' '}
+                {c.name}{' '}
                 <span className="text-text-muted">({c.count})</span>
               </Link>
             ))}

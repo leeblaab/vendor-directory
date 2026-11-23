@@ -1,0 +1,2346 @@
+{
+ "generatedAt": "2026-11-23T10:11:59.533Z",
+ "gatedAreaCount": 101,
+ "byCategory": {
+  "plumbers": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 82
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 35
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 23
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 12
+   },
+   {
+    "slug": "musaffah",
+    "name": "Musaffah",
+    "count": 7
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 7
+   },
+   {
+    "slug": "hay-al-gharb",
+    "name": "Hay Al Gharb",
+    "count": 6
+   },
+   {
+    "slug": "al-sajaa",
+    "name": "Al Sajaa",
+    "count": 4
+   }
+  ],
+  "movers": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 2070
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 304
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 211
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 175
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 105
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 83
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 37
+   },
+   {
+    "slug": "deira",
+    "name": "Deira",
+    "count": 29
+   }
+  ],
+  "electricians": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 192
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 44
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 32
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 28
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 21
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 10
+   },
+   {
+    "slug": "business-bay",
+    "name": "Business Bay",
+    "count": 6
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 5
+   }
+  ],
+  "welding-services": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 82
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 27
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 25
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 17
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 17
+   },
+   {
+    "slug": "ajman-industrial-2",
+    "name": "Ajman Industrial 2",
+    "count": 8
+   },
+   {
+    "slug": "musaffah-industrial",
+    "name": "Musaffah Industrial",
+    "count": 7
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 2
+   }
+  ],
+  "ac-repair-maintenance": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 195
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 36
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 36
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 30
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 29
+   },
+   {
+    "slug": "ajman-industrial-2",
+    "name": "Ajman Industrial 2",
+    "count": 9
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 5
+   },
+   {
+    "slug": "2-al-nuaimia",
+    "name": "2 Al Nuaimia",
+    "count": 5
+   }
+  ],
+  "aluminum-glass-works": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 262
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 66
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 50
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 47
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 42
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 17
+   },
+   {
+    "slug": "ajman-industrial-2",
+    "name": "Ajman Industrial 2",
+    "count": 12
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 8
+   }
+  ],
+  "appliance-repair": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 153
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 31
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 29
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 9
+   },
+   {
+    "slug": "al-majaz",
+    "name": "Al Majaz",
+    "count": 8
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 7
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 4
+   },
+   {
+    "slug": "al-satwa",
+    "name": "Al Satwa",
+    "count": 4
+   }
+  ],
+  "bakeries": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 190
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 25
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 24
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 24
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 10
+   },
+   {
+    "slug": "al-jerf-2",
+    "name": "Al Jerf 2",
+    "count": 7
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 6
+   },
+   {
+    "slug": "muwaileh-commercial",
+    "name": "Muwaileh Commercial",
+    "count": 5
+   }
+  ],
+  "barbers": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 242
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 28
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 20
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 19
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 15
+   },
+   {
+    "slug": "dubai-marina",
+    "name": "Dubai - Marina",
+    "count": 6
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 6
+   },
+   {
+    "slug": "al-hamidiya-1",
+    "name": "Al Hamidiya 1",
+    "count": 5
+   }
+  ],
+  "car-ac-repair": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 44
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 15
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 12
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 10
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 7
+   },
+   {
+    "slug": "al-rashidiya-1",
+    "name": "Al Rashidiya 1",
+    "count": 3
+   },
+   {
+    "slug": "hay-al-qasimiah",
+    "name": "Hay Al Qasimiah",
+    "count": 2
+   },
+   {
+    "slug": "al-hamidiya-1",
+    "name": "Al Hamidiya 1",
+    "count": 2
+   }
+  ],
+  "car-detailing": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 91
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 17
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 16
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 12
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 9
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 5
+   },
+   {
+    "slug": "deira",
+    "name": "Deira",
+    "count": 3
+   },
+   {
+    "slug": "al-jerf-2",
+    "name": "Al Jerf 2",
+    "count": 3
+   }
+  ],
+  "car-electrical": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 60
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 13
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 5
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 3
+   },
+   {
+    "slug": "al-rashidiya-3",
+    "name": "Al Rashidiya 3",
+    "count": 2
+   },
+   {
+    "slug": "al-nuaimia-1",
+    "name": "Al Nuaimia 1",
+    "count": 1
+   },
+   {
+    "slug": "al-mankhool",
+    "name": "Al Mankhool",
+    "count": 1
+   },
+   {
+    "slug": "france-cluster",
+    "name": "France Cluster",
+    "count": 1
+   }
+  ],
+  "car-rentals": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 345
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 36
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 33
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 30
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 12
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 9
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 7
+   },
+   {
+    "slug": "al-rashidiya-3",
+    "name": "Al Rashidiya 3",
+    "count": 7
+   }
+  ],
+  "car-tinting": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 15
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 5
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 1
+   },
+   {
+    "slug": "al-rashidiya-2",
+    "name": "Al Rashidiya 2",
+    "count": 1
+   },
+   {
+    "slug": "al-sufouh-2",
+    "name": "Al Sufouh 2",
+    "count": 1
+   }
+  ],
+  "car-wash": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 222
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 44
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 41
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 35
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 31
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 9
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 7
+   },
+   {
+    "slug": "al-jerf-2",
+    "name": "Al Jerf 2",
+    "count": 5
+   }
+  ],
+  "carpenters": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 241
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 51
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 51
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 50
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 36
+   },
+   {
+    "slug": "ajman-industrial-2",
+    "name": "Ajman Industrial 2",
+    "count": 12
+   },
+   {
+    "slug": "musaffah-industrial",
+    "name": "Musaffah Industrial",
+    "count": 9
+   },
+   {
+    "slug": "hay-al-qasimiah",
+    "name": "Hay Al Qasimiah",
+    "count": 8
+   }
+  ],
+  "catering-services": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 122
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 30
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 11
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 11
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 8
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 8
+   },
+   {
+    "slug": "dubai-investment-park-second",
+    "name": "Dubai Investment Park Second",
+    "count": 7
+   },
+   {
+    "slug": "musaffah-industrial",
+    "name": "Musaffah Industrial",
+    "count": 4
+   }
+  ],
+  "cleaning-services": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 318
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 49
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 29
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 23
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 12
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 6
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 6
+   },
+   {
+    "slug": "hay-al-qasimiah",
+    "name": "Hay Al Qasimiah",
+    "count": 4
+   }
+  ],
+  "curtain-installers": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 103
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 24
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 17
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 17
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 12
+   },
+   {
+    "slug": "hay-al-qasimiah",
+    "name": "Hay Al Qasimiah",
+    "count": 6
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 4
+   },
+   {
+    "slug": "dubai-international-city",
+    "name": "Dubai - International City",
+    "count": 3
+   }
+  ],
+  "digital-marketing": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 278
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 42
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 36
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 32
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 17
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 12
+   },
+   {
+    "slug": "business-bay",
+    "name": "Business Bay",
+    "count": 6
+   },
+   {
+    "slug": "al-zahia",
+    "name": "Al Zahia",
+    "count": 6
+   }
+  ],
+  "document-clearing-pro": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 102
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 21
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 20
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 13
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 8
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 7
+   },
+   {
+    "slug": "al-rashidiya-1",
+    "name": "Al Rashidiya 1",
+    "count": 3
+   },
+   {
+    "slug": "ajman-industrial-2",
+    "name": "Ajman Industrial 2",
+    "count": 3
+   }
+  ],
+  "driving-instructors": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 115
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 30
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 28
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 22
+   },
+   {
+    "slug": "ليوارة-1",
+    "name": "ليوارة 1",
+    "count": 15
+   },
+   {
+    "slug": "hay-al-sharq",
+    "name": "Hay Al Sharq",
+    "count": 11
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 8
+   },
+   {
+    "slug": "al-nasiriyah",
+    "name": "Al Nasiriyah",
+    "count": 8
+   }
+  ],
+  "elevator-maintenance": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 94
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 38
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 22
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 13
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 8
+   },
+   {
+    "slug": "deira",
+    "name": "Deira",
+    "count": 8
+   },
+   {
+    "slug": "al-qusais-1",
+    "name": "Al Qusais 1",
+    "count": 5
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 4
+   }
+  ],
+  "event-planners": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 274
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 49
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 26
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 25
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 18
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 9
+   },
+   {
+    "slug": "halwan",
+    "name": "Halwan",
+    "count": 6
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 5
+   }
+  ],
+  "flower-shops": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 222
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 32
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 25
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 25
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 11
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 7
+   },
+   {
+    "slug": "al-majaz",
+    "name": "Al Majaz",
+    "count": 6
+   },
+   {
+    "slug": "al-hamidiya-1",
+    "name": "Al Hamidiya 1",
+    "count": 5
+   }
+  ],
+  "furniture-assembly": [
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 9
+   },
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 7
+   }
+  ],
+  "garage-car-repair": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 462
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 68
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 61
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 55
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 46
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 29
+   },
+   {
+    "slug": "ajman-industrial-2",
+    "name": "Ajman Industrial 2",
+    "count": 20
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 10
+   }
+  ],
+  "general-contractor": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 824
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 130
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 101
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 79
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 38
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 29
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 20
+   },
+   {
+    "slug": "ajman-industrial-2",
+    "name": "Ajman Industrial 2",
+    "count": 12
+   }
+  ],
+  "generator-repair": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 34
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 21
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 11
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 9
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 6
+   },
+   {
+    "slug": "musaffah-industrial",
+    "name": "Musaffah Industrial",
+    "count": 4
+   },
+   {
+    "slug": "deira",
+    "name": "Deira",
+    "count": 3
+   },
+   {
+    "slug": "saif-zone",
+    "name": "Saif Zone",
+    "count": 2
+   }
+  ],
+  "gift-shops": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 153
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 25
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 11
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 10
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 8
+   },
+   {
+    "slug": "downtown-dubai",
+    "name": "Downtown Dubai",
+    "count": 7
+   },
+   {
+    "slug": "hay-al-gharb",
+    "name": "Hay Al Gharb",
+    "count": 4
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 3
+   }
+  ],
+  "gypsum-false-ceiling": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 28
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 12
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 8
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 4
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 3
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 2
+   },
+   {
+    "slug": "dubai-investment-park-first",
+    "name": "Dubai Investment Park First",
+    "count": 2
+   },
+   {
+    "slug": "ajman-industrial-2",
+    "name": "Ajman Industrial 2",
+    "count": 2
+   }
+  ],
+  "interior-designer": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 569
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 76
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 55
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 42
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 36
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 18
+   },
+   {
+    "slug": "business-bay",
+    "name": "Business Bay",
+    "count": 16
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 11
+   }
+  ],
+  "internet-cable-installation": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 203
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 33
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 20
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 17
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 8
+   },
+   {
+    "slug": "hay-al-qasimiah",
+    "name": "Hay Al Qasimiah",
+    "count": 4
+   },
+   {
+    "slug": "al-jerf-2",
+    "name": "Al Jerf 2",
+    "count": 4
+   },
+   {
+    "slug": "business-bay",
+    "name": "Business Bay",
+    "count": 3
+   }
+  ],
+  "it-support": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 158
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 37
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 17
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 11
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 7
+   },
+   {
+    "slug": "business-bay",
+    "name": "Business Bay",
+    "count": 5
+   },
+   {
+    "slug": "jumeirah-lakes-towers",
+    "name": "Jumeirah Lakes Towers",
+    "count": 4
+   },
+   {
+    "slug": "trade-center-first",
+    "name": "Trade Center First",
+    "count": 3
+   }
+  ],
+  "junk-removal": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 54
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 11
+   },
+   {
+    "slug": "deira",
+    "name": "Deira",
+    "count": 5
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 5
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 3
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 3
+   },
+   {
+    "slug": "downtown-dubai",
+    "name": "Downtown Dubai",
+    "count": 2
+   },
+   {
+    "slug": "hay-al-qasimiah",
+    "name": "Hay Al Qasimiah",
+    "count": 2
+   }
+  ],
+  "landscaping": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 91
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 28
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 9
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 8
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 6
+   },
+   {
+    "slug": "business-bay",
+    "name": "Business Bay",
+    "count": 3
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 2
+   },
+   {
+    "slug": "downtown-dubai",
+    "name": "Downtown Dubai",
+    "count": 1
+   }
+  ],
+  "locksmith": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 89
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 38
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 34
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 26
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 22
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 5
+   },
+   {
+    "slug": "al-satwa",
+    "name": "Al Satwa",
+    "count": 4
+   },
+   {
+    "slug": "al-barsha",
+    "name": "Al Barsha",
+    "count": 3
+   }
+  ],
+  "makeup-artists": [
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 7
+   },
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 6
+   }
+  ],
+  "masons-bricklayers": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 10
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 9
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 1
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 1
+   }
+  ],
+  "massage-therapists": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 276
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 35
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 30
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 16
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 12
+   },
+   {
+    "slug": "al-rashidiya-2",
+    "name": "Al Rashidiya 2",
+    "count": 7
+   },
+   {
+    "slug": "3-al-nuaimia",
+    "name": "3 Al Nuaimia",
+    "count": 7
+   },
+   {
+    "slug": "business-bay",
+    "name": "Business Bay",
+    "count": 4
+   }
+  ],
+  "packers-movers": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 19
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 2
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 1
+   }
+  ],
+  "painters": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 90
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 12
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 7
+   },
+   {
+    "slug": "al-satwa",
+    "name": "Al Satwa",
+    "count": 5
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 4
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 4
+   },
+   {
+    "slug": "deira",
+    "name": "Deira",
+    "count": 3
+   },
+   {
+    "slug": "jumeirah-village-circle",
+    "name": "Jumeirah Village Circle",
+    "count": 2
+   }
+  ],
+  "personal-trainers": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 297
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 36
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 35
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 33
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 12
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 9
+   },
+   {
+    "slug": "al-majaz",
+    "name": "Al Majaz",
+    "count": 7
+   },
+   {
+    "slug": "hay-al-qasimiah",
+    "name": "Hay Al Qasimiah",
+    "count": 7
+   }
+  ],
+  "pest-control": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 148
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 42
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 29
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 12
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 8
+   },
+   {
+    "slug": "hay-al-sharq",
+    "name": "Hay Al Sharq",
+    "count": 5
+   },
+   {
+    "slug": "deira",
+    "name": "Deira",
+    "count": 4
+   },
+   {
+    "slug": "al-rawda-1",
+    "name": "Al Rawda 1",
+    "count": 4
+   }
+  ],
+  "photographers": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 388
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 49
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 47
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 44
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 21
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 12
+   },
+   {
+    "slug": "hay-al-qasimiah",
+    "name": "Hay Al Qasimiah",
+    "count": 7
+   },
+   {
+    "slug": "al-majaz",
+    "name": "Al Majaz",
+    "count": 5
+   }
+  ],
+  "salons-beauty": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 376
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 61
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 49
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 40
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 29
+   },
+   {
+    "slug": "al-jerf-2",
+    "name": "Al Jerf 2",
+    "count": 8
+   },
+   {
+    "slug": "al-majaz",
+    "name": "Al Majaz",
+    "count": 7
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 7
+   }
+  ],
+  "security-systems-cctv": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 140
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 44
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 29
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 28
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 15
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 15
+   },
+   {
+    "slug": "deira",
+    "name": "Deira",
+    "count": 13
+   },
+   {
+    "slug": "hay-al-gharb",
+    "name": "Hay Al Gharb",
+    "count": 5
+   }
+  ],
+  "signage-branding": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 109
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 26
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 14
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 12
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 11
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 5
+   },
+   {
+    "slug": "deira",
+    "name": "Deira",
+    "count": 5
+   },
+   {
+    "slug": "ajman-industrial-2",
+    "name": "Ajman Industrial 2",
+    "count": 5
+   }
+  ],
+  "smart-home-installation": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 124
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 31
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 13
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 8
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 7
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 6
+   },
+   {
+    "slug": "al-jerf-2",
+    "name": "Al Jerf 2",
+    "count": 4
+   },
+   {
+    "slug": "al-barsha",
+    "name": "Al Barsha",
+    "count": 3
+   }
+  ],
+  "solar-panel-installation": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 127
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 29
+   },
+   {
+    "slug": "deira",
+    "name": "Deira",
+    "count": 12
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 7
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 5
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 5
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 2
+   },
+   {
+    "slug": "musaffah-industrial",
+    "name": "Musaffah Industrial",
+    "count": 2
+   }
+  ],
+  "swimming-pool-maintenance": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 42
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 19
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 6
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 6
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 4
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 3
+   },
+   {
+    "slug": "musaffah-industrial",
+    "name": "Musaffah Industrial",
+    "count": 2
+   },
+   {
+    "slug": "dubai-international-city",
+    "name": "Dubai - International City",
+    "count": 2
+   }
+  ],
+  "tile-marble-workers": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 77
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 25
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 13
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 9
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 8
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 8
+   },
+   {
+    "slug": "musaffah-industrial",
+    "name": "Musaffah Industrial",
+    "count": 5
+   },
+   {
+    "slug": "al-rashidiya-1",
+    "name": "Al Rashidiya 1",
+    "count": 3
+   }
+  ],
+  "tire-shop": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 161
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 26
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 23
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 22
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 21
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 6
+   },
+   {
+    "slug": "al-jerf-2",
+    "name": "Al Jerf 2",
+    "count": 4
+   },
+   {
+    "slug": "ajman-industrial-2",
+    "name": "Ajman Industrial 2",
+    "count": 3
+   }
+  ],
+  "translation-services": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 130
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 36
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 17
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 12
+   },
+   {
+    "slug": "hay-al-gharb",
+    "name": "Hay Al Gharb",
+    "count": 7
+   },
+   {
+    "slug": "trade-center-first",
+    "name": "Trade Center First",
+    "count": 6
+   },
+   {
+    "slug": "deira",
+    "name": "Deira",
+    "count": 5
+   },
+   {
+    "slug": "jumeirah-lakes-towers",
+    "name": "Jumeirah Lakes Towers",
+    "count": 5
+   }
+  ],
+  "tutors-private-teachers": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 100
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 40
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 30
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 9
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 9
+   },
+   {
+    "slug": "al-majaz",
+    "name": "Al Majaz",
+    "count": 5
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 5
+   },
+   {
+    "slug": "hay-al-qasimiah",
+    "name": "Hay Al Qasimiah",
+    "count": 3
+   }
+  ],
+  "tv-mounting-installation": [
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 4
+   },
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 2
+   }
+  ],
+  "videographers": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 61
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 13
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 4
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 3
+   },
+   {
+    "slug": "business-bay",
+    "name": "Business Bay",
+    "count": 3
+   },
+   {
+    "slug": "jumeirah-lakes-towers",
+    "name": "Jumeirah Lakes Towers",
+    "count": 2
+   },
+   {
+    "slug": "dubai-marina",
+    "name": "Dubai - Marina",
+    "count": 1
+   },
+   {
+    "slug": "jumeirah-village-circle",
+    "name": "Jumeirah Village Circle",
+    "count": 1
+   }
+  ],
+  "water-tank-cleaning": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 7
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 7
+   }
+  ],
+  "web-designers": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 102
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 22
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 10
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 7
+   },
+   {
+    "slug": "zone-1",
+    "name": "Zone 1",
+    "count": 3
+   },
+   {
+    "slug": "saif-zone",
+    "name": "Saif Zone",
+    "count": 3
+   },
+   {
+    "slug": "industrial-area",
+    "name": "Industrial Area",
+    "count": 2
+   },
+   {
+    "slug": "al-rashidiya-2",
+    "name": "Al Rashidiya 2",
+    "count": 2
+   }
+  ],
+  "wedding-planners": [
+   {
+    "slug": "dubai",
+    "name": "Dubai",
+    "count": 42
+   },
+   {
+    "slug": "abu-dhabi",
+    "name": "Abu Dhabi",
+    "count": 12
+   },
+   {
+    "slug": "ajman",
+    "name": "Ajman",
+    "count": 9
+   },
+   {
+    "slug": "sharjah",
+    "name": "Sharjah",
+    "count": 7
+   },
+   {
+    "slug": "deira",
+    "name": "Deira",
+    "count": 3
+   },
+   {
+    "slug": "halwan",
+    "name": "Halwan",
+    "count": 3
+   },
+   {
+    "slug": "barsha-heights",
+    "name": "Barsha Heights",
+    "count": 3
+   },
+   {
+    "slug": "al-quoz",
+    "name": "Al Quoz",
+    "count": 2
+   }
+  ]
+ }
+}

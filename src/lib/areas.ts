@@ -78,9 +78,33 @@ type Cache = {
 const g = globalThis as unknown as { __efAreaCache?: Cache };
 if (!g.__efAreaCache) g.__efAreaCache = { index: null };
 
-async function buildIndex(prefetched?: (Vendor & { category: Category })[]) {
-  if (g.__efAreaCache!.index) return g.__efAreaCache!.index;
-  const vendors = prefetched ?? (await getAllVendors());
+// Snapshot lives under .next (recreated every build; never served).
+import fs from 'fs';
+import path from 'path';
+const SNAP = path.join(process.cwd(), '.next', 'ef-areas-snapshot.json');
+const SNAP_MAX_AGE_MS = 30 * 60 * 1000;
+
+async function readSnapshot(): Promise<(Vendor & { category: Category })[] | null> {
+  try {
+    const st = fs.statSync(SNAP);
+    if (Date.now() - st.mtimeMs > SNAP_MAX_AGE_MS) return null;
+    const data = JSON.parse(fs.readFileSync(SNAP, 'utf8')) as (Vendor & { category: Category })[];
+    return Array.isArray(data) && data.length > 1000 ? data : null;
+  } catch {
+    return null;
+  }
+}
+
+async function writeSnapshot(vendors: (Vendor & { category: Category })[]) {
+  try {
+    fs.mkdirSync(path.dirname(SNAP), { recursive: true });
+    fs.writeFileSync(SNAP, JSON.stringify(vendors));
+  } catch {
+    /* snapshot is best-effort */
+  }
+}
+
+function indexFromVendors(vendors: (Vendor & { category: Category })[]) {
   const index = new Map<string, {
     slug: string;
     counts: Map<string, number>;
@@ -106,8 +130,26 @@ async function buildIndex(prefetched?: (Vendor & { category: Category })[]) {
       slot.vendors.push(v);
     }
   }
-  g.__efAreaCache!.index = index;
   return index;
+}
+
+async function buildIndex(prefetched?: (Vendor & { category: Category })[]) {
+  if (g.__efAreaCache!.index) return g.__efAreaCache!.index;
+  // Build-time cross-worker cache: with 23 prerender workers each calling
+  // this, a per-worker 17k-row fetch (x20MB) blows the 60s page budget.
+  // First builder writes a snapshot; siblings read it (fresh < 30 min).
+  let vendors = prefetched;
+  if (!vendors) {
+    const snap = await readSnapshot();
+    if (snap) {
+      g.__efAreaCache!.index = indexFromVendors(snap);
+      return g.__efAreaCache!.index;
+    }
+    vendors = await getAllVendors();
+    void writeSnapshot(vendors);
+  }
+  g.__efAreaCache!.index = indexFromVendors(vendors);
+  return g.__efAreaCache!.index;
 }
 
 function rankAreaEntry(
